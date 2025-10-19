@@ -1,4 +1,6 @@
 package com.datn.bia.a.model.entity
 
-class DemoEntity {
+data class DemoEntity(
+    var id: Long = 0L
+) {
 }

@@ -1,0 +1,238 @@
+{
+  "project_info": {
+    "project_number": "979246730252",
+    "project_id": "duylt-app-default",
+    "storage_bucket": "duylt-app-default.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979246730252:android:ad14760fea59598eb43229",
+        "android_client_info": {
+          "package_name": "com.cameratag.geotagphoto.gpscamera"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFdMcIjF_xFtHZ-Q2sC2ZfL3iO_ixlOSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979246730252:android:82a28482931db36cb43229",
+        "android_client_info": {
+          "package_name": "com.connectsdk.sampler"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFdMcIjF_xFtHZ-Q2sC2ZfL3iO_ixlOSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979246730252:android:96c159f848056554b43229",
+        "android_client_info": {
+          "package_name": "com.datn.bia.a"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFdMcIjF_xFtHZ-Q2sC2ZfL3iO_ixlOSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979246730252:android:67d4ebc164f2c58db43229",
+        "android_client_info": {
+          "package_name": "com.duylt.basejetpackcompoase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFdMcIjF_xFtHZ-Q2sC2ZfL3iO_ixlOSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979246730252:android:9ad647cc739357a4b43229",
+        "android_client_info": {
+          "package_name": "com.example.fontkeyboardtheme"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFdMcIjF_xFtHZ-Q2sC2ZfL3iO_ixlOSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979246730252:android:c6e8a2e00d05a0c0b43229",
+        "android_client_info": {
+          "package_name": "com.fozechmoblive.fluidwallpaper.livefluid"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFdMcIjF_xFtHZ-Q2sC2ZfL3iO_ixlOSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979246730252:android:7ca21b36f55dad18b43229",
+        "android_client_info": {
+          "package_name": "com.note.todo.task.x.managger"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFdMcIjF_xFtHZ-Q2sC2ZfL3iO_ixlOSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979246730252:android:0f254a2bc4387906b43229",
+        "android_client_info": {
+          "package_name": "com.tools.simpleguitar.learn.guitar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFdMcIjF_xFtHZ-Q2sC2ZfL3iO_ixlOSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979246730252:android:796e9c1e1303677cb43229",
+        "android_client_info": {
+          "package_name": "com.tools.stylish.fonts.keyboardtheme"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFdMcIjF_xFtHZ-Q2sC2ZfL3iO_ixlOSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979246730252:android:abd4b0b26b664ec8b43229",
+        "android_client_info": {
+          "package_name": "com.virgo.duylt.app.init"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFdMcIjF_xFtHZ-Q2sC2ZfL3iO_ixlOSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979246730252:android:9cd2369f47ea3510b43229",
+        "android_client_info": {
+          "package_name": "com.zitgar.android.base.project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFdMcIjF_xFtHZ-Q2sC2ZfL3iO_ixlOSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979246730252:android:0766fa19da9d9bf3b43229",
+        "android_client_info": {
+          "package_name": "pl.karolpietrow.klikacz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFdMcIjF_xFtHZ-Q2sC2ZfL3iO_ixlOSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

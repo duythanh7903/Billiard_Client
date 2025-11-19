@@ -1,5 +1,6 @@
 package com.datn.bia.a.common.base
 
+import android.app.Activity
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -23,13 +25,12 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setLocal()
-
-        requestWindow()
         val layoutView = getLayoutActivity()
         binding = DataBindingUtil.setContentView(this, layoutView)
         binding.lifecycleOwner = this
 
+        setLocal()
+        requestWindow()
         initViews()
         onResizeViews()
         onClickViews()
@@ -40,7 +41,13 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
 
     abstract fun getLayoutActivity(): Int
 
-    open fun requestWindow() {}
+    open fun requestWindow() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
+            val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+            view.setPadding(0, statusBarHeight, 0, 0)
+            insets
+        }
+    }
 
     open fun initViews() {}
 
@@ -68,35 +75,25 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
         }
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        hideNavigationBar()
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
 
+        if (hasFocus) hideNavigationBar(this)
     }
 
-    private fun hideNavigationBar() {
+    fun hideNavigationBar(activity: Activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            WindowCompat.setDecorFitsSystemWindows(window, false)
-            WindowInsetsControllerCompat(window, window.decorView).let { controller ->
-                controller.hide(WindowInsetsCompat.Type.systemBars())
-                controller.systemBarsBehavior =
-                    WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            WindowCompat.setDecorFitsSystemWindows(activity.window, false)
+            WindowInsetsControllerCompat(activity.window, activity.window.decorView).apply {
+                hide(WindowInsetsCompat.Type.navigationBars())
+                systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             }
         } else {
-            hideSystemUIBeloR()
+            @Suppress("DEPRECATION")
+            activity.window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         }
-
-    }
-
-    private fun hideSystemUIBeloR() {
-        val decorView: View = window.decorView
-        val uiOptions = decorView.systemUiVisibility
-        var newUiOptions = uiOptions
-        newUiOptions = newUiOptions or View.SYSTEM_UI_FLAG_LOW_PROFILE
-        newUiOptions = newUiOptions or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-        newUiOptions = newUiOptions or View.SYSTEM_UI_FLAG_IMMERSIVE
-        newUiOptions = newUiOptions or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        decorView.systemUiVisibility = newUiOptions
     }
 
     private fun showNavigationBar(window: Window) {

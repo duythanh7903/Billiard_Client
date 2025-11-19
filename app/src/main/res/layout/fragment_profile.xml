@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1A959595">
+
+        <View
+            android:id="@+id/viewBackground"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/_minus14sdp"
+            android:background="@color/primary"
+            app:layout_constraintBottom_toBottomOf="@id/imgAvatar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/icChat"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_margin="@dimen/_14sdp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_chat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/icSetting"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_setting"
+            app:layout_constraintBottom_toBottomOf="@id/icChat"
+            app:layout_constraintEnd_toStartOf="@id/icChat"
+            app:layout_constraintTop_toTopOf="@id/icChat" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="@dimen/_44sdp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_height="@dimen/_44sdp"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icSetting" />
+
+        <View
+            android:id="@+id/viewCenterAvatar"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/imgAvatar"
+            app:layout_constraintEnd_toEndOf="@id/imgAvatar"
+            app:layout_constraintStart_toStartOf="@id/imgAvatar"
+            app:layout_constraintTop_toTopOf="@id/imgAvatar" />
+
+        <TextView
+            android:id="@+id/tvUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toTopOf="@id/viewCenterAvatar"
+            app:layout_constraintStart_toEndOf="@id/imgAvatar"
+            app:layout_constraintTop_toTopOf="@id/imgAvatar"
+            android:text="User name" />
+
+        <TextView
+            android:id="@+id/tvCountItemInCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_8ssp"
+            app:layout_constraintBottom_toBottomOf="@id/imgAvatar"
+            app:layout_constraintStart_toStartOf="@id/tvUserName"
+            app:layout_constraintTop_toBottomOf="@id/viewCenterAvatar"
+            android:text="5 carts" />
+
+        <View
+            android:id="@+id/icDot"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:background="@drawable/bg_dot_959595"
+            android:backgroundTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/tvCountItemInCart"
+            app:layout_constraintStart_toEndOf="@id/tvCountItemInCart"
+            app:layout_constraintTop_toTopOf="@id/tvCountItemInCart" />
+
+        <TextView
+            android:id="@+id/tvCountItemHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_8ssp"
+            app:layout_constraintBottom_toBottomOf="@id/tvCountItemInCart"
+            app:layout_constraintStart_toEndOf="@id/icDot"
+            app:layout_constraintTop_toTopOf="@id/tvCountItemInCart"
+            android:text="5 Orders" />
+
+        <TextView
+            android:id="@+id/btnSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_14sdp"
+            android:background="@drawable/bg_white_border_4sdp"
+            android:fontFamily="@font/inter_semibold"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_4sdp"
+            android:text="@string/sign_up"
+            android:textColor="@color/textDark"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/tvCountItemInCart"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/btnSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:background="@drawable/bg_transparent_border_white_4sdp"
+            android:fontFamily="@font/inter_semibold"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_4sdp"
+            android:text="@string/sign_in"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/btnSignUp"
+            app:layout_constraintEnd_toStartOf="@id/btnSignUp"
+            app:layout_constraintTop_toTopOf="@id/btnSignUp" />
+
+        <View
+            android:id="@+id/viewBackground2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/_minus8sdp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/layoutOrderFeature"
+            app:layout_constraintTop_toBottomOf="@id/viewBackground" />
+
+        <TextView
+            android:id="@+id/tvOrders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:fontFamily="@font/inter_semibold"
+            android:text="@string/orders"
+            android:textColor="@color/textDark"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewBackground" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_14sdp"
+            android:fontFamily="@font/inter_regular"
+            android:text="@string/view_purchase_history"
+            android:textColor="@color/textDark"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/tvOrders"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvOrders" />
+
+        <LinearLayout
+            android:id="@+id/layoutOrderFeature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_7sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            app:layout_constraintTop_toBottomOf="@id/tvOrders">
+
+            <LinearLayout
+                android:id="@+id/btnPendingConfirmation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_7sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_progress" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/inter_regular"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/order_pending_confirmation"
+                    android:textColor="@color/textDark"
+                    android:textSize="@dimen/_8ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnPendingPickup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_7sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_box" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/inter_regular"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/order_pending_pickup"
+                    android:textColor="@color/textDark"
+                    android:textSize="@dimen/_8ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnPendingShipping"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_7sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_truck" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/inter_regular"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/order_pending_shipping"
+                    android:textColor="@color/textDark"
+                    android:textSize="@dimen/_8ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnRating"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_7sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_rate" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/inter_regular"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/rating"
+                    android:textColor="@color/textDark"
+                    android:textSize="@dimen/_8ssp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/viewBackground3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_minus8sdp"
+            android:layout_marginBottom="@dimen/_minus8sdp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/layoutOrderFeature2"
+            app:layout_constraintTop_toTopOf="@id/tvMyGadget" />
+
+        <TextView
+            android:id="@+id/tvMyGadget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:fontFamily="@font/inter_semibold"
+            android:text="@string/my_gadget"
+            android:textColor="@color/textDark"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewBackground2" />
+
+        <LinearLayout
+            android:id="@+id/layoutOrderFeature2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_7sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            app:layout_constraintTop_toBottomOf="@id/tvMyGadget">
+
+            <LinearLayout
+                android:id="@+id/btnStatistical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_7sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_chart" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/inter_regular"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/spending_statistics"
+                    android:textColor="@color/textDark"
+                    android:textSize="@dimen/_8ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnMyWallet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_7sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_wallet" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/inter_regular"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/my_wallet"
+                    android:textColor="@color/textDark"
+                    android:textSize="@dimen/_8ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnCoin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_7sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_coin" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/inter_regular"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/coin_reward"
+                    android:textColor="@color/textDark"
+                    android:textSize="@dimen/_8ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnVoucher"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_7sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_discount" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/inter_regular"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/vouchers"
+                    android:textColor="@color/textDark"
+                    android:textSize="@dimen/_8ssp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/viewCenter"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_minus8sdp"
+            android:layout_marginBottom="@dimen/_minus8sdp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/btnVip"
+            app:layout_constraintTop_toTopOf="@id/tvOther" />
+
+        <TextView
+            android:id="@+id/tvOther"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:fontFamily="@font/inter_semibold"
+            android:text="@string/other_utilities"
+            android:textColor="@color/textDark"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewBackground3" />
+
+        <LinearLayout
+            android:id="@+id/btnLoyalCustomers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:background="@drawable/bg_transparent_stroke"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/_4sdp"
+            app:layout_constraintEnd_toStartOf="@id/viewCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvOther">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_customer" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_regular"
+                android:gravity="center_vertical|start"
+                android:lines="2"
+                android:text="@string/loyal_customers"
+                android:textColor="@color/textDark"
+                android:textSize="@dimen/_10ssp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnHuntForReward"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_7sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_14sdp"
+            android:background="@drawable/bg_transparent_stroke"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/_4sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/viewCenter"
+            app:layout_constraintTop_toBottomOf="@id/tvOther">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_gift" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_regular"
+                android:gravity="center_vertical|start"
+                android:lines="2"
+                android:text="@string/hunt_for_rewards"
+                android:textColor="@color/textDark"
+                android:textSize="@dimen/_10ssp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnLiked"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:background="@drawable/bg_transparent_stroke"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/_4sdp"
+            app:layout_constraintEnd_toStartOf="@id/viewCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnLoyalCustomers">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_liked" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_regular"
+                android:gravity="center_vertical|start"
+                android:lines="2"
+                android:text="@string/liked"
+                android:textColor="@color/textDark"
+                android:textSize="@dimen/_10ssp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnRecentlyViewed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_7sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_14sdp"
+            android:background="@drawable/bg_transparent_stroke"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/_4sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/viewCenter"
+            app:layout_constraintTop_toBottomOf="@id/btnHuntForReward">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_history" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_regular"
+                android:gravity="center_vertical|start"
+                android:lines="2"
+                android:text="@string/recently_viewed"
+                android:textColor="@color/textDark"
+                android:textSize="@dimen/_10ssp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnVip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:background="@drawable/bg_transparent_stroke"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/_4sdp"
+            app:layout_constraintEnd_toStartOf="@id/viewCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnLiked">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_vip" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_regular"
+                android:gravity="center_vertical|start"
+                android:lines="2"
+                android:text="@string/v_i_p"
+                android:textColor="@color/textDark"
+                android:textSize="@dimen/_10ssp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

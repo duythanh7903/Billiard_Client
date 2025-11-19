@@ -18,6 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Bia"
         android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".present.activity.setting.SettingActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".present.activity.fo.splash.SplashActivity"
             android:exported="true"
@@ -29,19 +34,24 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".present.activity.fo.language.LanguageActivity"
+        <activity
+            android:name=".present.activity.fo.language.LanguageActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".present.activity.fo.onboarding.OnboardingActivity"
+        <activity
+            android:name=".present.activity.fo.onboarding.OnboardingActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".present.activity.home.MainActivity"
+        <activity
+            android:name=".present.activity.home.MainActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".present.activity.auth.si.SignInActivity"
+        <activity
+            android:name=".present.activity.auth.si.SignInActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".present.activity.auth.su.SignUpActivity"
+        <activity
+            android:name=".present.activity.auth.su.SignUpActivity"
             android:screenOrientation="portrait" />
     </application>
 

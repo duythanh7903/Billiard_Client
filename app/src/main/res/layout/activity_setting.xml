@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#33959595">
+
+        <View
+            android:id="@+id/viewTopBar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/_minus14sdp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/icBack"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/icBack"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_margin="@dimen/_14sdp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_left_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primary" />
+
+        <TextView
+            android:id="@+id/tvScreenTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_regular"
+            android:text="@string/set_up_account"
+            android:textColor="@color/textDark"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintBottom_toBottomOf="@id/icBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/icBack" />
+
+        <ImageView
+            android:id="@+id/icChat"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginEnd="@dimen/_14sdp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_chat"
+            app:layout_constraintBottom_toBottomOf="@id/icBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/icBack"
+            app:tint="@color/primary" />
+
+        <TextView
+            android:id="@+id/btnLogOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginBottom="@dimen/_14sdp"
+            android:background="@drawable/bg_transparent_stroke"
+            android:fontFamily="@font/inter_regular"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_10sdp"
+            android:text="@string/change_account_or_log_out"
+            android:textColor="@color/textDark"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvSettingCat"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/btnLogOut"
+            app:layout_constraintTop_toBottomOf="@id/viewTopBar"
+            tools:listitem="@layout/item_setting_cat"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

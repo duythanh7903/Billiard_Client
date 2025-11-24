@@ -1,4 +1,4 @@
-package com.datn.bia.a.model.domain
+package com.datn.bia.a.domain.model.domain
 
 import android.annotation.SuppressLint
 import android.content.Context

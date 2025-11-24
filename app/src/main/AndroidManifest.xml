@@ -20,6 +20,10 @@
         android:usesCleartextTraffic="true">
 
         <activity
+            android:name=".present.activity.prod.ProductActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".present.activity.setting.SettingActivity"
             android:screenOrientation="portrait" />
 

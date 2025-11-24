@@ -6,9 +6,8 @@ import androidx.databinding.ViewDataBinding
 import com.datn.bia.a.R
 import com.datn.bia.a.common.base.BaseRecyclerViewAdapter
 import com.datn.bia.a.databinding.ItemSettingCatBinding
-import com.datn.bia.a.model.domain.SettingCat
-import com.datn.bia.a.model.domain.SettingItem
-import com.datn.bia.a.model.domain.TypeSettingItem
+import com.datn.bia.a.domain.model.domain.SettingCat
+import com.datn.bia.a.domain.model.domain.SettingItem
 
 class SettingCatAdapter(
     private val contextParams: Context,

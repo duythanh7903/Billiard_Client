@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1A959595">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/layoutTopBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_14sdp"
+                android:paddingTop="@dimen/_14sdp"
+                android:paddingBottom="@dimen/_7sdp">
+
+                <ImageView
+                    android:id="@+id/icBack"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/ic_left_arrow"
+                    app:tint="@color/primary" />
+
+                <LinearLayout
+                    android:id="@+id/btnSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_eeeeee_border_2sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_4sdp">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_4sdp"
+                        android:src="@drawable/ic_search"
+                        app:tint="#959595" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_regular"
+                        android:text="Billiard"
+                        android:textColor="@color/textGray"
+                        android:textSize="@dimen/_12ssp" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/icFavorite"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:src="@drawable/ic_favorite"
+                    app:tint="@color/primary" />
+
+                <ImageView
+                    android:id="@+id/icMore"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/ic_more"
+                    app:tint="@color/primary" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            app:layout_constraintBottom_toTopOf="@id/layoutButtonControl"
+            app:layout_constraintTop_toBottomOf="@id/layoutTopBar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="@dimen/_minus12sdp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/tvProductName"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imgProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@id/imgProduct"
+                    tools:listitem="@layout/item_image_product" />
+
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="12.000₫"
+                    android:textColor="#CC0000"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rcvImage" />
+
+                <TextView
+                    android:id="@+id/tvPrice1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:text="24.000₫"
+                    android:textColor="#888888"
+                    app:layout_constraintBottom_toBottomOf="@id/tvPrice"
+                    app:layout_constraintStart_toEndOf="@id/tvPrice" />
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="#888888"
+                    app:layout_constraintBottom_toBottomOf="@id/tvPrice1"
+                    app:layout_constraintEnd_toEndOf="@id/tvPrice1"
+                    app:layout_constraintStart_toStartOf="@id/tvPrice1"
+                    app:layout_constraintTop_toTopOf="@id/tvPrice1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:background="#1ACC0000"
+                    android:fontFamily="@font/inter_regular"
+                    android:padding="@dimen/_2sdp"
+                    android:text="-20%"
+                    android:textColor="#CC0000"
+                    android:textSize="@dimen/_6ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvPrice"
+                    app:layout_constraintStart_toEndOf="@id/tvPrice1"
+                    app:layout_constraintTop_toTopOf="@id/tvPrice" />
+
+                <ImageView
+                    android:id="@+id/icQuestion"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_14sdp"
+                    android:src="@drawable/ic_question"
+                    app:layout_constraintBottom_toBottomOf="@id/tvPrice"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvPrice"
+                    app:tint="#959595" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_2sdp"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="Đã bán 9k+"
+                    android:textColor="#959595"
+                    android:textSize="@dimen/_8ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/icQuestion"
+                    app:layout_constraintEnd_toStartOf="@id/icQuestion"
+                    app:layout_constraintTop_toTopOf="@id/icQuestion" />
+
+                <TextView
+                    android:id="@+id/tvProductName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="Combo MAXBING EDITION Gậy Bida Lỗ EVO MEG - ABYSS BLADE - Ngọn Glassfiber Cao Cấp - Chính Hãng"
+                    android:textColor="@color/textDark"
+                    android:textSize="@dimen/_11ssp"
+                    app:layout_constraintTop_toBottomOf="@id/tvPrice" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/_minus4sdp"
+                    android:layout_marginBottom="@dimen/_minus4sdp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/tvDes"
+                    app:layout_constraintTop_toTopOf="@id/tvProductDes" />
+
+                <TextView
+                    android:id="@+id/tvProductDes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="@string/product_description"
+                    android:textColor="@color/_232323"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view1" />
+
+                <TextView
+                    android:id="@+id/tvDes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="Combo MAXBING EDITION Gậy Bida Lỗ EVO MEG - ABYSS BLADE - Ngọn Glassfiber Cao Cấp - Chính Hãng COMBO bao gồm gậy đánh, nối dài 4, tip TIME, găng tay, lơ\n\n\nTHÔNG SỐ KỸ THUẬT:\n\n\nNGỌN CƠ:\n\n- Chiều dài: 29\n\n- Chất liệu: Glass Fiber\n\n- Taper: Thin Conical Taper\n\n\nĐẦU CƠ:\n\n- Loại: EVO tip\n\n- Đường kính đầu cơ: 12.5 mm\n\n\n CHUÔI CƠ:\n\n- Chiều dài: 29\n\n- Chất liệu: Carbon + Sợi thủy tinh\n\n\n- Trọng lượng toàn bộ cơ: 19-19.5oz\n\n- Khớp nối: 5/16-18\n\n- Nút bảo vệ ren: Đi kèm\n\n- Hệ thống điều chỉnh trọng lượng: Hỗ trợ.\n\n\nLưu ý\n\n* Màu sắc hình ảnh sản phẩm có thể thay đổi nhẹ do ánh sáng.\n\n** Trọng lượng được tính gần đúng, có thể không chính xác hoàn toàn\n\n*** Bộ ốc cân chỉnh trọng lượng không đi kèm bộ sản phẩm."
+                    android:textColor="#555555"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvProductDes" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/_minus4sdp"
+                    android:layout_marginBottom="@dimen/_minus4sdp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/tvStars"
+                    app:layout_constraintTop_toTopOf="@id/tvStars" />
+
+                <TextView
+                    android:id="@+id/tvStars"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="4.9"
+                    android:textColor="@color/_232323"
+                    android:textSize="@dimen/_16ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view2" />
+
+                <ImageView
+                    android:id="@+id/icStar"
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:src="@drawable/ic_star"
+                    app:layout_constraintBottom_toBottomOf="@id/tvStars"
+                    app:layout_constraintStart_toEndOf="@id/tvStars"
+                    app:layout_constraintTop_toTopOf="@id/tvStars"
+                    app:tint="#FFC107" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="@string/product_reviews"
+                    android:textColor="@color/_232323"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvStars"
+                    app:layout_constraintStart_toEndOf="@id/icStar"
+                    app:layout_constraintTop_toTopOf="@id/tvStars" />
+
+                <ImageView
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:src="@drawable/ic_right_arrow"
+                    app:layout_constraintBottom_toBottomOf="@id/tvStars"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvStars"
+                    app:tint="@color/_959595" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_32sdp"
+                    android:text="@string/see_all"
+                    android:textColor="@color/_959595"
+                    app:layout_constraintBottom_toBottomOf="@id/tvStars"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvStars" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:id="@+id/layoutButtonControl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <FrameLayout
+                android:id="@+id/btnAddCart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#FF99CC"
+                android:paddingVertical="@dimen/_8sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_add_cart"
+                    app:tint="@color/white" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/btnBuyNow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/primary"
+                android:paddingVertical="@dimen/_8sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_add_cart"
+                    android:visibility="invisible"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/inter_semibold"
+                    android:gravity="center"
+                    android:text="@string/buy_now"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12ssp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

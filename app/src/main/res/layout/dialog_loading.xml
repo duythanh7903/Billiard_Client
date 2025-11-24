@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_white_border_max"
+            android:padding="@dimen/_8sdp">
+
+            <ProgressBar
+                android:layout_width="@dimen/_38sdp"
+                android:layout_height="@dimen/_38sdp" />
+
+        </FrameLayout>
+
+    </FrameLayout>
+</layout>

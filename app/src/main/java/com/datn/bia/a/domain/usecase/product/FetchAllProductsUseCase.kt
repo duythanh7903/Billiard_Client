@@ -1,0 +1,37 @@
+package com.datn.bia.a.domain.usecase.product
+
+import android.content.Context
+import com.datn.bia.a.R
+import com.datn.bia.a.common.UiState
+import com.datn.bia.a.data.network.factory.ResultWrapper
+import com.datn.bia.a.domain.repository.ProductRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.flow
+import retrofit2.HttpException
+import javax.inject.Inject
+
+class FetchAllProductsUseCase @Inject constructor(
+    @ApplicationContext
+    private val context: Context,
+    private val productRepository: ProductRepository
+) {
+    operator fun invoke() = flow {
+        emit(UiState.Loading)
+
+        try {
+            when (val response = productRepository.fetchAllProducts()) {
+                is ResultWrapper.Success -> emit(UiState.Success(response.value))
+
+                is ResultWrapper.GenericError -> emit(UiState.Error(response.message?.ifEmpty {
+                    context.getString(R.string.msg_wrong)
+                } ?: "Unknow Error"))
+
+                is ResultWrapper.NetworkError -> emit(UiState.Error("Network Error"))
+            }
+        } catch (e: HttpException) {
+            emit(UiState.Error(e.message ?: "Unknow Error"))
+        } catch (e: Exception) {
+            emit(UiState.Error(e.message ?: "Unknow Error"))
+        }
+    }
+}

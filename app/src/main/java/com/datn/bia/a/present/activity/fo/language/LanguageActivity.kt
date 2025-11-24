@@ -6,7 +6,7 @@ import com.datn.bia.a.common.base.BaseActivity
 import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.ActivityLanguageBinding
-import com.datn.bia.a.model.domain.Language
+import com.datn.bia.a.domain.model.domain.Language
 import com.datn.bia.a.present.activity.fo.onboarding.OnboardingActivity
 import dagger.hilt.android.AndroidEntryPoint
 

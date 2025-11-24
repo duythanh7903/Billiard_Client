@@ -8,7 +8,7 @@ import com.datn.bia.a.R
 import com.datn.bia.a.common.base.BaseRecyclerViewAdapter
 import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.databinding.ItemLanguageBinding
-import com.datn.bia.a.model.domain.Language
+import com.datn.bia.a.domain.model.domain.Language
 
 class LanguageAdapter(
     private val context: Context,

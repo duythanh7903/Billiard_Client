@@ -11,7 +11,7 @@
     <string name="sign_in">Sign In</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="or_login_with">-----  Or Login With  -----</string>
+    <string name="or_login_with">Or</string>
     <string name="you_don_t_have_an_account">You don\'t have an account?</string>
     <string name="sign_up">Sign up</string>
     <string name="you_already_have_an_account">You already have an account?</string>
@@ -51,4 +51,20 @@
     <string name="community_standards">Community Standards</string>
     <string name="about_us">About Us</string>
     <string name="support">Support</string>
+    <string name="msg_count_reviews">From 2000+ reviews</string>
+    <string name="msg_welcome_login">Top brand, quality, number 1 reputation in the hearts of customers</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="msg_wrong">Something went wrong, please try again!</string>
+    <string name="msg_input_null">Do not leave fields blank!</string>
+    <string name="enter_your_password_confirmation">Enter your password again</string>
+    <string name="msg_email_is_not_invalid">Please enter a valid email address</string>
+    <string name="msg_password_least_8_char">Password must be at least 8 characters</string>
+    <string name="msg_password_not_match">Authentication passwords do not match!</string>
+    <string name="unknown">Unknown</string>
+    <string name="buy_now">Buy now</string>
+    <string name="product_description">Product description</string>
+    <string name="product_reviews">Product reviews</string>
+    <string name="see_all">See all</string>
+    <string name="msg_added_to_cart">Added to cart</string>
 </resources>

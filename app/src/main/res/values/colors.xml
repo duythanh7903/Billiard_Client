@@ -6,4 +6,6 @@
     <color name="primary">#2899F6</color>
     <color name="textDark">#232323</color>
     <color name="textGray">#80959595</color>
+    <color name="_959595">#959595</color>
+    <color name="_232323">#232323</color>
 </resources>

@@ -36,3 +36,6 @@ fun String.loadBitmapFromPath(): Bitmap =
 
 fun String.changeSpaceToUnderLine(): String =
     this.replace(" ", "_")
+
+fun String.isValidEmailAndroid(): Boolean =
+    this.isNotBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()

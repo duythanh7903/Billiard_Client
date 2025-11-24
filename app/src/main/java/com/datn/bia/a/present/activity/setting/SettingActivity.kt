@@ -1,15 +1,12 @@
 package com.datn.bia.a.present.activity.setting
 
-import android.content.Intent
 import android.util.Log
 import com.datn.bia.a.R
 import com.datn.bia.a.common.base.BaseActivity
 import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.databinding.ActivitySettingBinding
-import com.datn.bia.a.model.domain.SettingCat
-import com.datn.bia.a.model.domain.SettingItem
+import com.datn.bia.a.domain.model.domain.SettingCat
 import com.datn.bia.a.present.activity.setting.adapter.SettingCatAdapter
-import com.datn.bia.a.present.activity.setting.adapter.SettingItemAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

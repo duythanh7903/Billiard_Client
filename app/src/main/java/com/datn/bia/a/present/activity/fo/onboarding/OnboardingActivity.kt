@@ -1,7 +1,6 @@
 package com.datn.bia.a.present.activity.fo.onboarding
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.MotionEvent
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -9,8 +8,8 @@ import com.datn.bia.a.R
 import com.datn.bia.a.common.base.BaseActivity
 import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.databinding.ActivityOnboardingBinding
-import com.datn.bia.a.model.domain.Onboarding
-import com.datn.bia.a.model.domain.OnboardingAdapter
+import com.datn.bia.a.domain.model.domain.Onboarding
+import com.datn.bia.a.domain.model.domain.OnboardingAdapter
 import com.datn.bia.a.present.activity.home.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 

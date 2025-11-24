@@ -7,7 +7,7 @@ import com.datn.bia.a.R
 import com.datn.bia.a.common.base.BaseRecyclerViewAdapter
 import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.databinding.ItemSettingBinding
-import com.datn.bia.a.model.domain.SettingItem
+import com.datn.bia.a.domain.model.domain.SettingItem
 
 class SettingItemAdapter(
     private val contextParams: Context,

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bg_tran_border_primary_2sdp" android:state_activated="false" />
+    <item android:drawable="@drawable/bg_gradient_primary_border_2sdp" android:state_activated="true" />
+</selector>

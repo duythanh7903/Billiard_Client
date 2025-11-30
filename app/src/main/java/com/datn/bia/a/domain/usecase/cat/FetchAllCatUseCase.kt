@@ -4,13 +4,11 @@ import android.content.Context
 import com.datn.bia.a.R
 import com.datn.bia.a.common.UiState
 import com.datn.bia.a.data.network.factory.ResultWrapper
-import com.datn.bia.a.domain.repository.AuthRepository
 import com.datn.bia.a.domain.repository.CatRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import javax.inject.Inject
-import kotlin.text.ifEmpty
 
 class FetchAllCatUseCase @Inject constructor(
     @ApplicationContext

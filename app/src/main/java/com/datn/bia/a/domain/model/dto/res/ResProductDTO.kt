@@ -22,7 +22,8 @@ data class ResProductDataDTO(
     val des: String? = null,
     val status: Boolean? = null,
     val createdAt: String? = null,
-    val updatedAt: String? = null
+    val updatedAt: String? = null,
+    val discount: Int? = null
 )
 
 data class ResCatProductDTO(

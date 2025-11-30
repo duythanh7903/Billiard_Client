@@ -43,8 +43,8 @@ class SignInViewModel @Inject constructor(
     }
 
     fun onSignInEvent() {
-        val email = _state.value.email
-        val password = _state.value.password
+        val email = _emailInput.value
+        val password = _passwordInput.value
 
         val reqLogin = ReqLoginUserDTO(
             email = email,

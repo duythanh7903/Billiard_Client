@@ -7,10 +7,11 @@
     </data>
 
     <FrameLayout
+        android:id="@+id/container"
         android:layout_width="@dimen/_44sdp"
         android:layout_height="@dimen/_44sdp"
         android:layout_marginHorizontal="@dimen/_2sdp"
-        android:background="@drawable/bg_aaaaaa_border_4sdp"
+        android:background="@drawable/bg_image"
         android:padding="@dimen/_1sdp">
 
         <androidx.cardview.widget.CardView

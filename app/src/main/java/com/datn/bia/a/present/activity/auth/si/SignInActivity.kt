@@ -11,9 +11,12 @@ import com.datn.bia.a.common.UiState
 import com.datn.bia.a.common.base.BaseActivity
 import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.common.base.ext.showToastOnce
+import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.ActivitySignInBinding
 import com.datn.bia.a.present.activity.auth.su.SignUpActivity
+import com.datn.bia.a.present.activity.home.MainActivity
 import com.datn.bia.a.present.dialog.LoadingDialog
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -92,8 +95,11 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>() {
                     UiState.Loading -> loadingDialog?.show()
                     is UiState.Success -> {
                         loadingDialog?.dismiss()
-                        val data = state.data
-                        Log.d("hello", "$data")
+                        val json = Gson().toJson(state.data)
+                        SharedPrefCommon.jsonAcc = json ?: ""
+
+                        startActivity(Intent(this@SignInActivity, MainActivity::class.java))
+                        finishAffinity()
 
                         viewModel.changeStateToIdle()
                     }

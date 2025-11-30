@@ -33,12 +33,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_4sdp"
                 android:layout_marginTop="@dimen/_4sdp"
+                android:ellipsize="marquee"
                 android:fontFamily="@font/inter_regular"
                 android:lines="2"
+                android:marqueeRepeatLimit="marquee_forever"
                 android:maxLines="2"
                 android:textColor="#232323"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit ="marquee_forever"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintTop_toBottomOf="@id/imgProduct"
                 tools:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum" />
@@ -131,6 +131,18 @@
                 app:layout_constraintBottom_toBottomOf="@id/tvLocation"
                 app:layout_constraintEnd_toStartOf="@id/icLocation"
                 app:layout_constraintTop_toTopOf="@id/tvLocation" />
+
+            <TextView
+                android:id="@+id/tvDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_minus4sdp"
+                tools:text="-20%"
+                android:textColor="#CC0000"
+                android:textSize="@dimen/_8ssp"
+                app:layout_constraintStart_toEndOf="@id/tvPrice"
+                app:layout_constraintTop_toTopOf="@id/tvPrice" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

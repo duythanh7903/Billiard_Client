@@ -11,8 +11,17 @@ import com.datn.bia.a.databinding.ItemImageProductBinding
 
 class ImageAdapter(
     private val contextParams: Context,
-    private val onItemClicked: (String) -> Unit
+    private val onItemClicked: (String, Int) -> Unit
 ): BaseRecyclerViewAdapter<String>() {
+
+    var indexSelect: Int = -1
+        set(value) {
+            val indexSelected = field
+            field = value
+            notifyItemChanged(indexSelected)
+            notifyItemChanged(field)
+        }
+
     override fun getItemLayout(): Int = R.layout.item_image_product
 
     @SuppressLint("NotifyDataSetChanged")
@@ -31,6 +40,8 @@ class ImageAdapter(
     ) {
         if (binding is ItemImageProductBinding) {
             Glide.with(contextParams).load(item).into(binding.imgProduct)
+
+            binding.container.isActivated = layoutPosition == indexSelect
         }
     }
 
@@ -39,7 +50,7 @@ class ImageAdapter(
 
         if (binding is ItemImageProductBinding) {
             binding.root.click {
-                onItemClicked.invoke(obj)
+                onItemClicked.invoke(obj, layoutPosition)
             }
         }
     }

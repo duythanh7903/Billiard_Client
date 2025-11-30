@@ -156,6 +156,7 @@
                     app:layout_constraintTop_toTopOf="@id/tvPrice1" />
 
                 <TextView
+                    android:id="@+id/tvDiscount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_4sdp"

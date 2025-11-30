@@ -67,4 +67,17 @@
     <string name="product_reviews">Product reviews</string>
     <string name="see_all">See all</string>
     <string name="msg_added_to_cart">Added to cart</string>
+    <string name="all">All</string>
+    <string name="check_out">Check Out</string>
+    <string name="select_voucher">Select Voucher</string>
+    <string name="ok">OK</string>
+    <string name="cash_on_delivery">Cash on Delivery</string>
+    <string name="google_pay">Google Pay</string>
+    <string name="zalo_pay">Zalo Pay</string>
+    <string name="vn_pay">VN Pay</string>
+    <string name="choose_method_payment">Choose method payment</string>
+    <string name="_cart">%d cart</string>
+    <string name="_order">%d order</string>
+    <string name="favorite">Favorite</string>
+    <string name="order_successful">Order successful!</string>
 </resources>

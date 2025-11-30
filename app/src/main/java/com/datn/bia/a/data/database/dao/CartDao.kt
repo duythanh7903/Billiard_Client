@@ -19,6 +19,9 @@ interface CartDao {
     @Query("SELECT * FROM CARTENTITY WHERE IDPROD LIKE :id AND ISENABLE == 1 LIMIT 1")
     suspend fun searchCartByIdProd(id: String): CartEntity?
 
+    @Query("SELECT * FROM CARTENTITY WHERE ID LIKE :id AND ISENABLE == 1 LIMIT 1")
+    suspend fun searchCartEnableByIdCart(id: Long): CartEntity?
+
     @Update
     suspend fun updateCart(c: CartEntity)
 

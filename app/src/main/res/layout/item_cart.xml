@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:background="@drawable/bg_white_border_8sdp"
+        android:paddingVertical="@dimen/_10sdp">
+
+        <ImageView
+            android:id="@+id/chb"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:src="@drawable/ic_chb"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/containerImage"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/chb"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgProduct"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvProductName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/inter_regular"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="@color/_959595"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/containerImage"
+            app:layout_constraintTop_toTopOf="@id/containerImage"
+            tools:text="Tai Nghe bluetooth KY5 PRO / KY8 / X55 / KY9 M10 5 Màu Trong Suốt Với Màn Hình Kỹ Thuật Số Giảm Tiếng Ồn Tích Hợp mic" />
+
+        <ImageView
+            android:id="@+id/imgTag"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_tag"
+            app:layout_constraintStart_toStartOf="@id/tvProductName"
+            app:layout_constraintTop_toBottomOf="@id/tvProductName" />
+
+        <TextView
+            android:id="@+id/tvDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:text="-20%"
+            android:textColor="#CC0000"
+            android:textSize="@dimen/_6ssp"
+            app:layout_constraintStart_toStartOf="@id/imgTag"
+            app:layout_constraintTop_toBottomOf="@id/imgTag" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_semibold"
+            android:text="123.456$"
+            android:textColor="#CC0000"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/containerImage"
+            app:layout_constraintStart_toStartOf="@id/tvDiscount" />
+
+        <TextView
+            android:id="@+id/tvPrice1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:text="123.456$"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/_6ssp"
+            app:layout_constraintStart_toEndOf="@id/tvPrice"
+            app:layout_constraintTop_toTopOf="@id/tvPrice" />
+
+        <View
+            android:id="@+id/lineTvPrice1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/textGray"
+            app:layout_constraintBottom_toBottomOf="@id/tvPrice1"
+            app:layout_constraintEnd_toEndOf="@id/tvPrice1"
+            app:layout_constraintStart_toStartOf="@id/tvPrice1"
+            app:layout_constraintTop_toTopOf="@id/tvPrice1" />
+
+        <ImageView
+            android:id="@+id/icPlus"
+            android:layout_width="@dimen/_16ssp"
+            android:layout_height="@dimen/_16ssp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:padding="@dimen/_2sdp"
+            android:src="@drawable/ic_plus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imgTag" />
+
+        <EditText
+            android:id="@+id/edtQuantity"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_2sdp"
+            android:background="@drawable/bg_959595_border_2sdp"
+            android:gravity="center"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLines="1"
+            android:paddingVertical="@dimen/_4sdp"
+            android:textColor="@color/textDark"
+            android:textSize="@dimen/_7ssp"
+            app:layout_constraintBottom_toBottomOf="@id/icPlus"
+            app:layout_constraintEnd_toStartOf="@id/icPlus"
+            app:layout_constraintTop_toTopOf="@id/icPlus" />
+
+        <ImageView
+            android:id="@+id/icMinus"
+            android:layout_width="@dimen/_16ssp"
+            android:layout_height="@dimen/_16ssp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:padding="@dimen/_2sdp"
+            android:src="@drawable/ic_minus"
+            app:layout_constraintEnd_toStartOf="@id/edtQuantity"
+            app:layout_constraintTop_toTopOf="@id/imgTag" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

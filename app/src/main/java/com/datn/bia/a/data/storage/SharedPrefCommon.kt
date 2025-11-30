@@ -40,51 +40,11 @@ object SharedPrefCommon {
         get() = getValue("languageCode", "en")
         set(value) = setValue("languageCode", value)
 
-    var isUserGlobal: Boolean
-        get() = getValue("isUserGlobal", false)
-        set(value) = setValue("isUserGlobal", value)
-
-    var isConfirmConsent: Boolean
-        get() = getValue("isConfirmConsent", false)
-        set(value) = setValue("isConfirmConsent", value)
-
-    var isSoundAnimationEnable: Boolean
-        get() = getValue("isSoundAnimationEnable", false)
-        set(value) = setValue("isSoundAnimationEnable", value)
-
-    var isNumberRowEnable: Boolean
-        get() = getValue("isNumberRowEnable", false)
-        set(value) = setValue("isNumberRowEnable", value)
-
-    var isPopupsOnPressEnable: Boolean
-        get() = getValue("isPopupsOnPressEnable", false)
-        set(value) = setValue("isPopupsOnPressEnable", value)
+    var jsonAcc: String
+        get() = getValue("jsonAcc", "")
+        set(value) = setValue("jsonAcc", value)
 
     var isFirstInstall: Boolean
         get() = getValue("isFirstInstall", true)
         set(value) = setValue("isFirstInstall", value)
-
-    var pathCacheFont: String
-        get() = getValue("pathCacheFont", "")
-        set(value) = setValue("pathCacheFont", value)
-
-    var keyboardSize: Int
-        get() = getValue("keyboardSize", 10)
-        set(value) = setValue("keyboardSize", value)
-
-    var fontSize: Int
-        get() = getValue("fontSize", 20)
-        set(value) = setValue("fontSize", value)
-
-    var pathCacheSound: String
-        get() = getValue("pathCacheSound", "")
-        set(value) = setValue("pathCacheSound", value)
-
-    var isKeyPressEnable: Boolean
-        get() = getValue("isKeyPressEnable", false)
-        set(value) = setValue("isKeyPressEnable", value)
-
-    var isSoundKeyboardEnable: Boolean
-        get() = getValue("isSoundKeyboardEnable", false)
-        set(value) = setValue("isSoundKeyboardEnable", value)
 }

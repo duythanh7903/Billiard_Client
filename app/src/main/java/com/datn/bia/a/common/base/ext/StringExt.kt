@@ -8,6 +8,8 @@ import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import java.time.Duration
+import java.time.Instant
 
 /**
  * Load Drawable từ file path.
@@ -39,3 +41,24 @@ fun String.changeSpaceToUnderLine(): String =
 
 fun String.isValidEmailAndroid(): Boolean =
     this.isNotBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
+fun String.getRemainingTime(): String {
+    // parse ngày hết hạn (UTC)
+    val expiryInstant = Instant.parse(this)
+
+    // thời gian hiện tại (UTC)
+    val now = Instant.now()
+
+    if (expiryInstant.isBefore(now)) {
+        return "Đã hết hạn"
+    }
+
+    val duration = Duration.between(now, expiryInstant)
+
+    val totalMinutes = duration.toMinutes()
+    val days = totalMinutes / (60 * 24)
+    val hours = (totalMinutes % (60 * 24)) / 60
+    val minutes = totalMinutes % 60
+
+    return "${days}d ${hours}h ${minutes}m"
+}

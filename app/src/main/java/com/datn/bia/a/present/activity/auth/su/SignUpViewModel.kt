@@ -68,10 +68,11 @@ class SignUpViewModel @Inject constructor(
 
     fun onSignUpEvent() {
         val req = ReqSignUpUserDTO(
-            username = _state.value.username,
-            email = _state.value.email,
-            password = _state.value.password,
+            username = _usernameValue.value,
+            email = _emailValue.value,
+            password = _passwordValue.value,
         )
+        Log.d("debug", "$req")
         loginUser(req)
     }
 

@@ -4,6 +4,7 @@ data class ReqSignUpUserDTO(
     val username: String,
     val email: String,
     val password: String,
+    val confirmPassword: String = password,
     val role: String = "user", // follow by server
 ) {
 }

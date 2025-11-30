@@ -1,22 +1,27 @@
 package com.datn.bia.a.present.activity.auth.su
 
+import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.datn.bia.a.R
+import com.datn.bia.a.common.AppConst
 import com.datn.bia.a.common.UiState
 import com.datn.bia.a.common.base.BaseActivity
 import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.common.base.ext.isValidEmailAndroid
 import com.datn.bia.a.common.base.ext.showToastOnce
 import com.datn.bia.a.databinding.ActivitySignUpBinding
+import com.datn.bia.a.present.activity.auth.si.SignInActivity
 import com.datn.bia.a.present.dialog.LoadingDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
+
+    private var isFromProfile: Boolean = false
 
     private val viewModel: SignUpViewModel by viewModels()
 
@@ -27,6 +32,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
     override fun initViews() {
         super.initViews()
 
+        isFromProfile = intent.getBooleanExtra(AppConst.KEY_FROM_PROFILE, false)
         loadingDialog = LoadingDialog(this)
     }
 
@@ -34,7 +40,12 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
         super.onClickViews()
 
         binding.tvSignIn.click {
-            finish()
+            if (isFromProfile) {
+                startActivity(Intent(this, SignInActivity::class.java))
+                finishAffinity()
+            } else {
+                finish()
+            }
         }
 
         binding.edtEmail.addTextChangedListener(object : TextWatcher {
@@ -52,7 +63,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
                 start: Int,
                 before: Int,
                 count: Int
-            ) = viewModel.changeEmailValue(s.toString())
+            ) = viewModel.changeEmailValue(s?.toString() ?: "")
         })
 
         binding.edtPassword.addTextChangedListener(object : TextWatcher {
@@ -70,7 +81,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
                 start: Int,
                 before: Int,
                 count: Int
-            ) = viewModel.changePasswordValue(s.toString())
+            ) = viewModel.changePasswordValue(s?.toString() ?: "")
         })
 
         binding.edtPasswordConfirmation.addTextChangedListener(object : TextWatcher {
@@ -88,7 +99,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
                 start: Int,
                 before: Int,
                 count: Int
-            ) = viewModel.changeConfirmPasswordValue(s.toString())
+            ) = viewModel.changeConfirmPasswordValue(s?.toString() ?: "")
         })
 
         binding.edtUsername.addTextChangedListener(object : TextWatcher {
@@ -106,7 +117,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
                 start: Int,
                 before: Int,
                 count: Int
-            ) = viewModel.changeUsernameValue(s.toString())
+            ) = viewModel.changeUsernameValue(s?.toString() ?: "")
         })
 
         binding.btnSignUp.click {
@@ -138,7 +149,11 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
                         viewModel.changeStateToIdle()
                         loadingDialog?.cancel()
 
-                        finish()
+                        if (!isFromProfile) finish()
+                        else {
+                            startActivity(Intent(this@SignUpActivity, SignInActivity::class.java))
+                            finishAffinity()
+                        }
                     }
                 }
             }

@@ -20,6 +20,14 @@
         android:usesCleartextTraffic="true">
 
         <activity
+            android:name=".present.activity.favorite.FavoriteProductsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".present.activity.voucher.VouchersActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".present.activity.prod.ProductActivity"
             android:screenOrientation="portrait" />
 

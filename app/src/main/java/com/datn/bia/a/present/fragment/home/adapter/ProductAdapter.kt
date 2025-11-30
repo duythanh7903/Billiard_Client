@@ -8,6 +8,8 @@ import com.datn.bia.a.R
 import com.datn.bia.a.common.base.BaseRecyclerViewAdapter
 import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.common.base.ext.formatVND
+import com.datn.bia.a.common.base.ext.goneView
+import com.datn.bia.a.common.base.ext.visibleView
 import com.datn.bia.a.databinding.ItemProductBinding
 import com.datn.bia.a.domain.model.dto.res.ResProductDataDTO
 
@@ -33,7 +35,17 @@ class ProductAdapter(
         if (binding is ItemProductBinding) {
             Glide.with(contextParams).load(item.imageUrl).into(binding.imgProduct)
             binding.tvProductName.text = item.name
-            binding.tvPrice.text = "${item.price?.formatVND() ?: "NaN"}"
+            binding.tvPrice.text = if (item.discount != null && item.discount > 0) {
+                ((item.price ?: 0) - ((item.price ?: 0) * item.discount / 100)).formatVND()
+            } else item.price?.formatVND() ?: "NaN"
+            if (item.discount == null || item.discount == 0) {
+                binding.tvDiscount.goneView()
+            } else {
+                binding.tvDiscount.apply {
+                    visibleView()
+                    text = "-${item.discount}%"
+                }
+            }
         }
     }
 

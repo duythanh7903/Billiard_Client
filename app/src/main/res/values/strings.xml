@@ -80,4 +80,25 @@
     <string name="_order">%d order</string>
     <string name="favorite">Favorite</string>
     <string name="order_successful">Order successful!</string>
+    <string name="purchased_orders">Purchased orders</string>
+    <string name="to_pay">To Pay</string>
+    <string name="to_receive">To Receive</string>
+    <string name="completed">Completed</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="total_">Total</string>
+    <string name="items">items</string>
+    <string name="item">item</string>
+    <string name="expected_delivery_3_dec_4_dec">Expected delivery: 3 Dec - 4 Dec</string>
+    <string name="review_ratings">Review Ratings</string>
+    <string name="cancel">Cancel</string>
+    <string name="review">Review</string>
+    <string name="confirm">Confirm</string>
+    <string name="carts">Carts</string>
+    <string name="order">Order</string>
+    <string name="are_you_satisfied_with_the_product">Are you satisfied with the product?</string>
+    <string name="may_be_later">May be later</string>
+    <string name="rate">Rate</string>
+    <string name="thanks_for_rating">Thanks for rating!</string>
+    <string name="payment">Payment</string>
+    <string name="pay">Pay</string>
 </resources>

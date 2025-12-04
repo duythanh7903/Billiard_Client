@@ -1,15 +1,19 @@
 package com.datn.bia.a.di
 
 import com.datn.bia.a.data.database.repository.CartRepositoryImpl
+import com.datn.bia.a.data.database.repository.CommentCacheRepositoryImpl
 import com.datn.bia.a.data.database.repository.FavoriteRepositoryImpl
 import com.datn.bia.a.data.network.repository.AuthRepositoryImpl
 import com.datn.bia.a.data.network.repository.CatRepositoryImpl
+import com.datn.bia.a.data.network.repository.CommentRepositoryImpl
 import com.datn.bia.a.data.network.repository.OrderRepositoryImpl
 import com.datn.bia.a.data.network.repository.ProductRepositoryImpl
 import com.datn.bia.a.data.network.repository.VoucherRepositoryImpl
 import com.datn.bia.a.domain.repository.AuthRepository
 import com.datn.bia.a.domain.repository.CartRepository
 import com.datn.bia.a.domain.repository.CatRepository
+import com.datn.bia.a.domain.repository.CommentCacheRepository
+import com.datn.bia.a.domain.repository.CommentRepository
 import com.datn.bia.a.domain.repository.FavoriteRepository
 import com.datn.bia.a.domain.repository.OrderRepository
 import com.datn.bia.a.domain.repository.ProductRepository
@@ -65,4 +69,16 @@ abstract class RepositoryModule {
     abstract fun bindOrderRepository(
         impl: OrderRepositoryImpl
     ): OrderRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindCommentCacheRepository(
+        impl: CommentCacheRepositoryImpl
+    ): CommentCacheRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindCommentRepository(
+        impl: CommentRepositoryImpl
+    ): CommentRepository
 }

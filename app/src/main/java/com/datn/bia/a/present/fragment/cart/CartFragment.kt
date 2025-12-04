@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.datn.bia.a.R
 import com.datn.bia.a.common.AppConst
+import com.datn.bia.a.common.MethodPayment
 import com.datn.bia.a.common.UiState
 import com.datn.bia.a.common.base.BaseFragment
 import com.datn.bia.a.common.base.ext.click
@@ -23,6 +24,8 @@ import com.datn.bia.a.domain.model.dto.res.ResProductDTO
 import com.datn.bia.a.domain.model.dto.res.ResVoucherDTO
 import com.datn.bia.a.domain.model.entity.CartEntity
 import com.datn.bia.a.present.activity.auth.si.SignInActivity
+import com.datn.bia.a.present.activity.order.confirm.ConfirmOrderActivity
+import com.datn.bia.a.present.activity.order.history.OrderActivity
 import com.datn.bia.a.present.activity.voucher.VouchersActivity
 import com.datn.bia.a.present.dialog.LoadingDialog
 import com.datn.bia.a.present.dialog.MethodDialog
@@ -70,11 +73,26 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
         methodDialog = MethodDialog(
             context = requireContext(),
             onConfirmMethodPayment = { method ->
-                viewModel.checkOutOrder(
+                /*viewModel.checkOutOrder(
                     totalPrice = totalPriceCache,
                     voucherId = viewModel.voucherSelected.value?.id ?: "",
                     listProduct = listProduct
-                )
+                )*/
+
+                when (method) {
+                    MethodPayment.CASH_ON_DELIVERY -> TODO()
+                    MethodPayment.GOOGLE_PAY -> TODO()
+                    MethodPayment.ZALO_PAY -> {
+                        startActivity(
+                            Intent(
+                                requireContext(),
+                                ConfirmOrderActivity::class.java
+                            )
+                        )
+                    }
+
+                    MethodPayment.VN_PAY -> TODO()
+                }
             }
         )
 
@@ -233,13 +251,15 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
 
                         viewModel.resetStateCheckOutToIdle()
                     }
+
                     UiState.Idle -> {}
                     UiState.Loading -> {
                         loadingDialog?.show()
                     }
+
                     is UiState.Success -> {
                         loadingDialog?.cancel()
-                        requireContext().showToastOnce(getString(R.string.order_successful))
+                        startActivity(Intent(requireContext(), OrderActivity::class.java))
 
                         viewModel.resetStateCheckOutToIdle()
                     }

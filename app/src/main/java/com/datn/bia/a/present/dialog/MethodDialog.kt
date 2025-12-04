@@ -9,7 +9,10 @@ import com.datn.bia.a.databinding.DialogMethodBinding
 class MethodDialog(
     context: Context,
     private val onConfirmMethodPayment: (methodPayment: MethodPayment) -> Unit
-) : BaseDialog<DialogMethodBinding>(context) {
+) : BaseDialog<DialogMethodBinding>(
+    context = context,
+    isSetShowBottom = true
+) {
 
     private var methodPayment: MethodPayment = MethodPayment.CASH_ON_DELIVERY
 

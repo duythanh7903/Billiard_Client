@@ -34,6 +34,7 @@ retrofit2 = "0.9.2"
 okhttp = "4.12.0"
 sandwich = "2.0.8"
 intuit-android = "1.1.1"
+commons-codec = "1.14"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -82,6 +83,7 @@ sandwich = { module = "com.github.skydoves:sandwich", version.ref = "sandwich" }
 sandwich-retrofit = { module = "com.github.skydoves:sandwich-retrofit", version.ref = "sandwich" }
 sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "intuit-android" }
 ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "intuit-android" }
+commons-codec = { module = "commons-codec:commons-codec", version.ref = "commons-codec" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

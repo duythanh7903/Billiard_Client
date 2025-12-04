@@ -3,14 +3,17 @@ package com.datn.bia.a.data.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.datn.bia.a.data.database.dao.CartDao
+import com.datn.bia.a.data.database.dao.CommentDao
 import com.datn.bia.a.data.database.dao.FavoriteDao
 import com.datn.bia.a.domain.model.entity.CartEntity
+import com.datn.bia.a.domain.model.entity.CommentEntity
 import com.datn.bia.a.domain.model.entity.FavoriteEntity
 
 @Database(
     entities = [
         CartEntity::class,
-        FavoriteEntity::class
+        FavoriteEntity::class,
+        CommentEntity::class
     ],
     version = 1,
     exportSchema = false
@@ -18,4 +21,5 @@ import com.datn.bia.a.domain.model.entity.FavoriteEntity
 abstract class AppDatabase : RoomDatabase() {
     abstract fun cartDao(): CartDao
     abstract fun favoriteDao(): FavoriteDao
+    abstract fun commentDao(): CommentDao
 }

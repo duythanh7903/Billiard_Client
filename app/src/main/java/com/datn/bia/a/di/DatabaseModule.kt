@@ -25,4 +25,8 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideFavoriteDao(db: AppDatabase) = db.favoriteDao()
+
+    @Singleton
+    @Provides
+    fun provideCommentDao(db: AppDatabase) = db.commentDao()
 }

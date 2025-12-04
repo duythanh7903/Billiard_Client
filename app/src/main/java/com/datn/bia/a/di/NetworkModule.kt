@@ -4,6 +4,7 @@ import com.datn.bia.a.BuildConfig
 import com.datn.bia.a.data.network.factory.ResultWrapperCallAdapterFactory
 import com.datn.bia.a.data.network.service.AuthService
 import com.datn.bia.a.data.network.service.CatService
+import com.datn.bia.a.data.network.service.CommentService
 import com.datn.bia.a.data.network.service.OrderService
 import com.datn.bia.a.data.network.service.ProductService
 import com.datn.bia.a.data.network.service.VoucherService
@@ -78,4 +79,10 @@ object NetworkModule {
     fun provideOrderService(
         retrofit: Retrofit
     ) = retrofit.create(OrderService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideCommentService(
+        retrofit: Retrofit
+    ) = retrofit.create(CommentService::class.java)
 }

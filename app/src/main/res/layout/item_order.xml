@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginVertical="@dimen/_6sdp"
+        android:background="@drawable/bg_white_border_4sdp"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:paddingVertical="@dimen/_8sdp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvProductOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_prod_order" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTotalCountProduct"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_regular"
+                android:gravity="end"
+                android:text="Tổng số tiền (4 sản phẩm): "
+                android:textColor="#232323"
+                android:textSize="@dimen/_10ssp" />
+
+            <TextView
+                android:id="@+id/tvPriceAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_semibold"
+                android:text="10.000vnd"
+                android:textColor="#232323"
+                android:textSize="@dimen/_10ssp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@drawable/bg_pink_border_4sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/_8sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_32sdp"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_semibold"
+                android:text="@string/expected_delivery_3_dec_4_dec"
+                android:textColor="#FF99CC"
+                android:textSize="@dimen/_10ssp" />
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/ic_right_arrow"
+                app:tint="#FF99CC" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@drawable/bg_white_border_4sdp_stroke_primary"
+            android:fontFamily="@font/inter_regular"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_6sdp"
+            android:text="@string/cancel"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/_10ssp" />
+
+        <TextView
+            android:id="@+id/btnConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@drawable/bg_white_border_4sdp_stroke_primary"
+            android:fontFamily="@font/inter_regular"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_6sdp"
+            android:text="@string/confirm"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/_10ssp" />
+
+        <TextView
+            android:id="@+id/btnReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@drawable/bg_white_border_4sdp_stroke_primary"
+            android:fontFamily="@font/inter_regular"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_6sdp"
+            android:text="@string/review"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/_10ssp" />
+
+    </LinearLayout>
+</layout>

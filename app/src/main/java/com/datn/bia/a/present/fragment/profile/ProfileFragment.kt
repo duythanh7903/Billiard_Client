@@ -1,8 +1,12 @@
 package com.datn.bia.a.present.fragment.profile
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.datn.bia.a.R
 import com.datn.bia.a.common.AppConst
+import com.datn.bia.a.common.UiState
 import com.datn.bia.a.common.base.BaseFragment
 import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.common.base.ext.goneView
@@ -13,12 +17,17 @@ import com.datn.bia.a.domain.model.dto.res.ResLoginUserDTO
 import com.datn.bia.a.present.activity.auth.si.SignInActivity
 import com.datn.bia.a.present.activity.auth.su.SignUpActivity
 import com.datn.bia.a.present.activity.favorite.FavoriteProductsActivity
+import com.datn.bia.a.present.activity.order.history.OrderActivity
 import com.datn.bia.a.present.activity.setting.SettingActivity
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
+
+    private val viewModel: ProfileViewModel by viewModels()
+
     override fun inflateBinding(): FragmentProfileBinding =
         FragmentProfileBinding.inflate(layoutInflater)
 
@@ -79,6 +88,66 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
         binding.btnLiked.click {
             startActivity(Intent(requireContext(), FavoriteProductsActivity::class.java))
+        }
+
+        binding.btnPendingConfirmation.click {
+            startActivity(Intent(requireContext(), OrderActivity::class.java))
+        }
+
+        binding.btnPendingPickup.click {
+            startActivity(Intent(requireContext(), OrderActivity::class.java))
+        }
+
+        binding.btnPendingShipping.click {
+            startActivity(Intent(requireContext(), OrderActivity::class.java).apply {
+                putExtra(AppConst.KEY_ORDER_TYPE, 1)
+            })
+        }
+
+        binding.tvPurchaseHistory.click {
+            startActivity(Intent(requireContext(), OrderActivity::class.java).apply {
+                putExtra(AppConst.KEY_ORDER_TYPE, 2)
+            })
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun observeData() {
+        super.observeData()
+
+        lifecycleScope.launch {
+            viewModel.state.collect { state ->
+                binding.tvCountItemInCart.text =
+                    "${state.listCart.sumOf { it.quantity }} ${
+                        getString(
+                            if (state.listCart.sumOf { it.quantity } > 1) R.string.carts else R.string.cart
+                        )
+                    }"
+
+                when (val response = state.uiState) {
+                    is UiState.Error -> {
+                        binding.tvCountItemHistory.goneView()
+                        viewModel.changeStateToIdle()
+                    }
+                    UiState.Idle -> {
+
+                    }
+                    UiState.Loading -> {
+                        binding.tvCountItemHistory.goneView()
+                    }
+                    is UiState.Success -> {
+                        val res = response.data.size
+                        binding.tvCountItemHistory.apply {
+                            text = "$res ${getString(
+                                if (res > 1) R.string.orders else R.string.order
+                            )}"
+                            visibleView()
+                        }
+
+                        viewModel.changeStateToIdle()
+                    }
+                }
+            }
         }
     }
 }

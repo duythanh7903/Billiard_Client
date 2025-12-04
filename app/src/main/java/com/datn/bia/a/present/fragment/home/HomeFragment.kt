@@ -39,10 +39,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.rcvCategory.apply {
             catAdapter = CatAdapter(
                 onClick = { index, cat ->
-                    catAdapter?.changeIndexSelect(index)
-                    productAdapter?.submitData(
-                        viewModel.allPro.value.filter { it.category?.id == viewModel.allCat.value[index].id }
-                    )
+                    val index = catAdapter?.changeIndexSelect(index) ?: -1
+                    if (index == -1) {
+                        productAdapter?.submitData(
+                            viewModel.allPro.value
+                        )
+                    } else {
+                        productAdapter?.submitData(
+                            viewModel.allPro.value.filter { it.category?.id == viewModel.allCat.value[index].id }
+                        )
+                    }
                 }
             )
 

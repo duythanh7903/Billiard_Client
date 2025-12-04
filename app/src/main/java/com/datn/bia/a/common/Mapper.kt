@@ -24,7 +24,10 @@ fun List<CartEntity>.toListCart(listProduct: List<ResProductDataDTO>) = this.map
 
 fun Cart.toReqProdCheckOut() = ReqProdCheckOut(
     productId = this.productId,
-    quantity = this.productQuantity
+    quantity = this.productQuantity,
+    name = this.productName,
+    priceBeforeDis = this.productPrice,
+    priceAfterDis = this.productPrice - (this.productPrice * this.productDiscount / 100)
 )
 
 fun List<Cart>.toListReqProdCheckOut() = this.map { it.toReqProdCheckOut()}

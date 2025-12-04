@@ -4,4 +4,12 @@ object AppConst {
     internal const val KEY_PRODUCT_DETAIL = "product"
     internal const val KEY_VOUCHER = "voucher"
     internal const val KEY_FROM_PROFILE = "profile"
+    internal const val KEY_ORDER_TYPE = "order_type"
+
+    internal const val STATUS_ORDER_TO_PAY = "Xác nhận"
+    internal const val STATUS_ORDER_TO_RECEIVE = "Đang giao hàng"
+    internal const val STATUS_ORDER_TO_COMPLETED = "Thành Công"
+    internal const val STATUS_ORDER_TO_CANCELLED = "Hủy"
+
+    internal const val APP_ID_ZPDK = 999
 }

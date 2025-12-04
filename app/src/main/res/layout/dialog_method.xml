@@ -184,7 +184,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_16sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_24sdp"
             android:background="@drawable/bg_primary_border_4sdp"
             android:fontFamily="@font/inter_medium"
             android:gravity="center"

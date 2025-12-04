@@ -56,7 +56,13 @@ class CatAdapter(
         }
     }
 
-    fun changeIndexSelect(newIndex: Int) {
-        indexSelect = newIndex
+    fun changeIndexSelect(newIndex: Int): Int {
+        indexSelect = if (newIndex == indexSelect) {
+            -1
+        } else {
+            newIndex
+        }
+
+        return indexSelect
     }
 }

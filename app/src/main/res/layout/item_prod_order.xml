@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/containerImage"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:layout_margin="@dimen/_4sdp"
+            app:cardCornerRadius="@dimen/_4sdp"
+            app:cardElevation="@dimen/_4sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgProduct"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvProductName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:fontFamily="@font/inter_regular"
+            android:scrollHorizontally="false"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="Combo MAXBING EDITION Gậy Bida Lỗ EVO MEG - ABYSS BLADE - Ngọn Glassfiber Cao Cấp - Chính Hãng"
+            android:textColor="#232323"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/containerImage"
+            app:layout_constraintTop_toTopOf="@id/containerImage" />
+
+        <TextView
+            android:id="@+id/tvCountProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="x1"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/_9ssp"
+            app:layout_constraintStart_toStartOf="@id/tvProductName"
+            app:layout_constraintTop_toBottomOf="@id/tvProductName" />
+
+        <TextView
+            android:id="@+id/tvPriceFinal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="#232323"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/containerImage"
+            app:layout_constraintEnd_toEndOf="@id/tvProductName"
+            tools:text="121.121" />
+
+        <TextView
+            android:id="@+id/tvBeforeDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:fontFamily="@font/inter_regular"
+            android:text="200.200"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/_8ssp"
+            app:layout_constraintBottom_toBottomOf="@id/tvPriceFinal"
+            app:layout_constraintEnd_toStartOf="@id/tvPriceFinal" />
+
+        <View
+            android:id="@+id/viewLine"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/textGray"
+            app:layout_constraintBottom_toBottomOf="@id/tvBeforeDiscount"
+            app:layout_constraintEnd_toEndOf="@id/tvBeforeDiscount"
+            app:layout_constraintStart_toStartOf="@id/tvBeforeDiscount"
+            app:layout_constraintTop_toTopOf="@id/tvBeforeDiscount" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

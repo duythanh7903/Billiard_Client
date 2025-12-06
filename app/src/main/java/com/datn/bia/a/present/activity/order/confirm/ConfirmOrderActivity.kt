@@ -9,21 +9,28 @@ import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.datn.bia.a.R
 import com.datn.bia.a.common.AppConst
 import com.datn.bia.a.common.MethodPayment
+import com.datn.bia.a.common.UiState
 import com.datn.bia.a.common.base.BaseActivity
 import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.common.base.ext.formatVND
+import com.datn.bia.a.common.base.ext.showToastOnce
 import com.datn.bia.a.common.payment.Api.CreateOrder
 import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.ActivityConfirmOrderBinding
 import com.datn.bia.a.domain.model.domain.Cart
+import com.datn.bia.a.domain.model.dto.req.ReqProdCheckOut
 import com.datn.bia.a.domain.model.dto.res.ResLoginUserDTO
+import com.datn.bia.a.present.activity.order.history.OrderActivity
+import com.datn.bia.a.present.dialog.LoadingDialog
 import com.datn.bia.a.present.dialog.MessageDialog
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import vn.zalopay.sdk.Environment
 import vn.zalopay.sdk.ZaloPayError
 import vn.zalopay.sdk.ZaloPaySDK
@@ -36,6 +43,7 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
     private var gson: Gson? = null
     private var cartConfirmAdapter: CartConfirmAdapter? = null
     private var messageDialog: MessageDialog? = null
+    private var loadingDialog: LoadingDialog? = null
 
     private var paymentMethod = MethodPayment.CASH_ON_DELIVERY.name
 
@@ -52,16 +60,22 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
         cartConfirmAdapter = CartConfirmAdapter(
             contextParams = this@ConfirmOrderActivity,
         ).apply {
-            val listCart = gson?.fromJson<List<Cart>>(intent.getStringExtra(AppConst.KEY_LIST_CART), object : TypeToken<List<Cart>>() {}.type) ?: emptyList()
+            val listCart = gson?.fromJson<List<Cart>>(
+                intent.getStringExtra(AppConst.KEY_LIST_CART),
+                object : TypeToken<List<Cart>>() {}.type
+            ) ?: emptyList()
             submitData(listCart)
         }
         binding.rcvOrder.adapter = cartConfirmAdapter
         messageDialog = MessageDialog(
             contextParam = this,
             onSend = { message ->
-
+                viewModel.setMessage(message)
+            }, onClose = {
+                viewModel.setMessage("")
             }
         )
+        loadingDialog = LoadingDialog(this)
         setData()
     }
 
@@ -81,12 +95,48 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
         }
     }
 
+    override fun observerData() {
+        super.observerData()
+
+        lifecycleScope.launch {
+            viewModel.message.collect { message ->
+                binding.tvMessage.text = message
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.stateCheckOut.collect { uiState ->
+                when (uiState) {
+                    is UiState.Error -> {
+                        showToastOnce(uiState.message)
+                        viewModel.changeStateToIdle()
+                    }
+
+                    UiState.Idle -> {
+
+                    }
+
+                    UiState.Loading -> {
+                        loadingDialog?.show()
+                    }
+
+                    is UiState.Success<*> -> {
+                        startActivity(Intent(this@ConfirmOrderActivity, OrderActivity::class.java))
+                        finish()
+                    }
+                }
+            }
+        }
+    }
+
     override fun onDestroy() {
         gson = null
         cartConfirmAdapter?.list?.clear()
         cartConfirmAdapter = null
         messageDialog?.dismiss()
         messageDialog = null
+        loadingDialog?.dismiss()
+        loadingDialog = null
 
         super.onDestroy()
     }
@@ -104,10 +154,23 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
     }
 
     private fun paymentOrder() {
+        if (paymentMethod == MethodPayment.CASH_ON_DELIVERY.name) {
+            viewModel.checkOutOrder(
+                totalPrice = intent.getIntExtra(AppConst.KEY_TOTAL_PRICE, 0),
+                voucherId = intent.getStringExtra(AppConst.KEY_ID_VOUCHER) ?: "",
+                listProduct = gson?.fromJson<List<ReqProdCheckOut>>(
+                    intent.getStringExtra(AppConst.KEY_LIST_PRODUCT),
+                    object : TypeToken<List<ReqProdCheckOut>>() {}.type
+                ) ?: emptyList(),
+                paymentMethod = "COD"
+            )
+            return
+        }
+
         val orderApi = CreateOrder()
 
         try {
-            val data = orderApi.createOrder(50_000.toString())
+            val data = orderApi.createOrder((intent.getIntExtra(AppConst.KEY_TOTAL_PRICE, 0) + AppConst.FEE_SHIP).toString())
             val code = data.getString("returncode")
 
             if (code == "1") {
@@ -120,29 +183,15 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
                             p1: String?,
                             p2: String?
                         ) {
-                            Log.d("duylt", "onPaymentSucceeded: $p0 - $p1 - $p2")
-
-                            runOnUiThread {
-                                AlertDialog.Builder(this@ConfirmOrderActivity)
-                                    .setTitle("Payment Success")
-                                    .setMessage(
-                                        String.format(
-                                            "TransactionId: %s - TransToken: %s",
-                                            p0,
-                                            p1
-                                        )
-                                    )
-                                    .setMessage(
-                                        String.format(
-                                            "Payment success for order: %s",
-                                            p1
-                                        )
-                                    )
-                                    .setPositiveButton(
-                                        "OK"
-                                    ) { dialog, which -> }
-                                    .setNegativeButton("Cancel", null).show()
-                            }
+                            viewModel.checkOutOrder(
+                                totalPrice = intent.getIntExtra(AppConst.KEY_TOTAL_PRICE, 0),
+                                voucherId = intent.getStringExtra(AppConst.KEY_ID_VOUCHER),
+                                listProduct = gson?.fromJson<List<ReqProdCheckOut>>(
+                                    intent.getStringExtra(AppConst.KEY_LIST_PRODUCT),
+                                    object : TypeToken<List<ReqProdCheckOut>>() {}.type
+                                ) ?: emptyList(),
+                                paymentMethod = "ZALO PAY"
+                            )
                         }
 
                         override fun onPaymentCanceled(p0: String?, p1: String?) {

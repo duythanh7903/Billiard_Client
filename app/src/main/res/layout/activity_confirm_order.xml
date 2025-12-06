@@ -175,11 +175,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_8sdp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="vertical"
                     android:background="@drawable/bg_white_border_4sdp"
+                    android:orientation="vertical"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingVertical="@dimen/_8sdp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="2"
                     tools:listitem="@layout/item_prod_order" />
 
@@ -222,10 +222,10 @@
                     android:id="@+id/btnShowMessage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:background="@drawable/bg_white_border_4sdp"
+                    android:gravity="center"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingVertical="@dimen/_8sdp">
 
@@ -241,6 +241,24 @@
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_4sdp"
+                        android:layout_weight="1"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/inter_regular"
+                        android:gravity="end"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:textColor="#959595"
+                        android:textSize="@dimen/_8ssp"
+                        tools:text="12"
+                        android:id="@+id/tvMessage"/>
 
                     <ImageView
                         android:layout_width="@dimen/_18sdp"

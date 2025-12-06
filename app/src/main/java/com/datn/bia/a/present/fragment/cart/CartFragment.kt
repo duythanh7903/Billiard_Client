@@ -363,6 +363,11 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
                 gson?.toJson(cartAdapter?.getAllCartSelected() ?: emptyList<Cart>())
             )
             putExtra(AppConst.KEY_TOTAL_PRICE, totalPriceCache)
+            putExtra(AppConst.KEY_ID_VOUCHER, viewModel.voucherSelected.value?.id)
+            putExtra(
+                AppConst.KEY_LIST_PRODUCT,
+                gson?.toJson(listProduct)
+            )
         }
     )
 }

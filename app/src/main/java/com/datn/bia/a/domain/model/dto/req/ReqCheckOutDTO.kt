@@ -13,7 +13,7 @@ data class ReqCheckOutDTO(
     val status: String = "Xác nhận",
     val payment: String = "COD",
     val userId: String = "",
-    val voucherId: String = "",
+    val voucherId: String? = null,
     val note: String = ""
 ) {
 }

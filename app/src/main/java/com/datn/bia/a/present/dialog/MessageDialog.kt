@@ -7,7 +7,8 @@ import com.datn.bia.a.databinding.DialogMessageBinding
 
 class MessageDialog(
     contextParam: Context,
-    private val onSend: (String) -> Unit
+    private val onSend: (String) -> Unit,
+    private val onClose: () -> Unit
 ) : BaseDialog<DialogMessageBinding>(
     context = contextParam,
     isSetShowBottom = true
@@ -19,12 +20,14 @@ class MessageDialog(
         super.onClickViews()
 
         binding.icClose.click {
+            onClose.invoke()
             dismiss()
             binding.edtMessage.text.clear()
         }
 
         binding.btnSend.click {
             onSend.invoke(binding.edtMessage.text.toString().trim())
+            dismiss()
         }
     }
 }

@@ -101,4 +101,8 @@
     <string name="thanks_for_rating">Thanks for rating!</string>
     <string name="payment">Payment</string>
     <string name="pay">Pay</string>
+    <string name="payment_method">Payment method</string>
+    <string name="message_for_the_store">Message for the store</string>
+    <string name="type_message_here">Type message here</string>
+    <string name="send">Send</string>
 </resources>

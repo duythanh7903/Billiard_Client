@@ -24,6 +24,7 @@ class CartAdapter(
 ) : BaseRecyclerViewAdapter<Cart>() {
 
     var listCartSelected = mutableListOf<Long>()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -111,4 +112,7 @@ class CartAdapter(
             }
         }
     }
+
+    fun getAllCartSelected() =
+        list.filter { listCartSelected.contains(it.cartId) }
 }

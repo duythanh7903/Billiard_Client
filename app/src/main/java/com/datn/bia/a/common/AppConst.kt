@@ -5,6 +5,9 @@ object AppConst {
     internal const val KEY_VOUCHER = "voucher"
     internal const val KEY_FROM_PROFILE = "profile"
     internal const val KEY_ORDER_TYPE = "order_type"
+    internal const val KEY_PAYMENT_METHOD = "payment_method_type"
+    internal const val KEY_LIST_CART = "KEY_LIST_CART"
+    internal const val KEY_TOTAL_PRICE = "KEY_TOTAL_PRICE"
 
     internal const val STATUS_ORDER_TO_PAY = "Xác nhận"
     internal const val STATUS_ORDER_TO_RECEIVE = "Đang giao hàng"

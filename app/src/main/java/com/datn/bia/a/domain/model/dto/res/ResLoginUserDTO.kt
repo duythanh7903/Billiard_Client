@@ -19,4 +19,7 @@ data class DataUserLogin(
     val active: String? = null,
     val createdAt: String? = null,
     val updatedAt: String? = null,
+    val phone: String? = null,
+    val address: String? = null,
+    val avatar: String? = null
 )

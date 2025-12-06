@@ -19,6 +19,7 @@ import com.datn.bia.a.common.toListCart
 import com.datn.bia.a.common.toListReqProdCheckOut
 import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.FragmentCartBinding
+import com.datn.bia.a.domain.model.domain.Cart
 import com.datn.bia.a.domain.model.dto.req.ReqProdCheckOut
 import com.datn.bia.a.domain.model.dto.res.ResProductDTO
 import com.datn.bia.a.domain.model.dto.res.ResVoucherDTO
@@ -43,6 +44,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
     private var resProdDto: ResProductDTO? = null
     private var methodDialog: MethodDialog? = null
     private var loadingDialog: LoadingDialog? = null
+    private var gson: Gson? = null
 
     private var totalPriceCache = 0
     private var listProduct = mutableListOf<ReqProdCheckOut>()
@@ -53,6 +55,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
     override fun initViews() {
         super.initViews()
 
+        gson = Gson()
         binding.rcvCart.apply {
             cartAdapter = CartAdapter(
                 contextParams = requireContext(),
@@ -80,18 +83,21 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
                 )*/
 
                 when (method) {
-                    MethodPayment.CASH_ON_DELIVERY -> TODO()
-                    MethodPayment.GOOGLE_PAY -> TODO()
-                    MethodPayment.ZALO_PAY -> {
-                        startActivity(
-                            Intent(
-                                requireContext(),
-                                ConfirmOrderActivity::class.java
-                            )
-                        )
+                    MethodPayment.CASH_ON_DELIVERY -> {
+                        moveToConfirmActivity(MethodPayment.CASH_ON_DELIVERY.name)
                     }
 
-                    MethodPayment.VN_PAY -> TODO()
+                    MethodPayment.GOOGLE_PAY -> {
+                        moveToConfirmActivity(MethodPayment.GOOGLE_PAY.name)
+                    }
+
+                    MethodPayment.ZALO_PAY -> {
+                        moveToConfirmActivity(MethodPayment.ZALO_PAY.name)
+                    }
+
+                    MethodPayment.VN_PAY -> {
+                        moveToConfirmActivity(MethodPayment.VN_PAY.name)
+                    }
                 }
             }
         )
@@ -288,10 +294,12 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
         methodDialog = null
         loadingDialog?.cancel()
         loadingDialog = null
+        gson = null
 
         super.onDestroyView()
     }
 
+    @Deprecated("Deprecated in Java")
     @SuppressLint("SetTextI18n")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -341,4 +349,20 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
             return
         }
     }
+
+    private fun moveToConfirmActivity(
+        type: String
+    ) = startActivity(
+        Intent(
+            requireContext(),
+            ConfirmOrderActivity::class.java
+        ).apply {
+            putExtra(AppConst.KEY_PAYMENT_METHOD, type)
+            putExtra(
+                AppConst.KEY_LIST_CART,
+                gson?.toJson(cartAdapter?.getAllCartSelected() ?: emptyList<Cart>())
+            )
+            putExtra(AppConst.KEY_TOTAL_PRICE, totalPriceCache)
+        }
+    )
 }

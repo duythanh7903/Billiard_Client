@@ -1,5 +1,6 @@
 package com.datn.bia.a.present.activity.order.confirm
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Handler
@@ -7,12 +8,21 @@ import android.os.Looper
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.util.Log
-import android.widget.Toast
+import androidx.activity.viewModels
 import com.datn.bia.a.R
+import com.datn.bia.a.common.AppConst
+import com.datn.bia.a.common.MethodPayment
 import com.datn.bia.a.common.base.BaseActivity
 import com.datn.bia.a.common.base.ext.click
+import com.datn.bia.a.common.base.ext.formatVND
 import com.datn.bia.a.common.payment.Api.CreateOrder
+import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.ActivityConfirmOrderBinding
+import com.datn.bia.a.domain.model.domain.Cart
+import com.datn.bia.a.domain.model.dto.res.ResLoginUserDTO
+import com.datn.bia.a.present.dialog.MessageDialog
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
 import vn.zalopay.sdk.Environment
 import vn.zalopay.sdk.ZaloPayError
@@ -22,16 +32,68 @@ import vn.zalopay.sdk.listeners.PayOrderListener
 
 @AndroidEntryPoint
 class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
+
+    private var gson: Gson? = null
+    private var cartConfirmAdapter: CartConfirmAdapter? = null
+    private var messageDialog: MessageDialog? = null
+
+    private var paymentMethod = MethodPayment.CASH_ON_DELIVERY.name
+
+    private val viewModel: ConfirmViewModel by viewModels()
+
     override fun getLayoutActivity(): Int = R.layout.activity_confirm_order
 
     override fun initViews() {
         super.initViews()
 
         initZaloPay()
+        gson = Gson()
+        paymentMethod = intent.getStringExtra(AppConst.KEY_PAYMENT_METHOD) ?: paymentMethod
+        cartConfirmAdapter = CartConfirmAdapter(
+            contextParams = this@ConfirmOrderActivity,
+        ).apply {
+            val listCart = gson?.fromJson<List<Cart>>(intent.getStringExtra(AppConst.KEY_LIST_CART), object : TypeToken<List<Cart>>() {}.type) ?: emptyList()
+            submitData(listCart)
+        }
+        binding.rcvOrder.adapter = cartConfirmAdapter
+        messageDialog = MessageDialog(
+            contextParam = this,
+            onSend = { message ->
 
-        binding.btnClick.click {
+            }
+        )
+        setData()
+    }
+
+    override fun onClickViews() {
+        super.onClickViews()
+
+        binding.btnPay.click {
             paymentOrder()
         }
+
+        binding.icBack.click {
+            finish()
+        }
+
+        binding.btnShowMessage.click {
+            messageDialog?.show()
+        }
+    }
+
+    override fun onDestroy() {
+        gson = null
+        cartConfirmAdapter?.list?.clear()
+        cartConfirmAdapter = null
+        messageDialog?.dismiss()
+        messageDialog = null
+
+        super.onDestroy()
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        ZaloPaySDK.getInstance().onResult(intent)
     }
 
     private fun initZaloPay() {
@@ -52,7 +114,7 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
                 val token = data.getString("zptranstoken")
                 Log.d("duylt", "Token: $token")
                 ZaloPaySDK.getInstance().payOrder(
-                    this, token, "demozpdk://app", object: PayOrderListener {
+                    this, token, "demozpdk://app", object : PayOrderListener {
                         override fun onPaymentSucceeded(
                             p0: String?,
                             p1: String?,
@@ -142,8 +204,17 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
         }
     }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        ZaloPaySDK.getInstance().onResult(intent)
+    @SuppressLint("SetTextI18n")
+    private fun setData() {
+        gson?.fromJson(SharedPrefCommon.jsonAcc, ResLoginUserDTO::class.java)
+            ?.let { (user, token, message) ->
+                binding.tvUserName.text = user?.username
+                binding.tvPhoneNumber.text = "(${user?.phone ?: getString(R.string.unknown)})"
+                binding.tvAddress.text = user?.address ?: getString(R.string.unknown)
+
+                binding.tvPaymentMethod.text = paymentMethod
+            }
+
+        binding.tvTotal.text = intent.getIntExtra(AppConst.KEY_TOTAL_PRICE, 0).formatVND()
     }
 }

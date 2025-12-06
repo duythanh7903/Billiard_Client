@@ -1,5 +1,6 @@
 package com.datn.bia.a.present.activity.home
 
+import android.util.Log
 import androidx.viewpager2.widget.ViewPager2
 import com.datn.bia.a.R
 import com.datn.bia.a.common.base.BaseActivity
@@ -8,6 +9,8 @@ import com.datn.bia.a.common.base.ext.selectedTab
 import com.datn.bia.a.common.base.ext.unSelectedTab
 import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.ActivityMainBinding
+import com.datn.bia.a.domain.model.dto.res.ResLoginUserDTO
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -60,6 +63,14 @@ class MainActivity: BaseActivity<ActivityMainBinding>() {
 
         if (SharedPrefCommon.isFirstInstall) SharedPrefCommon.isFirstInstall = false
         initVpg()
+
+        Log.d("duylt", "${
+            Gson().fromJson(SharedPrefCommon.jsonAcc, ResLoginUserDTO::class.java)
+        }")
+
+        Log.d("duylt", "${
+            Gson().fromJson(SharedPrefCommon.jsonAcc, ResLoginUserDTO::class.java)?.user?.id
+        }")
     }
 
     override fun onClickViews() {

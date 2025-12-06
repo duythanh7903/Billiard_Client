@@ -1,18 +1,34 @@
 package com.datn.bia.a.present.activity.setting
 
-import android.util.Log
+import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.datn.bia.a.R
+import com.datn.bia.a.common.UiState
 import com.datn.bia.a.common.base.BaseActivity
 import com.datn.bia.a.common.base.ext.click
+import com.datn.bia.a.common.base.ext.showToastOnce
+import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.ActivitySettingBinding
 import com.datn.bia.a.domain.model.domain.SettingCat
+import com.datn.bia.a.domain.model.dto.res.ResLoginUserDTO
 import com.datn.bia.a.present.activity.setting.adapter.SettingCatAdapter
+import com.datn.bia.a.present.dialog.LoadingDialog
+import com.datn.bia.a.present.dialog.UpdateDialog
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SettingActivity: BaseActivity<ActivitySettingBinding>() {
+class SettingActivity : BaseActivity<ActivitySettingBinding>() {
 
     private var settingCatAdapter: SettingCatAdapter? = null
+    private var updatePhoneDialog: UpdateDialog? = null
+    private var loadingDialog: LoadingDialog? = null
+    private var updateAddressDialog: UpdateDialog? = null
+    private var cachePhoneNumber: String = ""
+    private var cacheAddress: String = ""
+
+    private val viewModel: SettingViewModel by viewModels()
 
     override fun getLayoutActivity(): Int = R.layout.activity_setting
 
@@ -20,6 +36,33 @@ class SettingActivity: BaseActivity<ActivitySettingBinding>() {
         super.initViews()
 
         initRcvSetting()
+        updatePhoneDialog = UpdateDialog(
+            this,
+            getString(R.string.update_phone),
+            onUpdate = { message ->
+                if (message.isEmpty()) {
+                    return@UpdateDialog
+                }
+
+                cachePhoneNumber = message
+                viewModel.updatePhone(message)
+            }, onClose = {
+
+            }
+        )
+        updateAddressDialog = UpdateDialog(
+            this,
+            getString(R.string.update_address),
+            onUpdate = { address ->
+                if (address.isEmpty()) {
+                    return@UpdateDialog
+                }
+
+                cacheAddress = address
+                viewModel.updateAddress(address)
+            }, onClose = {}
+        )
+        loadingDialog = LoadingDialog(this)
     }
 
     override fun onClickViews() {
@@ -32,11 +75,96 @@ class SettingActivity: BaseActivity<ActivitySettingBinding>() {
         }
     }
 
+    override fun observerData() {
+        super.observerData()
+
+        lifecycleScope.launch {
+            viewModel.stateUpdatePhone.collect { state ->
+                when (state) {
+                    is UiState.Error -> {
+                        loadingDialog?.cancel()
+                        viewModel.changeStateToIdle()
+                    }
+
+                    UiState.Idle -> {
+
+                    }
+
+                    UiState.Loading -> {
+                        loadingDialog?.show()
+                    }
+
+                    is UiState.Success<*> -> {
+                        Gson().fromJson(SharedPrefCommon.jsonAcc, ResLoginUserDTO::class.java)
+                            ?.let {
+                                val newUser = it.user?.copy(
+                                    phone = cachePhoneNumber
+                                )
+
+                                SharedPrefCommon.jsonAcc = Gson().toJson(newUser)
+                            }
+
+                        showToastOnce(getString(R.string.update_success))
+
+                        viewModel.changeStateToIdle()
+                    }
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.stateUpdateAddress.collect { state ->
+                when (state) {
+                    is UiState.Error -> {
+                        loadingDialog?.cancel()
+                        viewModel.changeStateAddressToIdle()
+                    }
+
+                    UiState.Idle -> {
+
+                    }
+
+                    UiState.Loading -> {
+                        loadingDialog?.show()
+                    }
+
+                    is UiState.Success<*> -> {
+                        Gson().fromJson(SharedPrefCommon.jsonAcc, ResLoginUserDTO::class.java)
+                            ?.let {
+                                val newUser = it.user?.copy(
+                                    address = cacheAddress
+                                )
+
+                                SharedPrefCommon.jsonAcc = Gson().toJson(newUser)
+                            }
+
+                        showToastOnce(getString(R.string.update_success))
+
+                        viewModel.changeStateAddressToIdle()
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        updatePhoneDialog?.dismiss()
+        updatePhoneDialog = null
+
+        super.onDestroy()
+    }
+
     private fun initRcvSetting() = binding.rcvSettingCat.apply {
         settingCatAdapter = SettingCatAdapter(
             contextParams = this@SettingActivity,
             onSettingItem = { index, setting ->
-                Log.d("duylt", "Index: $index, Setting: $setting")
+                when (index) {
+                    0 -> {
+
+                    }
+
+                    1 -> updatePhoneDialog?.show()
+                }
             }
         ).apply {
             submitData(SettingCat.getAllSettingsCat())

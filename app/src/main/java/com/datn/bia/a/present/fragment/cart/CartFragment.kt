@@ -21,12 +21,14 @@ import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.FragmentCartBinding
 import com.datn.bia.a.domain.model.domain.Cart
 import com.datn.bia.a.domain.model.dto.req.ReqProdCheckOut
+import com.datn.bia.a.domain.model.dto.res.ResLoginUserDTO
 import com.datn.bia.a.domain.model.dto.res.ResProductDTO
 import com.datn.bia.a.domain.model.dto.res.ResVoucherDTO
 import com.datn.bia.a.domain.model.entity.CartEntity
 import com.datn.bia.a.present.activity.auth.si.SignInActivity
 import com.datn.bia.a.present.activity.order.confirm.ConfirmOrderActivity
 import com.datn.bia.a.present.activity.order.history.OrderActivity
+import com.datn.bia.a.present.activity.setting.SettingActivity
 import com.datn.bia.a.present.activity.voucher.VouchersActivity
 import com.datn.bia.a.present.dialog.LoadingDialog
 import com.datn.bia.a.present.dialog.MethodDialog
@@ -329,6 +331,17 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
     }
 
     private fun onCheckOutEvent() {
+        if (gson?.fromJson(
+                SharedPrefCommon.jsonAcc,
+                ResLoginUserDTO::class.java
+            )?.user?.address == null || gson?.fromJson(
+                SharedPrefCommon.jsonAcc, ResLoginUserDTO::class.java
+            )?.user?.phone == null
+        ) {
+            startActivity(Intent(requireContext(), SettingActivity::class.java))
+            return
+        }
+
         if (viewModel.listIdCartSelected.value.isEmpty()) return
 
         methodDialog?.show()

@@ -91,20 +91,44 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         }
 
         binding.btnPendingConfirmation.click {
+            if (SharedPrefCommon.jsonAcc.isEmpty()) {
+                startActivity(Intent(requireContext(), SignInActivity::class.java))
+                requireActivity().finishAffinity()
+                return@click
+            }
+
             startActivity(Intent(requireContext(), OrderActivity::class.java))
         }
 
         binding.btnPendingPickup.click {
+            if (SharedPrefCommon.jsonAcc.isEmpty()) {
+                startActivity(Intent(requireContext(), SignInActivity::class.java))
+                requireActivity().finishAffinity()
+                return@click
+            }
+
             startActivity(Intent(requireContext(), OrderActivity::class.java))
         }
 
         binding.btnPendingShipping.click {
+            if (SharedPrefCommon.jsonAcc.isEmpty()) {
+                startActivity(Intent(requireContext(), SignInActivity::class.java))
+                requireActivity().finishAffinity()
+                return@click
+            }
+
             startActivity(Intent(requireContext(), OrderActivity::class.java).apply {
                 putExtra(AppConst.KEY_ORDER_TYPE, 1)
             })
         }
 
         binding.tvPurchaseHistory.click {
+            if (SharedPrefCommon.jsonAcc.isEmpty()) {
+                startActivity(Intent(requireContext(), SignInActivity::class.java))
+                requireActivity().finishAffinity()
+                return@click
+            }
+
             startActivity(Intent(requireContext(), OrderActivity::class.java).apply {
                 putExtra(AppConst.KEY_ORDER_TYPE, 2)
             })
@@ -129,18 +153,23 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                         binding.tvCountItemHistory.goneView()
                         viewModel.changeStateToIdle()
                     }
+
                     UiState.Idle -> {
 
                     }
+
                     UiState.Loading -> {
                         binding.tvCountItemHistory.goneView()
                     }
+
                     is UiState.Success -> {
                         val res = response.data.size
                         binding.tvCountItemHistory.apply {
-                            text = "$res ${getString(
-                                if (res > 1) R.string.orders else R.string.order
-                            )}"
+                            text = "$res ${
+                                getString(
+                                    if (res > 1) R.string.orders else R.string.order
+                                )
+                            }"
                             visibleView()
                         }
 

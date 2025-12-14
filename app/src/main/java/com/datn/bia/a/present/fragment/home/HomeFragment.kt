@@ -13,6 +13,7 @@ import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.FragmentHomeBinding
 import com.datn.bia.a.present.activity.auth.si.SignInActivity
 import com.datn.bia.a.present.activity.prod.ProductActivity
+import com.datn.bia.a.present.activity.search.SearchActivity
 import com.datn.bia.a.present.fragment.home.adapter.CatAdapter
 import com.datn.bia.a.present.fragment.home.adapter.ProductAdapter
 import com.google.gson.Gson
@@ -162,10 +163,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun onSearchEvent() {
-        if (SharedPrefCommon.jsonAcc.isEmpty()) {
-            startActivity(Intent(requireContext(), SignInActivity::class.java))
-            return
-        }
+        startActivity(Intent(requireContext(), SearchActivity::class.java))
     }
 
     private fun onNotificationEvent() {

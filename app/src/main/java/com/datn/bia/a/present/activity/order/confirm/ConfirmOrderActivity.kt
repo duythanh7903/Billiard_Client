@@ -109,6 +109,7 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
                 when (uiState) {
                     is UiState.Error -> {
                         showToastOnce(uiState.message)
+                        loadingDialog?.cancel()
                         viewModel.changeStateToIdle()
                     }
 
@@ -121,6 +122,7 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
                     }
 
                     is UiState.Success<*> -> {
+                        loadingDialog?.cancel()
                         startActivity(Intent(this@ConfirmOrderActivity, OrderActivity::class.java))
                         finish()
                     }

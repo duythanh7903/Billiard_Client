@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.datn.bia.a.R
 import com.datn.bia.a.common.AppConst
+import com.datn.bia.a.common.UiState
 import com.datn.bia.a.common.base.BaseActivity
 import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.common.base.ext.formatVND
@@ -17,6 +18,7 @@ import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.ActivityProductBinding
 import com.datn.bia.a.domain.model.dto.res.ResProductDataDTO
 import com.datn.bia.a.present.activity.auth.si.SignInActivity
+import com.datn.bia.a.present.activity.comment.reviews.ReviewsActivity
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -36,9 +38,12 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
         super.initViews()
 
         gson = Gson()
+        viewModel.getAllComment()
+        viewModel.getAllOrder()
         receiveData()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun observerData() {
         super.observerData()
 
@@ -46,6 +51,53 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
             viewModel.favoriteEntity.collect { favorite ->
                 binding.icFavorite.isActivated =
                     favorite != null
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.stateGetAllComment.collect { state ->
+                when (state) {
+                    is UiState.Error -> {
+                        binding.tvStars.text = 0.toString()
+                        viewModel.changeStateAllCommentToIdle()
+                    }
+                    UiState.Idle -> {}
+                    UiState.Loading -> binding.tvStars.text = 0.toString()
+                    is UiState.Success -> {
+                        val data = state.data.filter { it.productId?._id == idProdCur }
+                        val star = (data.sumOf { it.rating ?: 0 }.toFloat() / if (data.count() == 0) 1 else data.count())
+                        binding.tvStars.text = star.toString().take(3)
+
+                        viewModel.changeStateAllCommentToIdle()
+                    }
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.stateGetAllOrder.collect { state ->
+                when (state) {
+                    is UiState.Error -> {
+                        binding.tvBought.text = "${getString(R.string.sold)} 0"
+                        viewModel.changeStateAllOrderToIdle()
+                    }
+                    UiState.Idle -> {
+
+                    }
+                    UiState.Loading -> {
+                        binding.tvBought.text = "${getString(R.string.sold)} 0"
+                    }
+                    is UiState.Success -> {
+                        val data = state.data.data ?: emptyList()
+                        val count = data.count { item ->
+                            item?.products?.any { it?.productId?._id == idProdCur } == true
+                        }
+
+                        binding.tvBought.text = "${getString(R.string.sold)} $count"
+
+                        viewModel.changeStateAllOrderToIdle()
+                    }
+                }
             }
         }
     }
@@ -60,6 +112,12 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
         binding.btnBuyNow.click { onEventBuyNow() }
 
         binding.icFavorite.click { onFavoriteEvent() }
+
+        binding.btnSeeAllComment.click {
+            startActivity(Intent(this, ReviewsActivity::class.java).apply {
+                putExtra(AppConst.KEY_ID_PRODUCT, idProdCur)
+            })
+        }
     }
 
     override fun onDestroy() {

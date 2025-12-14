@@ -47,6 +47,7 @@
                     android:textSize="@dimen/_12ssp" />
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/icChat"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
@@ -89,7 +90,7 @@
                 android:layout_height="@dimen/_12sdp"
                 android:layout_marginStart="@dimen/_2sdp"
                 android:src="@drawable/ic_star"
-                app:tint="#FFEB3B" />
+                app:tint="#FF9900" />
 
         </LinearLayout>
 
@@ -104,8 +105,8 @@
             android:id="@+id/rcvComment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginVertical="@dimen/_8sdp"
             android:orientation="vertical"
+            tools:listitem="@layout/item_review"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewLine2" />

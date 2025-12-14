@@ -18,6 +18,9 @@
         android:theme="@style/Theme.Bia"
         android:usesCleartextTraffic="true">
 
+        <activity android:name=".present.activity.search.SearchActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".present.activity.order.confirm.ConfirmOrderActivity"
             android:exported="true"

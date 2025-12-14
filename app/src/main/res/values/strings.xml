@@ -109,4 +109,8 @@
     <string name="update_address">Update Address</string>
     <string name="update_phone">Update Phone Number</string>
     <string name="update_success">Update Success</string>
+    <string name="r_u_want_to_cancel_your_order">Are you want to cancel your order?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="sold">Sold:</string>
 </resources>

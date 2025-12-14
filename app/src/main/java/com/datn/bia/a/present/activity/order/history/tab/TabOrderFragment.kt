@@ -11,7 +11,9 @@ import com.datn.bia.a.databinding.FragmentTabOrderBinding
 import com.datn.bia.a.domain.model.dto.res.ResOrderDTO
 import com.datn.bia.a.present.activity.order.history.OrderViewModel
 import com.datn.bia.a.present.dialog.CommentDialog
+import com.datn.bia.a.present.dialog.ConfirmCancelOrderDialog
 import com.datn.bia.a.present.dialog.LoadingDialog
+import com.datn.bia.a.present.dialog.ReasonCancelDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -24,6 +26,8 @@ class TabOrderFragment : BaseFragment<FragmentTabOrderBinding>() {
     private var orderAdapter: OrderAdapter? = null
     private var loadingDialog: LoadingDialog? = null
     private var commentDialog: CommentDialog? = null
+    private var confirmCancelOrderDialog: ConfirmCancelOrderDialog? = null
+    private var reasonCancelDialog: ReasonCancelDialog? = null
 
     private var resOrder: ResOrderDTO? = null
 
@@ -53,6 +57,31 @@ class TabOrderFragment : BaseFragment<FragmentTabOrderBinding>() {
             }
         )
 
+        reasonCancelDialog = ReasonCancelDialog(
+            contextParams = requireContext(),
+            onMessage = { message ->
+                if (message.isEmpty()) {
+                    requireContext().showToastOnce(getString(R.string.msg_input_null))
+                    return@ReasonCancelDialog
+                }
+
+                viewModel.cancelOrderUseCase(
+                    resOrder?._id ?: "",
+                    AppConst.STATUS_ORDER_TO_CANCELLED,
+                    message
+                )
+            }
+        )
+
+        confirmCancelOrderDialog = ConfirmCancelOrderDialog(
+            requireContext(),
+            {
+
+            }, {
+                reasonCancelDialog?.show()
+            }
+        )
+
         binding.rcvOrder.apply {
             orderAdapter = OrderAdapter(
                 contextParams = requireContext(),
@@ -65,7 +94,8 @@ class TabOrderFragment : BaseFragment<FragmentTabOrderBinding>() {
                 onClickItem = { index, res ->
 
                 }, onCancel = { index, res ->
-                    viewModel.updateOrderUseCase(res._id ?: "", AppConst.STATUS_ORDER_TO_CANCELLED)
+                    resOrder = res
+                    confirmCancelOrderDialog?.show()
                 }, onReview = { index, res ->
                     resOrder = res
                     commentDialog?.showDialog(res._id ?: "")
@@ -172,6 +202,10 @@ class TabOrderFragment : BaseFragment<FragmentTabOrderBinding>() {
         loadingDialog = null
         commentDialog?.cancel()
         commentDialog = null
+        confirmCancelOrderDialog?.cancel()
+        confirmCancelOrderDialog = null
+        reasonCancelDialog?.cancel()
+        reasonCancelDialog = null
 
         super.onDestroyView()
     }

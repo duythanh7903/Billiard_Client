@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.datn.bia.a.common.UiState
 import com.datn.bia.a.common.base.BaseViewModel
 import com.datn.bia.a.data.storage.SharedPrefCommon
+import com.datn.bia.a.domain.model.dto.req.ReqCancelOrder
 import com.datn.bia.a.domain.model.dto.req.ReqCommentDTO
 import com.datn.bia.a.domain.model.dto.req.ReqUpdateOrder
 import com.datn.bia.a.domain.model.dto.res.ResLoginUserDTO
@@ -13,6 +14,7 @@ import com.datn.bia.a.domain.model.entity.CommentEntity
 import com.datn.bia.a.domain.usecase.comment.CacheCommentUseCase
 import com.datn.bia.a.domain.usecase.comment.CreateCommentUseCase
 import com.datn.bia.a.domain.usecase.comment.GetAllCommentByIdUseCase
+import com.datn.bia.a.domain.usecase.order.CancelOrderUseCase
 import com.datn.bia.a.domain.usecase.order.GetAllOrderByIdUseCase
 import com.datn.bia.a.domain.usecase.order.UpdateOrderUseCase
 import com.google.gson.Gson
@@ -30,7 +32,8 @@ class OrderViewModel @Inject constructor(
     getAllCommentByIdUserUseCase: GetAllCommentByIdUseCase,
     private val updateOrderUseCase: UpdateOrderUseCase,
     private val cacheCommentUseCase: CacheCommentUseCase,
-    private val createCommentUseCase: CreateCommentUseCase
+    private val createCommentUseCase: CreateCommentUseCase,
+    private val cancelOrderUseCase: CancelOrderUseCase,
 ) : BaseViewModel() {
     private val _stateComment = MutableStateFlow<UiState<Any>>(UiState.Idle)
     val stateComment = _stateComment.asStateFlow()
@@ -80,6 +83,21 @@ class OrderViewModel @Inject constructor(
         }
     }
 
+    fun cancelOrderUseCase(
+        orderId: String,
+        status: String,
+        reason: String
+    ) = launchIO {
+        cancelOrderUseCase.invoke(
+            orderId,
+            ReqCancelOrder(
+                reason, status
+            )
+        ).collect { uiState ->
+            _uiStateUpdate.value = uiState
+        }
+    }
+
     fun changeStateUpdateToIdle() {
         _uiStateUpdate.value = UiState.Idle
     }
@@ -102,16 +120,22 @@ class OrderViewModel @Inject constructor(
                 rating = stars
             )
         ).collect { uiState ->
-            _stateComment.emit(uiState)
+            _stateComment.value = uiState
+            when (uiState) {
+                is UiState.Error -> {}
+                UiState.Idle -> {}
+                UiState.Loading -> {}
+                is UiState.Success<*> -> {
+                    cacheCommentUseCase.invoke(
+                        CommentEntity(
+                            id = 0L,
+                            orderId = orderId,
+                            userId = idUserCurrent
+                        )
+                    ).collect {
 
-            cacheCommentUseCase.invoke(
-                CommentEntity(
-                    id = 0L,
-                    orderId = orderId,
-                    userId = idUserCurrent
-                )
-            ).collect {
-
+                    }
+                }
             }
         }
     }

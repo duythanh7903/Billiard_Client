@@ -331,6 +331,11 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
     }
 
     private fun onCheckOutEvent() {
+        if (SharedPrefCommon.jsonAcc.isEmpty()) {
+            startActivity(Intent(requireContext(), SignInActivity::class.java))
+            return
+        }
+
         if (gson?.fromJson(
                 SharedPrefCommon.jsonAcc,
                 ResLoginUserDTO::class.java

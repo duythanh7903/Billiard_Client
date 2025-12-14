@@ -1,8 +1,10 @@
 package com.datn.bia.a.data.network.service
 
 import com.datn.bia.a.data.network.factory.ResultWrapper
+import com.datn.bia.a.domain.model.dto.req.ReqCancelOrder
 import com.datn.bia.a.domain.model.dto.req.ReqCheckOutDTO
 import com.datn.bia.a.domain.model.dto.req.ReqUpdateOrder
+import com.datn.bia.a.domain.model.dto.res.ResAllOrder
 import com.datn.bia.a.domain.model.dto.res.ResCheckOutDTO
 import com.datn.bia.a.domain.model.dto.res.ResOrderDTO
 import com.datn.bia.a.domain.model.dto.res.ResUpdateOrder
@@ -28,4 +30,13 @@ interface OrderService {
         @Path("orderId") orderId: String,
         @Body reqUpdateOrder: ReqUpdateOrder
     ): ResultWrapper<ResUpdateOrder>
+
+    @PATCH("order/{orderId}")
+    suspend fun cancelOrder(
+        @Path("orderId") orderId: String,
+        @Body reqUpdateOrder: ReqCancelOrder
+    ): ResultWrapper<ResUpdateOrder>
+
+    @GET("/orders")
+    suspend fun getAllOrder(): ResultWrapper<ResAllOrder>
 }

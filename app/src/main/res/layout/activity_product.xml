@@ -182,6 +182,7 @@
                     app:tint="#959595" />
 
                 <TextView
+                    android:id="@+id/tvBought"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_2sdp"
@@ -243,6 +244,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvProductDes" />
 
                 <View
+                    android:id="@+id/backgroundSeeAllComment"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/_minus4sdp"
@@ -306,6 +308,15 @@
                     app:layout_constraintBottom_toBottomOf="@id/tvStars"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tvStars" />
+
+                <View
+                    android:id="@+id/btnSeeAllComment"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@id/backgroundSeeAllComment"
+                    app:layout_constraintEnd_toEndOf="@id/backgroundSeeAllComment"
+                    app:layout_constraintStart_toStartOf="@id/backgroundSeeAllComment"
+                    app:layout_constraintTop_toTopOf="@id/backgroundSeeAllComment" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

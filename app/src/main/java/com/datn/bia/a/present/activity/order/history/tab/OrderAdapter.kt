@@ -106,6 +106,7 @@ class OrderAdapter(
 
             binding.btnReview.click {
                 onReview.invoke(layoutPosition, obj)
+                it?.goneView()
             }
 
             binding.btnConfirm.click {

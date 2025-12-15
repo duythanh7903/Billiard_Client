@@ -35,6 +35,8 @@ class ProdAdapter(
         if (binding is ItemProdOrderBinding) {
             val priceAfterDis = item.priceAfterDis ?: 0
             val priceBeforeDis = item.priceBeforeDis ?: 0
+            
+            binding.tvProductName.text = item.name ?: ""
 
             Glide.with(contextParams).load(item.productId?.imageUrl).into(binding.imgProduct)
             binding.tvCountProduct.text = "x${item.quantity}"

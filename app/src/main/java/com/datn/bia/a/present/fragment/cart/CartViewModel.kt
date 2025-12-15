@@ -1,23 +1,16 @@
 package com.datn.bia.a.present.fragment.cart
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.datn.bia.a.R
 import com.datn.bia.a.common.UiState
 import com.datn.bia.a.common.base.BaseViewModel
-import com.datn.bia.a.data.storage.SharedPrefCommon
-import com.datn.bia.a.domain.model.dto.req.ReqCheckOutDTO
-import com.datn.bia.a.domain.model.dto.req.ReqProdCheckOut
 import com.datn.bia.a.domain.model.dto.res.ResCheckOutDTO
-import com.datn.bia.a.domain.model.dto.res.ResLoginUserDTO
 import com.datn.bia.a.domain.model.dto.res.ResVoucherDTO
 import com.datn.bia.a.domain.usecase.cart.GetAllCartsUseCase
 import com.datn.bia.a.domain.usecase.cart.IncreaseCartUseCase
 import com.datn.bia.a.domain.usecase.cart.ReduceCartUseCase
 import com.datn.bia.a.domain.usecase.order.CheckOutOrderUseCase
 import com.datn.bia.a.domain.usecase.product.FetchAllProductsUseCase
-import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,7 +23,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CartViewModel @Inject constructor(
-    @ApplicationContext private val  context: Context,
+    @ApplicationContext private val context: Context,
     fetchAllProductsUseCase: FetchAllProductsUseCase,
     getAllCartsUseCase: GetAllCartsUseCase,
     private val increaseCartUseCase: IncreaseCartUseCase,
@@ -107,34 +100,6 @@ class CartViewModel @Inject constructor(
 
     fun changeVoucher(voucher: ResVoucherDTO) {
         _voucherSelected.value = voucher
-    }
-
-    fun checkOutOrder(
-        totalPrice: Int,
-        voucherId: String,
-        listProduct: List<ReqProdCheckOut>
-    ) = viewModelScope.launch {
-        Gson().fromJson(SharedPrefCommon.jsonAcc, ResLoginUserDTO::class.java)?.let {
-            val req = ReqCheckOutDTO(
-                customerName = it.user?.username ?: "",
-                totalPrice = totalPrice,
-                phone = "0123456789",
-                address = "2PQW+6JJ Tòa nhà FPT Polytechnic., Cổng số 2, 13 Trịnh Văn Bô, Xuân Phương, Nam Từ Liêm, Hà Nội 100000, Việt Nam",
-                products = listProduct,
-                payment = "COD",
-                userId = it.user?.id ?: "",
-                voucherId = voucherId,
-                note = "Giao hàng vào lúc 11h sáng"
-            )
-
-            Log.d("debug", "req: $req")
-
-            checkOutOrderUseCase.invoke(req).collect { uiState ->
-                _stateCheckOut.emit(uiState)
-            }
-        } ?: run {
-            _stateCheckOut.emit(UiState.Error(context.getString(R.string.msg_wrong)))
-        }
     }
 
     fun resetStateCheckOutToIdle() {

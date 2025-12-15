@@ -159,7 +159,7 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
         if (paymentMethod == MethodPayment.CASH_ON_DELIVERY.name) {
             viewModel.checkOutOrder(
                 totalPrice = intent.getIntExtra(AppConst.KEY_TOTAL_PRICE, 0),
-                voucherId = intent.getStringExtra(AppConst.KEY_ID_VOUCHER) ?: "",
+                voucherId = intent.getStringExtra(AppConst.KEY_ID_VOUCHER),
                 listProduct = gson?.fromJson<List<ReqProdCheckOut>>(
                     intent.getStringExtra(AppConst.KEY_LIST_PRODUCT),
                     object : TypeToken<List<ReqProdCheckOut>>() {}.type

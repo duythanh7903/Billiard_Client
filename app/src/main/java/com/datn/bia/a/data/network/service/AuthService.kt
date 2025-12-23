@@ -1,11 +1,15 @@
 package com.datn.bia.a.data.network.service
 
 import com.datn.bia.a.data.network.factory.ResultWrapper
+import com.datn.bia.a.domain.model.dto.req.ReqForgotPass
 import com.datn.bia.a.domain.model.dto.req.ReqLoginUserDTO
+import com.datn.bia.a.domain.model.dto.req.ReqResetPass
 import com.datn.bia.a.domain.model.dto.req.ReqSignUpUserDTO
 import com.datn.bia.a.domain.model.dto.req.ReqUpdateAddressDTO
 import com.datn.bia.a.domain.model.dto.req.ReqUpdatePhoneDTO
+import com.datn.bia.a.domain.model.dto.res.ResForgotPass
 import com.datn.bia.a.domain.model.dto.res.ResLoginUserDTO
+import com.datn.bia.a.domain.model.dto.res.ResResetPass
 import com.datn.bia.a.domain.model.dto.res.ResSignUpUserDTO
 import com.datn.bia.a.domain.model.dto.res.ResUpdatePhoneDTO
 import retrofit2.http.Body
@@ -36,4 +40,15 @@ interface AuthService {
         @Path("id") orderId: String,
         @Body req: ReqUpdateAddressDTO
     ): ResultWrapper<ResUpdatePhoneDTO>
+
+    @POST("forgot-password")
+    suspend fun forgotPassword(
+        @Body req: ReqForgotPass
+    ): ResultWrapper<ResForgotPass>
+
+    @POST("reset-password/{token}")
+    suspend fun resetPassword(
+        @Body req: ReqResetPass,
+        @Path("token") token: String
+    ): ResultWrapper<ResResetPass>
 }

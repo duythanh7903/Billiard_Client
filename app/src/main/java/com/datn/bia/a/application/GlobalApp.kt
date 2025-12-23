@@ -6,6 +6,10 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class GlobalApp: Application() {
+    companion object {
+        var jsonSearchResult: String = ""
+    }
+
     override fun onCreate() {
         super.onCreate()
 

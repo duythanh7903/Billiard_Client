@@ -7,11 +7,11 @@ import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.ActivityLanguageBinding
 import com.datn.bia.a.domain.model.domain.Language
-import com.datn.bia.a.present.activity.fo.onboarding.OnboardingActivity
+import com.datn.bia.a.present.activity.home.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LanguageActivity: BaseActivity<ActivityLanguageBinding>() {
+class LanguageActivity : BaseActivity<ActivityLanguageBinding>() {
     private lateinit var languageAdapter: LanguageAdapter
 
     override fun getLayoutActivity(): Int = R.layout.activity_language
@@ -29,7 +29,7 @@ class LanguageActivity: BaseActivity<ActivityLanguageBinding>() {
             val isoLanguageCurrent = languageAdapter.getIsoLanguageCurrent()
             SharedPrefCommon.languageCode = isoLanguageCurrent
 
-            startActivity(Intent(this, OnboardingActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
     }

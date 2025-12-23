@@ -18,7 +18,16 @@
         android:theme="@style/Theme.Bia"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".present.activity.search.SearchActivity"
+        <activity
+            android:name=".present.activity.auth.pass.ResetPassActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".present.activity.auth.pass.ForgotPassActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".present.activity.search.SearchActivity"
             android:screenOrientation="portrait" />
 
         <activity
@@ -29,10 +38,13 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="demozpdk"
-                    android:host="app" />
+
+                <data
+                    android:host="app"
+                    android:scheme="demozpdk" />
             </intent-filter>
 
         </activity>
@@ -79,10 +91,6 @@
 
         <activity
             android:name=".present.activity.fo.language.LanguageActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".present.activity.fo.onboarding.OnboardingActivity"
             android:screenOrientation="portrait" />
 
         <activity

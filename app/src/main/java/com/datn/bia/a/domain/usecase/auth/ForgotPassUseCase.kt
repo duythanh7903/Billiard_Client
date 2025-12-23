@@ -1,26 +1,25 @@
-package com.datn.bia.a.domain.usecase.product
+package com.datn.bia.a.domain.usecase.auth
 
 import android.content.Context
 import com.datn.bia.a.R
 import com.datn.bia.a.common.UiState
 import com.datn.bia.a.data.network.factory.ResultWrapper
-import com.datn.bia.a.domain.repository.ProductRepository
+import com.datn.bia.a.domain.model.dto.req.ReqForgotPass
+import com.datn.bia.a.domain.repository.AuthRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class FetchAllProductsUseCase @Inject constructor(
-    @ApplicationContext
-    private val context: Context,
-    private val productRepository: ProductRepository
+class ForgotPassUseCase @Inject constructor(
+    @ApplicationContext private val context: Context,
+    private val authRepository: AuthRepository
 ) {
-    operator fun invoke() = flow {
-        emit(UiState.Loading) // show loading
+    operator fun invoke(req: ReqForgotPass) = flow {
+        emit(UiState.Loading)
 
         try {
-            // nhan ket qua tu api trar ve
-            when (val response = productRepository.fetchAllProducts()) {
+            when (val response = authRepository.forgotPassword(req)) {
                 is ResultWrapper.Success -> emit(UiState.Success(response.value))
 
                 is ResultWrapper.GenericError -> emit(UiState.Error(response.message?.ifEmpty {

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import com.datn.bia.a.R
+import com.datn.bia.a.application.GlobalApp
 import com.datn.bia.a.common.base.BaseActivity
 import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.ActivitySplashBinding
@@ -19,6 +20,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     override fun initViews() {
         super.initViews()
+
+        GlobalApp.jsonSearchResult = ""
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (SharedPrefCommon.isFirstInstall) {

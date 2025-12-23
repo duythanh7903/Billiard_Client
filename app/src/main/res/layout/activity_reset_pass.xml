@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1A959595">
+
+        <ImageView
+            android:id="@+id/icBack"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_margin="@dimen/_12sdp"
+            android:clickable="true"
+            android:contentDescription="@null"
+            android:focusable="true"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/ic_left_arrow"
+            android:textSize="@dimen/_12ssp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvResetPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:fontFamily="@font/inter_semibold"
+            android:text="@string/reset_password"
+            android:textColor="#232323"
+            android:textSize="@dimen/_22ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icBack" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="@font/inter_regular"
+            android:text="@string/verification_code_already_sent_to_email"
+            android:textColor="#232323"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvResetPassword" />
+
+        <EditText
+            android:id="@+id/edtCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_22sdp"
+            android:background="@drawable/bg_white_border_4sdp_stroke_primary"
+            android:fontFamily="@font/inter_regular"
+            android:hint="@string/code"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="@dimen/_14sdp"
+            android:textColor="#232323"
+            android:textColorHint="#A0A0A2"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+
+        <EditText
+            android:id="@+id/edtNewPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:background="@drawable/bg_white_border_4sdp_stroke_primary"
+            android:fontFamily="@font/inter_regular"
+            android:hint="@string/new_password"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingVertical="@dimen/_14sdp"
+            android:paddingStart="@dimen/_14sdp"
+            android:paddingEnd="@dimen/_44sdp"
+            android:textColor="#232323"
+            android:textColorHint="#A0A0A2"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintTop_toBottomOf="@id/edtCode"
+            tools:ignore="TextFields" />
+
+        <EditText
+            android:id="@+id/edtConfirmNewPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:background="@drawable/bg_white_border_4sdp_stroke_primary"
+            android:fontFamily="@font/inter_regular"
+            android:hint="@string/confirm_new_password"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingVertical="@dimen/_14sdp"
+            android:paddingStart="@dimen/_14sdp"
+            android:paddingEnd="@dimen/_44sdp"
+            android:textColor="#232323"
+            android:textColorHint="#A0A0A2"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintTop_toBottomOf="@id/edtNewPassword"
+            tools:ignore="TextFields" />
+
+        <TextView
+            android:id="@+id/btnResetPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_24sdp"
+            android:background="@drawable/bg_gradient_primary_border_6sdp"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_10sdp"
+            android:text="@string/reset_password"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

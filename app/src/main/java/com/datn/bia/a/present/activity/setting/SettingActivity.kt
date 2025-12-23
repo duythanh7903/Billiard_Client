@@ -1,16 +1,20 @@
 package com.datn.bia.a.present.activity.setting
 
+import android.content.Intent
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.datn.bia.a.R
 import com.datn.bia.a.common.UiState
 import com.datn.bia.a.common.base.BaseActivity
 import com.datn.bia.a.common.base.ext.click
+import com.datn.bia.a.common.base.ext.goneView
 import com.datn.bia.a.common.base.ext.showToastOnce
+import com.datn.bia.a.common.base.ext.visibleView
 import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.ActivitySettingBinding
 import com.datn.bia.a.domain.model.domain.SettingCat
 import com.datn.bia.a.domain.model.dto.res.ResLoginUserDTO
+import com.datn.bia.a.present.activity.home.MainActivity
 import com.datn.bia.a.present.activity.setting.adapter.SettingCatAdapter
 import com.datn.bia.a.present.dialog.LoadingDialog
 import com.datn.bia.a.present.dialog.UpdateDialog
@@ -34,6 +38,12 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
 
     override fun initViews() {
         super.initViews()
+
+        if (SharedPrefCommon.jsonAcc.isEmpty()) {
+            binding.btnLogOut.goneView()
+        } else {
+            binding.btnLogOut.visibleView()
+        }
 
         initRcvSetting()
         updatePhoneDialog = UpdateDialog(
@@ -72,6 +82,12 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
 
         binding.icChat.click {
 
+        }
+
+        binding.btnLogOut.click {
+            SharedPrefCommon.jsonAcc = ""
+            startActivity(Intent(this, MainActivity::class.java))
+            finishAffinity()
         }
     }
 

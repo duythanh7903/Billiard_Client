@@ -13,6 +13,7 @@ import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.common.base.ext.showToastOnce
 import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.ActivitySignInBinding
+import com.datn.bia.a.present.activity.auth.pass.ForgotPassActivity
 import com.datn.bia.a.present.activity.auth.su.SignUpActivity
 import com.datn.bia.a.present.activity.home.MainActivity
 import com.datn.bia.a.present.dialog.LoadingDialog
@@ -77,6 +78,10 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>() {
                 count: Int
             ) = viewModel.changePasswordValue(s?.toString()?.trim() ?: "")
         })
+
+        binding.tvForgotPassword.click {
+            startActivity(Intent(this, ForgotPassActivity::class.java))
+        }
     }
 
     override fun observerData() {

@@ -4,13 +4,17 @@ import android.content.Intent
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.datn.bia.a.R
+import com.datn.bia.a.application.GlobalApp
 import com.datn.bia.a.common.AppConst
 import com.datn.bia.a.common.UiState
 import com.datn.bia.a.common.base.BaseFragment
 import com.datn.bia.a.common.base.ext.click
+import com.datn.bia.a.common.base.ext.goneView
 import com.datn.bia.a.common.base.ext.showToastOnce
+import com.datn.bia.a.common.base.ext.visibleView
 import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.FragmentHomeBinding
+import com.datn.bia.a.domain.model.dto.res.ResProductDataDTO
 import com.datn.bia.a.present.activity.auth.si.SignInActivity
 import com.datn.bia.a.present.activity.prod.ProductActivity
 import com.datn.bia.a.present.activity.search.SearchActivity
@@ -101,6 +105,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             viewModel.state.collect { homeState ->
                 when (val uiState = homeState.productState) {
                     is UiState.Error -> {
+                        binding.loadingBar.goneView()
+                        binding.rcvProduct.goneView()
+
                         requireContext().showToastOnce(uiState.message)
                         viewModel.changeProductStateToIdle()
                     }
@@ -110,10 +117,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     }
 
                     UiState.Loading -> {
-
+                        binding.loadingBar.visibleView()
+                        binding.rcvProduct.goneView()
                     }
 
                     is UiState.Success -> {
+                        binding.loadingBar.goneView()
+                        binding.rcvProduct.visibleView()
+
                         val data = uiState.data
                         productAdapter?.submitData(data.data ?: emptyList())
                         viewModel.cacheAllPro(data.data ?: emptyList())
@@ -153,6 +164,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         gson = null
 
         super.onDestroy()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if(GlobalApp.jsonSearchResult.isNotEmpty()) {
+            startActivity(
+                Intent(
+                    requireContext(),
+                    ProductActivity::class.java
+                ).apply {
+                    putExtra(AppConst.KEY_PRODUCT_DETAIL, GlobalApp.jsonSearchResult)
+                })
+            GlobalApp.jsonSearchResult = ""
+        }
     }
 
     private fun onChatEvent() {

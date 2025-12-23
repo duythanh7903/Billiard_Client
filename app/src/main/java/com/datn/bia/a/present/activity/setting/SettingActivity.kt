@@ -1,6 +1,7 @@
 package com.datn.bia.a.present.activity.setting
 
 import android.content.Intent
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.datn.bia.a.R
@@ -44,6 +45,8 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
         } else {
             binding.btnLogOut.visibleView()
         }
+
+        Log.d("duylt", "Json: ${SharedPrefCommon.jsonAcc}")
 
         initRcvSetting()
         updatePhoneDialog = UpdateDialog(

@@ -8,6 +8,7 @@ import com.datn.bia.a.common.AppConst
 import com.datn.bia.a.common.UiState
 import com.datn.bia.a.common.base.BaseActivity
 import com.datn.bia.a.common.base.ext.click
+import com.datn.bia.a.common.base.ext.getRemainingTime
 import com.datn.bia.a.common.base.ext.goneView
 import com.datn.bia.a.common.base.ext.showToastOnce
 import com.datn.bia.a.common.base.ext.visibleView
@@ -92,7 +93,7 @@ class VouchersActivity : BaseActivity<ActivityVouchersBinding>() {
                         binding.rcvVoucher.visibleView()
 
                         val listVouchers = response.data
-                        voucherAdapter?.submitData(listVouchers)
+                        voucherAdapter?.submitData(listVouchers.filter { it.endDate?.getRemainingTime()?.lowercase() != "Đã hết hạn".lowercase() })
 
                         viewModel.changeStateToIdle()
                     }

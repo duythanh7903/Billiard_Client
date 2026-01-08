@@ -6,6 +6,8 @@ import com.datn.bia.a.common.base.BaseViewModel
 import com.datn.bia.a.domain.model.dto.res.ResCatDTO
 import com.datn.bia.a.domain.model.dto.res.ResProductDataDTO
 import com.datn.bia.a.domain.usecase.cat.FetchAllCatUseCase
+import com.datn.bia.a.domain.usecase.cat_cache.GetListCatCacheUseCase
+import com.datn.bia.a.domain.usecase.prod_cache.GetListProductCacheUseCase
 import com.datn.bia.a.domain.usecase.product.FetchAllProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,8 +20,15 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     fetchAllProductsUseCase: FetchAllProductsUseCase,
-    fetchAllCatUseCase: FetchAllCatUseCase
+    fetchAllCatUseCase: FetchAllCatUseCase,
+
+    getAllProductCacheUseCase: GetListProductCacheUseCase,
+    getAllCategoryCacheUseCase: GetListCatCacheUseCase
 ) : BaseViewModel() {
+
+    val stateProduct = getAllProductCacheUseCase.invoke()
+    val stateCate = getAllCategoryCacheUseCase.invoke()
+
     private val _allCat = MutableStateFlow(emptyList<ResCatDTO>())
     val allCat = _allCat.asStateFlow()
     private val _allPro = MutableStateFlow(emptyList<ResProductDataDTO>())

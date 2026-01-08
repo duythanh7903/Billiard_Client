@@ -16,6 +16,7 @@ import com.datn.bia.a.common.base.ext.goneView
 import com.datn.bia.a.common.base.ext.showToastOnce
 import com.datn.bia.a.common.base.ext.visibleView
 import com.datn.bia.a.common.toListCart
+import com.datn.bia.a.common.toListProductDataDTO
 import com.datn.bia.a.common.toListReqProdCheckOut
 import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.FragmentCartBinding
@@ -78,12 +79,6 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
         methodDialog = MethodDialog(
             context = requireContext(),
             onConfirmMethodPayment = { method ->
-                /*viewModel.checkOutOrder(
-                    totalPrice = totalPriceCache,
-                    voucherId = viewModel.voucherSelected.value?.id ?: "",
-                    listProduct = listProduct
-                )*/
-
                 when (method) {
                     MethodPayment.CASH_ON_DELIVERY -> {
                         moveToConfirmActivity(MethodPayment.CASH_ON_DELIVERY.name)
@@ -113,35 +108,13 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
 
         lifecycleScope.launch {
             viewModel.state.collect { cartState ->
-                when (val uiState = cartState.uiStateProduct) {
-                    is UiState.Error -> {
-                        requireContext().showToastOnce(uiState.message)
+                binding.loadingView.goneView()
+                binding.rcvCart.visibleView()
 
-                        binding.loadingView.goneView()
-                        binding.rcvCart.goneView()
-
-                        viewModel.changeStateToIdle()
-                    }
-
-                    UiState.Idle -> {
-
-                    }
-
-                    UiState.Loading -> {
-                        binding.loadingView.visibleView()
-                        binding.rcvCart.goneView()
-                    }
-
-                    is UiState.Success -> {
-                        binding.loadingView.goneView()
-                        binding.rcvCart.visibleView()
-
-                        resProdDto = uiState.data
-
-                        viewModel.changeStateToIdle()
-                    }
-                }
-
+                resProdDto = ResProductDTO(
+                    pagination = null,
+                    data = cartState.listProductEntity.toListProductDataDTO()
+                )
                 onCartChange(resProdDto, cartState.listCarts)
 
                 binding.tvCountItemInCart.text = "(${cartState.listCarts.sumOf { it.quantity }})"
@@ -238,9 +211,12 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
                     val totalPrice =
                         listCartSelected.sumOf { (it.productPrice - (it.productPrice * it.productDiscount / 100)) * it.productQuantity }
                     val voucher = viewModel.voucherSelected.first()
-                    val priceAfterAddVoucher = if (voucher == null) totalPrice else {
+                    var priceAfterAddVoucher = if (voucher == null) totalPrice else {
                         totalPrice - (totalPrice * (voucher.discount ?: 0) / 100)
                     }
+                    val priceDiscount = totalPrice - priceAfterAddVoucher
+                    priceAfterAddVoucher = if (priceDiscount > (voucher?.maxPriceDis ?: 0)) totalPrice - (voucher?.maxPriceDis ?: 0)
+                    else priceAfterAddVoucher
 
                     totalPriceCache = priceAfterAddVoucher
 

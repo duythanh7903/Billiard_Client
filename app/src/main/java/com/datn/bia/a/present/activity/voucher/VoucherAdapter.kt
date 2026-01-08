@@ -5,6 +5,7 @@ import androidx.databinding.ViewDataBinding
 import com.datn.bia.a.R
 import com.datn.bia.a.common.base.BaseRecyclerViewAdapter
 import com.datn.bia.a.common.base.ext.click
+import com.datn.bia.a.common.base.ext.formatVND
 import com.datn.bia.a.common.base.ext.getRemainingTime
 import com.datn.bia.a.databinding.ItemVoucherBinding
 import com.datn.bia.a.domain.model.dto.res.ResVoucherDTO
@@ -32,6 +33,7 @@ class VoucherAdapter(
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun setData(
         binding: ViewDataBinding,
         item: ResVoucherDTO,
@@ -41,6 +43,10 @@ class VoucherAdapter(
             binding.tvCode.text = item.code
             binding.tvDes.text = item.description
             binding.tvExpiring.text = item.endDate?.getRemainingTime() ?: ""
+            binding.tvMaxDiscount.text =
+                "${binding.root.context.getString(R.string.maximum_discount)}: ${item.maxPriceDis?.formatVND()}"
+            binding.tvQuantity.text =
+                "${binding.root.context.getString(R.string.quantity)}: ${item.quantity ?: 0}"
 
             binding.chb.isActivated = (layoutPosition == indexSelect)
         }

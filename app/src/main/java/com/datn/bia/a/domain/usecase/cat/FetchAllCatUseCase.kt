@@ -3,8 +3,11 @@ package com.datn.bia.a.domain.usecase.cat
 import android.content.Context
 import com.datn.bia.a.R
 import com.datn.bia.a.common.UiState
+import com.datn.bia.a.common.toListCategoryEntities
 import com.datn.bia.a.data.network.factory.ResultWrapper
 import com.datn.bia.a.domain.repository.CatRepository
+import com.datn.bia.a.domain.usecase.cat_cache.CacheCatUseCase
+import com.datn.bia.a.domain.usecase.cat_cache.ClearCacheCatUseCase
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
@@ -14,13 +17,22 @@ class FetchAllCatUseCase @Inject constructor(
     @ApplicationContext
     private val context: Context,
     private val catRepository: CatRepository,
+
+    private val cacheCatUseCase: CacheCatUseCase,
+    private val clearCacheCatUseCase: ClearCacheCatUseCase
 ) {
     operator fun invoke() = flow {
         emit(UiState.Loading)
 
         try {
             when (val response = catRepository.fetchAllCat()) {
-                is ResultWrapper.Success -> emit(UiState.Success(response.value))
+                is ResultWrapper.Success -> {
+                    clearCacheCatUseCase.invoke().collect {
+                        cacheCatUseCase.invoke(response.value.toListCategoryEntities()).collect { }
+                    }
+
+                    emit(UiState.Success(response.value))
+                }
 
                 is ResultWrapper.GenericError -> emit(UiState.Error(response.message?.ifEmpty {
                     context.getString(R.string.msg_wrong)

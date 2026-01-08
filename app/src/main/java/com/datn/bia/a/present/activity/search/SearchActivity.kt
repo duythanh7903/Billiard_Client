@@ -6,12 +6,11 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.datn.bia.a.R
 import com.datn.bia.a.application.GlobalApp
-import com.datn.bia.a.common.UiState
 import com.datn.bia.a.common.base.BaseActivity
 import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.common.base.ext.goneView
-import com.datn.bia.a.common.base.ext.showToastOnce
 import com.datn.bia.a.common.base.ext.visibleView
+import com.datn.bia.a.common.toListProductDataDTO
 import com.datn.bia.a.databinding.ActivitySearchBinding
 import com.datn.bia.a.present.fragment.home.adapter.ProductAdapter
 import com.google.gson.Gson
@@ -52,31 +51,13 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         super.observerData()
 
         lifecycleScope.launch {
-            viewModel.state.collect { state ->
-                when (val uiState = state.productState) {
-                    is UiState.Error -> {
-                        showToastOnce(uiState.message)
-                        binding.loadingView.goneView()
-                        binding.rcvProduct.goneView()
+            viewModel.stateProduct.collect { list ->
+                binding.rcvProduct.visibleView()
+                binding.loadingView.goneView()
 
-                        viewModel.changeStateProductToIdle()
-                    }
-                    UiState.Idle -> {}
-                    UiState.Loading -> {
-                        binding.rcvProduct.goneView()
-                        binding.loadingView.visibleView()
-                    }
-                    is UiState.Success -> {
-                        binding.rcvProduct.visibleView()
-                        binding.loadingView.goneView()
-
-                        val listData = uiState.data.data?.shuffled() ?: emptyList()
-                        viewModel.cacheListProduct(listData)
-                        productAdapter?.submitData(listData)
-
-                        viewModel.changeStateProductToIdle()
-                    }
-                }
+                val listData = list.toListProductDataDTO()
+                viewModel.cacheListProduct(listData)
+                productAdapter?.submitData(listData)
             }
         }
 
@@ -85,7 +66,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
                 if (key.isEmpty()) productAdapter?.submitData(viewModel.listProduct.first())
                 else {
                     val listTemp = viewModel.listProduct.first()
-                    val resultList = listTemp.filter { it.name?.lowercase()?.contains(key.lowercase()) == true }
+                    val resultList =
+                        listTemp.filter { it.name?.lowercase()?.contains(key.lowercase()) == true }
 
                     productAdapter?.submitData(resultList)
                 }
@@ -98,7 +80,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
 
         binding.icBack.click { finish() }
 
-        binding.edtSearch.addTextChangedListener(object: TextWatcher {
+        binding.edtSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) =
                 viewModel.changeKeySearch(s?.toString())
 

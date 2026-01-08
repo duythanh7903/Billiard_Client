@@ -122,4 +122,7 @@
     <string name="new_password">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>
     <string name="verification_code_already_sent_to_email">Verification code already sent to email</string>
+    <string name="msg_error_network">No Internet Connection</string>
+    <string name="maximum_discount">Maximum discount</string>
+    <string name="quantity">Quantity</string>
 </resources>

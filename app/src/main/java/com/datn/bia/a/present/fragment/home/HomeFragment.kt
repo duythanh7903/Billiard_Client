@@ -12,9 +12,10 @@ import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.common.base.ext.goneView
 import com.datn.bia.a.common.base.ext.showToastOnce
 import com.datn.bia.a.common.base.ext.visibleView
+import com.datn.bia.a.common.toListProductDataDTO
+import com.datn.bia.a.common.toListResCatDTO
 import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.FragmentHomeBinding
-import com.datn.bia.a.domain.model.dto.res.ResProductDataDTO
 import com.datn.bia.a.present.activity.auth.si.SignInActivity
 import com.datn.bia.a.present.activity.prod.ProductActivity
 import com.datn.bia.a.present.activity.search.SearchActivity
@@ -102,11 +103,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         super.observeData()
 
         lifecycleScope.launch {
+            viewModel.stateProduct.collect {
+                val list = it.toListProductDataDTO()
+
+                productAdapter?.submitData(list)
+                viewModel.cacheAllPro(list)
+                viewModel.changeProductStateToIdle()
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.stateCate.collect {
+                val list = it.toListResCatDTO()
+
+                catAdapter?.submitData(list)
+                viewModel.cacheAllCat(list)
+                viewModel.changeCatStateToIdle()
+            }
+        }
+
+        lifecycleScope.launch {
             viewModel.state.collect { homeState ->
                 when (val uiState = homeState.productState) {
                     is UiState.Error -> {
                         binding.loadingBar.goneView()
-                        binding.rcvProduct.goneView()
+                        binding.rcvProduct.visibleView()
 
                         requireContext().showToastOnce(uiState.message)
                         viewModel.changeProductStateToIdle()
@@ -125,32 +146,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         binding.loadingBar.goneView()
                         binding.rcvProduct.visibleView()
 
-                        val data = uiState.data
-                        productAdapter?.submitData(data.data ?: emptyList())
-                        viewModel.cacheAllPro(data.data ?: emptyList())
                         viewModel.changeProductStateToIdle()
                     }
                 }
 
-                when (val uiState = homeState.catState) {
+                when (homeState.catState) {
                     is UiState.Error -> {
                         viewModel.changeCatStateToIdle()
                     }
 
-                    UiState.Idle -> {
-
-                    }
-
-                    UiState.Loading -> {
-
-                    }
-
-                    is UiState.Success -> {
-                        val data = uiState.data
-                        catAdapter?.submitData(data)
-                        viewModel.cacheAllCat(data)
-                        viewModel.changeCatStateToIdle()
-                    }
+                    else -> {}
                 }
             }
         }
@@ -169,7 +174,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun onResume() {
         super.onResume()
 
-        if(GlobalApp.jsonSearchResult.isNotEmpty()) {
+        if (GlobalApp.jsonSearchResult.isNotEmpty()) {
             startActivity(
                 Intent(
                     requireContext(),

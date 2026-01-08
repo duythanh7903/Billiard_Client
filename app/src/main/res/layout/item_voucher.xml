@@ -58,6 +58,26 @@
                     android:textColor="#959595"
                     android:textSize="@dimen/_8ssp" />
 
+                <TextView
+                    android:id="@+id/tvMaxDiscount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="Maximum discount: 33k"
+                    android:textColor="#959595"
+                    android:textSize="@dimen/_8ssp" />
+
+                <TextView
+                    android:id="@+id/tvQuantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="@string/quantity"
+                    android:textColor="#959595"
+                    android:textSize="@dimen/_8ssp" />
+
             </LinearLayout>
 
             <ImageView

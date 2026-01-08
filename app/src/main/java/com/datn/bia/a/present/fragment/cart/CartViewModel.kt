@@ -9,7 +9,7 @@ import com.datn.bia.a.domain.model.dto.res.ResVoucherDTO
 import com.datn.bia.a.domain.usecase.cart.GetAllCartsUseCase
 import com.datn.bia.a.domain.usecase.cart.IncreaseCartUseCase
 import com.datn.bia.a.domain.usecase.cart.ReduceCartUseCase
-import com.datn.bia.a.domain.usecase.product.FetchAllProductsUseCase
+import com.datn.bia.a.domain.usecase.prod_cache.GetListProductCacheUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,8 +23,9 @@ import javax.inject.Inject
 @HiltViewModel
 class CartViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    fetchAllProductsUseCase: FetchAllProductsUseCase,
+    getListProductCacheUseCase: GetListProductCacheUseCase,
     getAllCartsUseCase: GetAllCartsUseCase,
+
     private val increaseCartUseCase: IncreaseCartUseCase,
     private val reduceCartUseCase: ReduceCartUseCase,
 ) : BaseViewModel() {
@@ -42,11 +43,11 @@ class CartViewModel @Inject constructor(
     private val _state = MutableStateFlow(CartState())
     val state = combine(
         _state,
-        fetchAllProductsUseCase.invoke(),
+        getListProductCacheUseCase.invoke(),
         getAllCartsUseCase.invoke()
-    ) { state, uiProductState, listCarts ->
+    ) { state, listproductEntity, listCarts ->
         state.copy(
-            uiStateProduct = uiProductState,
+            listProductEntity = listproductEntity,
             listCarts = listCarts
         )
     }.stateIn(
@@ -55,12 +56,6 @@ class CartViewModel @Inject constructor(
             stopTimeoutMillis = 5000
         ), initialValue = CartState()
     )
-
-    fun changeStateToIdle() {
-        _state.value = _state.value.copy(
-            uiStateProduct = UiState.Idle
-        )
-    }
 
     fun inCreaseCart(idCart: Long) = viewModelScope.launch {
         increaseCartUseCase.invoke(idCart).collect { isSuccess ->

@@ -12,6 +12,7 @@ import com.datn.bia.a.common.base.BaseActivity
 import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.common.base.ext.formatVND
 import com.datn.bia.a.common.base.ext.goneView
+import com.datn.bia.a.common.base.ext.isNetwork
 import com.datn.bia.a.common.base.ext.showToastOnce
 import com.datn.bia.a.common.base.ext.visibleView
 import com.datn.bia.a.data.storage.SharedPrefCommon
@@ -61,11 +62,13 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
                         binding.tvStars.text = 0.toString()
                         viewModel.changeStateAllCommentToIdle()
                     }
+
                     UiState.Idle -> {}
                     UiState.Loading -> binding.tvStars.text = 0.toString()
                     is UiState.Success -> {
                         val data = state.data.filter { it.productId?._id == idProdCur }
-                        val star = (data.sumOf { it.rating ?: 0 }.toFloat() / if (data.count() == 0) 1 else data.count())
+                        val star = (data.sumOf { it.rating ?: 0 }
+                            .toFloat() / if (data.count() == 0) 1 else data.count())
                         binding.tvStars.text = star.toString().take(3)
 
                         viewModel.changeStateAllCommentToIdle()
@@ -81,12 +84,15 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
                         binding.tvBought.text = "${getString(R.string.sold)} 0"
                         viewModel.changeStateAllOrderToIdle()
                     }
+
                     UiState.Idle -> {
 
                     }
+
                     UiState.Loading -> {
                         binding.tvBought.text = "${getString(R.string.sold)} 0"
                     }
+
                     is UiState.Success -> {
                         val data = state.data.data ?: emptyList()
                         val count = data.count { item ->
@@ -164,7 +170,8 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
             binding.tvPrice1.goneView()
             binding.line.goneView()
         } else {
-            binding.tvPrice.text = ((prod.price ?: 0) - (prod.discount * (prod.price ?: 0) / 100)).formatVND()
+            binding.tvPrice.text =
+                ((prod.price ?: 0) - (prod.discount * (prod.price ?: 0) / 100)).formatVND()
             binding.tvDiscount.apply {
                 visibleView()
                 text = "-${prod.discount}%"
@@ -179,6 +186,11 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
     private fun onAddCartEvent() {
         if (SharedPrefCommon.jsonAcc.isEmpty()) {
             startActivity(Intent(this, SignInActivity::class.java))
+            return
+        }
+
+        if (!isNetwork()) {
+            showToastOnce(getString(R.string.msg_error_network))
             return
         }
 

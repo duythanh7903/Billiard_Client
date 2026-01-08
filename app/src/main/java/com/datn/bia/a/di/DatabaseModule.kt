@@ -29,4 +29,12 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideCommentDao(db: AppDatabase) = db.commentDao()
+
+    @Singleton
+    @Provides
+    fun provideProductDao(db: AppDatabase) = db.productDao()
+
+    @Singleton
+    @Provides
+    fun provideCategoryDao(db: AppDatabase) = db.categoryDao()
 }

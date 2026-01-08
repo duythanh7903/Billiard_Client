@@ -12,6 +12,7 @@ data class ResVoucherDTO(
     val description: String? = null,
     val startDate: String? = null,
     val isActive: Boolean? = null,
+    val maxPriceDis: Int? = null,
     @SerializedName("__v")
     val v: Int? = null
 ) {

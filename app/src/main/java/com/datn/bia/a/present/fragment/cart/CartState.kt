@@ -1,11 +1,10 @@
 package com.datn.bia.a.present.fragment.cart
 
-import com.datn.bia.a.common.UiState
-import com.datn.bia.a.domain.model.dto.res.ResProductDTO
 import com.datn.bia.a.domain.model.entity.CartEntity
+import com.datn.bia.a.domain.model.entity.ProductEntity
 
 data class CartState(
-    val uiStateProduct: UiState<ResProductDTO> = UiState.Idle,
+    val listProductEntity: List<ProductEntity> = emptyList(),
     val listCarts: List<CartEntity> = emptyList(),
 ) {
 }

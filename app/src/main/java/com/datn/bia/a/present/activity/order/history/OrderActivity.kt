@@ -83,8 +83,6 @@ class OrderActivity : BaseActivity<ActivityOrderBinding>() {
                     UiState.Loading -> Unit
 
                     is UiState.Success -> {
-                        viewModel.cacheListOrder(response.data)
-
                         viewModel.changeStateToIdle()
                     }
                 }

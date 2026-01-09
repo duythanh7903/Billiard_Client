@@ -110,6 +110,7 @@
     <string name="update_phone">Update Phone Number</string>
     <string name="update_success">Update Success</string>
     <string name="r_u_want_to_cancel_your_order">Are you want to cancel your order?</string>
+    <string name="msg_confirm_complete">Are you confirm to receive?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="sold">Sold:</string>
@@ -125,4 +126,5 @@
     <string name="msg_error_network">No Internet Connection</string>
     <string name="maximum_discount">Maximum discount</string>
     <string name="quantity">Quantity</string>
+    <string name="msg_confirm_success">Confirm Success!</string>
 </resources>

@@ -5,12 +5,14 @@ import com.datn.bia.a.domain.model.dto.req.ReqProdCheckOut
 import com.datn.bia.a.domain.model.dto.res.ResCatDTO
 import com.datn.bia.a.domain.model.dto.res.ResCatProductDTO
 import com.datn.bia.a.domain.model.dto.res.ResCommentDTO
+import com.datn.bia.a.domain.model.dto.res.ResOrderDTO
 import com.datn.bia.a.domain.model.dto.res.ResProductDataDTO
 import com.datn.bia.a.domain.model.dto.res.ResProductIdCommentDTO
 import com.datn.bia.a.domain.model.dto.res.ResUserIdCommentDTO
 import com.datn.bia.a.domain.model.entity.CartEntity
 import com.datn.bia.a.domain.model.entity.CategoryEntity
 import com.datn.bia.a.domain.model.entity.FeedbackEntity
+import com.datn.bia.a.domain.model.entity.OrderEntity
 import com.datn.bia.a.domain.model.entity.ProductEntity
 
 fun CartEntity.toCart(listProduct: List<ResProductDataDTO>): Cart {
@@ -114,6 +116,50 @@ fun FeedbackEntity.toResCommentDTO() =
             price = this.productPrice
         )
     )
+
+fun ResOrderDTO.toOrderEntity() =
+    OrderEntity(
+        _id = this._id ?: "",
+        madh = this.madh ?: 0,
+        customerName = this.customerName ?: "",
+        totalPrice = this.totalPrice ?: 0,
+        phone = this.phone ?: "",
+        address = this.address ?: "",
+        products = this.products ?: emptyList(),
+        status = this.status ?: "",
+        payment = this.payment ?: "",
+        userId = this.userId ?: "",
+        voucherId = this.voucherId ?: "",
+        note = this.note ?: "",
+        orderDate = this.orderDate ?: "",
+        createdAt = this.createdAt ?: "",
+        updatedAt = this.updatedAt ?: "",
+        __v = this.__v ?: 0
+    )
+
+fun OrderEntity.toResOrderDTO() =
+    ResOrderDTO(
+        _id = this._id,
+        madh = this.madh,
+        customerName = this.customerName,
+        totalPrice = this.totalPrice,
+        phone = this.phone,
+        address = this.address,
+        products = this.products,
+        status = this.status,
+        payment = this.payment,
+        userId = this.userId,
+        voucherId = this.voucherId,
+        note = this.note,
+        orderDate = this.orderDate,
+        createdAt = this.createdAt,
+        updatedAt = this.updatedAt,
+        __v = this.__v
+    )
+
+fun List<OrderEntity>.toListResOrderDTO() = this.map { it.toResOrderDTO() }
+
+fun List<ResOrderDTO>.toListOrderEntity() = this.map { it.toOrderEntity() }
 
 fun List<FeedbackEntity>.toListResCommentDTO() = this.map { it.toResCommentDTO() }
 

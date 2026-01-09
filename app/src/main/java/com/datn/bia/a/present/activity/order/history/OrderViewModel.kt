@@ -8,7 +8,6 @@ import com.datn.bia.a.domain.model.dto.req.ReqCancelOrder
 import com.datn.bia.a.domain.model.dto.req.ReqCommentDTO
 import com.datn.bia.a.domain.model.dto.req.ReqUpdateOrder
 import com.datn.bia.a.domain.model.dto.res.ResLoginUserDTO
-import com.datn.bia.a.domain.model.dto.res.ResOrderDTO
 import com.datn.bia.a.domain.model.dto.res.ResUpdateOrder
 import com.datn.bia.a.domain.model.entity.CommentEntity
 import com.datn.bia.a.domain.usecase.comment.CacheCommentUseCase
@@ -17,6 +16,7 @@ import com.datn.bia.a.domain.usecase.comment.GetAllCommentByIdUseCase
 import com.datn.bia.a.domain.usecase.order.CancelOrderUseCase
 import com.datn.bia.a.domain.usecase.order.GetAllOrderByIdUseCase
 import com.datn.bia.a.domain.usecase.order.UpdateOrderUseCase
+import com.datn.bia.a.domain.usecase.order_cache.GetAllOrderCacheUseCase
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,13 +34,15 @@ class OrderViewModel @Inject constructor(
     private val cacheCommentUseCase: CacheCommentUseCase,
     private val createCommentUseCase: CreateCommentUseCase,
     private val cancelOrderUseCase: CancelOrderUseCase,
+
+    private val getAllOrderCacheUseCase: GetAllOrderCacheUseCase
 ) : BaseViewModel() {
+    val order = getAllOrderCacheUseCase.invoke()
+
     private val _stateComment = MutableStateFlow<UiState<Any>>(UiState.Idle)
     val stateComment = _stateComment.asStateFlow()
 
-
-    private val _listOrder = MutableStateFlow<List<ResOrderDTO>>(emptyList())
-    val listOrder = _listOrder.asStateFlow()
+    val listOrder = getAllOrderCacheUseCase.invoke()
 
     private val _uiStateUpdate: MutableStateFlow<UiState<ResUpdateOrder>> =
         MutableStateFlow(UiState.Idle)
@@ -100,10 +102,6 @@ class OrderViewModel @Inject constructor(
 
     fun changeStateUpdateToIdle() {
         _uiStateUpdate.value = UiState.Idle
-    }
-
-    fun cacheListOrder(listOrder: List<ResOrderDTO>) {
-        _listOrder.value = listOrder.toMutableList()
     }
 
     fun postComment(

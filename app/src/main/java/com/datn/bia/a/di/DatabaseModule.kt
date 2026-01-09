@@ -41,4 +41,8 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideFeedbackDao(db: AppDatabase) = db.feedbackDao()
+
+    @Singleton
+    @Provides
+    fun provideOrderCacheDao(db: AppDatabase) = db.orderDao()
 }

@@ -17,8 +17,7 @@ data class ResOrderDTO(
     val createdAt: String? = null,
     val updatedAt: String? = null,
     val __v: Int? = null
-) {
-}
+)
 
 data class OrderProduct(
     val productId: OrderProductDetail? = null,

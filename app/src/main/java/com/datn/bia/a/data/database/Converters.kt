@@ -1,6 +1,7 @@
 package com.datn.bia.a.data.database
 
 import androidx.room.TypeConverter
+import com.datn.bia.a.domain.model.dto.res.OrderProduct
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -16,6 +17,20 @@ class Converters {
     @TypeConverter
     fun toStringList(value: String): List<String> {
         val type = object : TypeToken<List<String>>() {}.type
+        return gson.fromJson(value, type)
+    }
+
+    @TypeConverter
+    fun fromOrderProductList(value: List<OrderProduct>?): String {
+        return gson.toJson(value ?: emptyList<OrderProduct>())
+    }
+
+    // String -> List<OrderProduct>
+    @TypeConverter
+    fun toOrderProductList(value: String?): List<OrderProduct> {
+        if (value.isNullOrEmpty()) return emptyList()
+
+        val type = object : TypeToken<List<OrderProduct>>() {}.type
         return gson.fromJson(value, type)
     }
 }

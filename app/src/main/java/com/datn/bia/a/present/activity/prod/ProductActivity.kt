@@ -7,7 +7,6 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.datn.bia.a.R
 import com.datn.bia.a.common.AppConst
-import com.datn.bia.a.common.UiState
 import com.datn.bia.a.common.base.BaseActivity
 import com.datn.bia.a.common.base.ext.click
 import com.datn.bia.a.common.base.ext.formatVND
@@ -39,7 +38,6 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
         super.initViews()
 
         gson = Gson()
-        viewModel.getAllOrder()
         receiveData()
     }
 
@@ -63,35 +61,7 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
             }
         }
 
-        lifecycleScope.launch {
-            viewModel.stateGetAllOrder.collect { state ->
-                when (state) {
-                    is UiState.Error -> {
-                        binding.tvBought.text = "${getString(R.string.sold)} 0"
-                        viewModel.changeStateAllOrderToIdle()
-                    }
-
-                    UiState.Idle -> {
-
-                    }
-
-                    UiState.Loading -> {
-                        binding.tvBought.text = "${getString(R.string.sold)} 0"
-                    }
-
-                    is UiState.Success -> {
-                        val data = state.data.data ?: emptyList()
-                        val count = data.count { item ->
-                            item?.products?.any { it?.productId?._id == idProdCur } == true
-                        }
-
-                        binding.tvBought.text = "${getString(R.string.sold)} $count"
-
-                        viewModel.changeStateAllOrderToIdle()
-                    }
-                }
-            }
-        }
+        binding.tvBought.text = "${getString(R.string.sold)} ${listOf(0..100).random()}"
     }
 
     override fun onClickViews() {

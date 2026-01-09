@@ -7,11 +7,13 @@ import com.datn.bia.a.common.AppConst
 import com.datn.bia.a.common.UiState
 import com.datn.bia.a.common.base.BaseFragment
 import com.datn.bia.a.common.base.ext.showToastOnce
+import com.datn.bia.a.common.toListResOrderDTO
 import com.datn.bia.a.databinding.FragmentTabOrderBinding
 import com.datn.bia.a.domain.model.dto.res.ResOrderDTO
 import com.datn.bia.a.present.activity.order.history.OrderViewModel
 import com.datn.bia.a.present.dialog.CommentDialog
 import com.datn.bia.a.present.dialog.ConfirmCancelOrderDialog
+import com.datn.bia.a.present.dialog.ConfirmCompleteDialog
 import com.datn.bia.a.present.dialog.LoadingDialog
 import com.datn.bia.a.present.dialog.ReasonCancelDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +29,7 @@ class TabOrderFragment : BaseFragment<FragmentTabOrderBinding>() {
     private var loadingDialog: LoadingDialog? = null
     private var commentDialog: CommentDialog? = null
     private var confirmCancelOrderDialog: ConfirmCancelOrderDialog? = null
+    private var confirmCompleteDialog: ConfirmCompleteDialog? = null
     private var reasonCancelDialog: ReasonCancelDialog? = null
 
     private var resOrder: ResOrderDTO? = null
@@ -82,6 +85,16 @@ class TabOrderFragment : BaseFragment<FragmentTabOrderBinding>() {
             }
         )
 
+        confirmCompleteDialog = ConfirmCompleteDialog(
+            requireContext(),
+            {
+
+            }, {
+                viewModel.updateOrderUseCase(cacheId, AppConst.STATUS_ORDER_TO_COMPLETED)
+                requireContext().showToastOnce(getString(R.string.msg_confirm_success))
+            }
+        )
+
         binding.rcvOrder.apply {
             orderAdapter = OrderAdapter(
                 contextParams = requireContext(),
@@ -100,13 +113,16 @@ class TabOrderFragment : BaseFragment<FragmentTabOrderBinding>() {
                     resOrder = res
                     commentDialog?.showDialog(res._id ?: "")
                 }, onConfirm = { index, res ->
-                    viewModel.updateOrderUseCase(res._id ?: "", AppConst.STATUS_ORDER_TO_COMPLETED)
+                    cacheId = res._id ?: ""
+                    confirmCompleteDialog?.show()
                 }
             )
 
             adapter = orderAdapter
         }
     }
+
+    private var cacheId: String = ""
 
     override fun observeData() {
         super.observeData()
@@ -122,7 +138,7 @@ class TabOrderFragment : BaseFragment<FragmentTabOrderBinding>() {
                     }
                 }
                 orderAdapter?.comments = viewModel.state.value.listCommentCaches.toMutableList()
-                orderAdapter?.submitData(data)
+                orderAdapter?.submitData(data.toListResOrderDTO())
             }
         }
 
@@ -144,7 +160,7 @@ class TabOrderFragment : BaseFragment<FragmentTabOrderBinding>() {
                         loadingDialog?.cancel()
 
                         val response = uiState.data
-                        val listOrderTemp = viewModel.listOrder.first()
+                        val listOrderTemp = viewModel.listOrder.first().toListResOrderDTO()
                         val indexResponse = listOrderTemp.indexOfFirst { it._id == response._id }
 
                         if (indexResponse != -1) {
@@ -152,7 +168,6 @@ class TabOrderFragment : BaseFragment<FragmentTabOrderBinding>() {
                             newList[indexResponse] = newList[indexResponse].copy(
                                 status = response.status
                             )
-                            viewModel.cacheListOrder(newList)
                             viewModel.changeStateUpdateToIdle()
 
                             return@collect
@@ -206,6 +221,8 @@ class TabOrderFragment : BaseFragment<FragmentTabOrderBinding>() {
         confirmCancelOrderDialog = null
         reasonCancelDialog?.cancel()
         reasonCancelDialog = null
+        confirmCompleteDialog?.dismiss()
+        confirmCompleteDialog = null
 
         super.onDestroyView()
     }

@@ -8,12 +8,14 @@ import com.datn.bia.a.data.database.dao.CategoryDao
 import com.datn.bia.a.data.database.dao.CommentDao
 import com.datn.bia.a.data.database.dao.FavoriteDao
 import com.datn.bia.a.data.database.dao.FeedBackDao
+import com.datn.bia.a.data.database.dao.OrderDao
 import com.datn.bia.a.data.database.dao.ProductDao
 import com.datn.bia.a.domain.model.entity.CartEntity
 import com.datn.bia.a.domain.model.entity.CategoryEntity
 import com.datn.bia.a.domain.model.entity.CommentEntity
 import com.datn.bia.a.domain.model.entity.FavoriteEntity
 import com.datn.bia.a.domain.model.entity.FeedbackEntity
+import com.datn.bia.a.domain.model.entity.OrderEntity
 import com.datn.bia.a.domain.model.entity.ProductEntity
 
 @Database(
@@ -24,7 +26,8 @@ import com.datn.bia.a.domain.model.entity.ProductEntity
 
         ProductEntity::class,
         CategoryEntity::class,
-        FeedbackEntity::class
+        FeedbackEntity::class,
+        OrderEntity::class
     ],
     version = 1,
     exportSchema = false
@@ -37,4 +40,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao
     abstract fun categoryDao(): CategoryDao
     abstract fun feedbackDao(): FeedBackDao
+    abstract fun orderDao(): OrderDao
 }

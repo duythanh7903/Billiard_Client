@@ -1,7 +1,6 @@
 package com.datn.bia.a.domain.usecase.order
 
 import android.content.Context
-import android.util.Log
 import com.datn.bia.a.R
 import com.datn.bia.a.common.UiState
 import com.datn.bia.a.data.network.factory.ResultWrapper
@@ -23,15 +22,16 @@ class GetAllOrderUseCase @Inject constructor(
 
         try {
             when (val response = orderRepository.getAllOrder()) {
-                is ResultWrapper.Success -> emit(UiState.Success(response.value))
+                is ResultWrapper.Success -> {
+                    val data = response.value
 
-                is ResultWrapper.GenericError -> {
-                    Log.d("debug", response.message ?: "")
+                    emit(UiState.Success(response.value))
+                }
 
+                is ResultWrapper.GenericError ->
                     emit(UiState.Error(response.message?.ifEmpty {
                         context.getString(R.string.msg_wrong)
                     } ?: "Unknow Error"))
-                }
 
                 is ResultWrapper.NetworkError -> emit(UiState.Error("Network Error"))
             }

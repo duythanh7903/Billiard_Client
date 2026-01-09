@@ -39,7 +39,6 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
         super.initViews()
 
         gson = Gson()
-        viewModel.getAllComment()
         viewModel.getAllOrder()
         receiveData()
     }
@@ -56,24 +55,11 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
         }
 
         lifecycleScope.launch {
-            viewModel.stateGetAllComment.collect { state ->
-                when (state) {
-                    is UiState.Error -> {
-                        binding.tvStars.text = 0.toString()
-                        viewModel.changeStateAllCommentToIdle()
-                    }
-
-                    UiState.Idle -> {}
-                    UiState.Loading -> binding.tvStars.text = 0.toString()
-                    is UiState.Success -> {
-                        val data = state.data.filter { it.productId?._id == idProdCur }
-                        val star = (data.sumOf { it.rating ?: 0 }
-                            .toFloat() / if (data.count() == 0) 1 else data.count())
-                        binding.tvStars.text = star.toString().take(3)
-
-                        viewModel.changeStateAllCommentToIdle()
-                    }
-                }
+            viewModel.stateGetAllComment.collect { listComment ->
+                val data = listComment.filter { it.idProduct == idProdCur }
+                val star = (data.sumOf { it.rating }
+                    .toFloat() / if (data.count() == 0) 1 else data.count())
+                binding.tvStars.text = star.toString().take(3)
             }
         }
 

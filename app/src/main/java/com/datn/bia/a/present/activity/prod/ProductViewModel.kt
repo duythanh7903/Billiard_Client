@@ -4,13 +4,13 @@ import androidx.lifecycle.viewModelScope
 import com.datn.bia.a.common.UiState
 import com.datn.bia.a.common.base.BaseViewModel
 import com.datn.bia.a.domain.model.dto.res.ResAllOrder
-import com.datn.bia.a.domain.model.dto.res.ResCommentDTO
 import com.datn.bia.a.domain.model.entity.FavoriteEntity
 import com.datn.bia.a.domain.usecase.cart.InsertCartUseCase
 import com.datn.bia.a.domain.usecase.comment.GetCommentUseCase
 import com.datn.bia.a.domain.usecase.favorite.DeleteFavoriteUseCase
 import com.datn.bia.a.domain.usecase.favorite.GetFavoriteUseCase
 import com.datn.bia.a.domain.usecase.favorite.InsertFavoriteUseCase
+import com.datn.bia.a.domain.usecase.feedback.GetListCacheFeedbackUseCase
 import com.datn.bia.a.domain.usecase.order.GetAllOrderUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,17 +25,26 @@ class ProductViewModel @Inject constructor(
     private val getFavoriteUseCase: GetFavoriteUseCase,
     private val deleteFavoriteUseCase: DeleteFavoriteUseCase,
     private val insertFavoriteUseCase: InsertFavoriteUseCase,
-    private val getAllCommentUseCase: GetCommentUseCase,
-    private val getAllOrderUseCase: GetAllOrderUseCase
+
+
+    getAllCommentUseCase: GetCommentUseCase,
+    private val getAllOrderUseCase: GetAllOrderUseCase,
+
+    getAllFeedbackUseCase: GetListCacheFeedbackUseCase,
 ) : BaseViewModel() {
     private val _favoriteEntity = MutableStateFlow<FavoriteEntity?>(null)
     val favoriteEntity = _favoriteEntity.asStateFlow()
 
-    private val _stateGetAllComment = MutableStateFlow<UiState<List<ResCommentDTO>>>(UiState.Idle)
-    val stateGetAllComment = _stateGetAllComment.asStateFlow()
+    val stateGetAllComment = getAllFeedbackUseCase.invoke()
 
     private val _stateGetAllOrder = MutableStateFlow<UiState<ResAllOrder>>(UiState.Idle)
     val stateGetAllOrder = _stateGetAllOrder.asStateFlow()
+
+    init {
+        launchIO {
+            getAllCommentUseCase.invoke().collect {  }
+        }
+    }
 
     fun addProductToCart(productId: String) = viewModelScope.launch {
         insertCartUseCase.invoke(productId).collect {
@@ -60,16 +69,6 @@ class ProductViewModel @Inject constructor(
                 productId = id
             )
         )
-    }
-
-    fun getAllComment() = launchIO {
-        getAllCommentUseCase.invoke().collect {
-            _stateGetAllComment.value = it
-        }
-    }
-
-    fun changeStateAllCommentToIdle() {
-        _stateGetAllComment.value = UiState.Idle
     }
 
     fun getAllOrder() = launchIO {

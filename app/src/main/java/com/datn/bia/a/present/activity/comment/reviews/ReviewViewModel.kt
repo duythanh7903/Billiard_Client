@@ -2,7 +2,7 @@ package com.datn.bia.a.present.activity.comment.reviews
 
 import androidx.lifecycle.viewModelScope
 import com.datn.bia.a.common.base.BaseViewModel
-import com.datn.bia.a.domain.usecase.comment.GetCommentUseCase
+import com.datn.bia.a.domain.usecase.feedback.GetListCacheFeedbackUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -12,16 +12,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReviewViewModel @Inject constructor(
-    getAllCommentUseCase: GetCommentUseCase
+    getAllFeedbackUseCase: GetListCacheFeedbackUseCase
 ) : BaseViewModel() {
 
     private val _state = MutableStateFlow(ReviewState())
     val state = combine(
         _state,
-        getAllCommentUseCase.invoke()
-    ) { state, uiState ->
+        getAllFeedbackUseCase.invoke()
+    ) { state, list ->
         state.copy(
-            uiState = uiState
+            listComment = list
         )
     }.stateIn(
         scope = viewModelScope,

@@ -1,9 +1,7 @@
 package com.datn.bia.a.present.activity.comment.reviews
 
-import com.datn.bia.a.common.UiState
-import com.datn.bia.a.domain.model.dto.res.ResCommentDTO
+import com.datn.bia.a.domain.model.entity.FeedbackEntity
 
 data class ReviewState(
-    val uiState: UiState<List<ResCommentDTO>> = UiState.Idle
-){
-}
+    val listComment: List<FeedbackEntity> = emptyList()
+)

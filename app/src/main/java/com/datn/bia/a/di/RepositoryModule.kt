@@ -4,6 +4,7 @@ import com.datn.bia.a.data.database.repository.CartRepositoryImpl
 import com.datn.bia.a.data.database.repository.CategoryCacheRepositoryImpl
 import com.datn.bia.a.data.database.repository.CommentCacheRepositoryImpl
 import com.datn.bia.a.data.database.repository.FavoriteRepositoryImpl
+import com.datn.bia.a.data.database.repository.FeedbackRepositoryImpl
 import com.datn.bia.a.data.database.repository.ProductCacheRepositoryImpl
 import com.datn.bia.a.data.network.repository.AuthRepositoryImpl
 import com.datn.bia.a.data.network.repository.CatRepositoryImpl
@@ -18,6 +19,7 @@ import com.datn.bia.a.domain.repository.CategoryCacheRepository
 import com.datn.bia.a.domain.repository.CommentCacheRepository
 import com.datn.bia.a.domain.repository.CommentRepository
 import com.datn.bia.a.domain.repository.FavoriteRepository
+import com.datn.bia.a.domain.repository.FeedbackRepository
 import com.datn.bia.a.domain.repository.OrderRepository
 import com.datn.bia.a.domain.repository.ProductCacheRepository
 import com.datn.bia.a.domain.repository.ProductRepository
@@ -97,4 +99,10 @@ abstract class RepositoryModule {
     abstract fun bindCategoryCacheRepository(
         impl: CategoryCacheRepositoryImpl
     ): CategoryCacheRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindFeedbackRepository(
+        impl: FeedbackRepositoryImpl
+    ): FeedbackRepository
 }

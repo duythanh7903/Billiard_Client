@@ -175,9 +175,12 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
                         val totalPrice =
                             listCartSelected.sumOf { (it.productPrice - (it.productPrice * it.productDiscount / 100)) * it.productQuantity }
                         val voucher = viewModel.voucherSelected.first()
-                        val priceAfterAddVoucher = if (voucher == null) totalPrice else {
+                        var priceAfterAddVoucher = if (voucher == null) totalPrice else {
                             totalPrice - (totalPrice * (voucher.discount ?: 0) / 100)
                         }
+                        val priceDiscount = totalPrice - priceAfterAddVoucher
+                        priceAfterAddVoucher = if (priceDiscount > (voucher?.maxPriceDis ?: 0)) totalPrice - (voucher?.maxPriceDis ?: 0)
+                        else priceAfterAddVoucher
 
                         listProduct.apply {
                             clear()

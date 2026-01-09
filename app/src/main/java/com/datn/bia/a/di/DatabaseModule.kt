@@ -37,4 +37,8 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideCategoryDao(db: AppDatabase) = db.categoryDao()
+
+    @Singleton
+    @Provides
+    fun provideFeedbackDao(db: AppDatabase) = db.feedbackDao()
 }

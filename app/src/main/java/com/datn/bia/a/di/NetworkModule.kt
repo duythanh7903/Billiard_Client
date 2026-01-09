@@ -44,7 +44,7 @@ object NetworkModule {
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
 //            .baseUrl("http://10.0.2.2:8000/api/")
-            .baseUrl("http://192.168.0.104:8000/api/")
+            .baseUrl("http://192.168.0.103:8000/api/")
             .addCallAdapterFactory(
                 ResultWrapperCallAdapterFactory()
             )

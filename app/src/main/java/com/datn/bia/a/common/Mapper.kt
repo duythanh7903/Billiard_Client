@@ -4,9 +4,13 @@ import com.datn.bia.a.domain.model.domain.Cart
 import com.datn.bia.a.domain.model.dto.req.ReqProdCheckOut
 import com.datn.bia.a.domain.model.dto.res.ResCatDTO
 import com.datn.bia.a.domain.model.dto.res.ResCatProductDTO
+import com.datn.bia.a.domain.model.dto.res.ResCommentDTO
 import com.datn.bia.a.domain.model.dto.res.ResProductDataDTO
+import com.datn.bia.a.domain.model.dto.res.ResProductIdCommentDTO
+import com.datn.bia.a.domain.model.dto.res.ResUserIdCommentDTO
 import com.datn.bia.a.domain.model.entity.CartEntity
 import com.datn.bia.a.domain.model.entity.CategoryEntity
+import com.datn.bia.a.domain.model.entity.FeedbackEntity
 import com.datn.bia.a.domain.model.entity.ProductEntity
 
 fun CartEntity.toCart(listProduct: List<ResProductDataDTO>): Cart {
@@ -72,6 +76,48 @@ fun CategoryEntity.toResCatDTO() =
         isActive = this.isActive,
         v = this.v
     )
+
+fun ResCommentDTO.toFeedBackEntity() =
+    FeedbackEntity(
+        _id = this._id ?: "",
+        content = this.content ?: "",
+        rating = this.rating ?: 0,
+        __v = this.__v ?: 0,
+        createdAt = this.createdAt ?: "",
+        updatedAt = this.updatedAt ?: "",
+
+        userId = this.userId?._id ?: "",
+        email = this.userId?.email ?: "",
+
+        idProduct = this.productId?._id ?: "",
+        productName = this.productId?.name ?: "",
+        productPrice = this.productId?.price ?: 0,
+    )
+
+fun FeedbackEntity.toResCommentDTO() =
+    ResCommentDTO(
+        _id = this._id,
+        content = this.content,
+        rating = this.rating,
+        __v = this.__v,
+        createdAt = this.createdAt,
+        updatedAt = this.updatedAt,
+
+        userId = ResUserIdCommentDTO(
+            _id = this.userId,
+            email = this.email
+        ),
+
+        productId = ResProductIdCommentDTO(
+            _id = this.idProduct,
+            name = this.productName,
+            price = this.productPrice
+        )
+    )
+
+fun List<FeedbackEntity>.toListResCommentDTO() = this.map { it.toResCommentDTO() }
+
+fun List<ResCommentDTO>.toListFeedBackEntity() = this.map { it.toFeedBackEntity() }
 
 fun List<CategoryEntity>.toListResCatDTO() = this.map { it.toResCatDTO() }
 

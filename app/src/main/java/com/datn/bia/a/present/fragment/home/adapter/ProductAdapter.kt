@@ -34,10 +34,12 @@ class ProductAdapter(
     ) {
         if (binding is ItemProductBinding) {
             Glide.with(contextParams).load(item.imageUrl).into(binding.imgProduct)
+            val price = item.variants?.firstOrNull()?.price ?: 0
+
             binding.tvProductName.text = item.name
             binding.tvPrice.text = if (item.discount != null && item.discount > 0) {
-                ((item.price ?: 0) - ((item.price ?: 0) * item.discount / 100)).formatVND()
-            } else item.price?.formatVND() ?: "NaN"
+                (price - (price * item.discount / 100)).formatVND()
+            } else price.formatVND()
             if (item.discount == null || item.discount == 0) {
                 binding.tvDiscount.goneView()
             } else {

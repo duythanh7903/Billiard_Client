@@ -127,4 +127,5 @@
     <string name="maximum_discount">Maximum discount</string>
     <string name="quantity">Quantity</string>
     <string name="msg_confirm_success">Confirm Success!</string>
+    <string name="color_">Color: %s</string>
 </resources>

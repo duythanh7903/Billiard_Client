@@ -100,7 +100,7 @@
                     android:layout_height="0dp"
                     android:layout_marginBottom="@dimen/_minus12sdp"
                     android:background="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@id/tvProductName"
+                    app:layout_constraintBottom_toBottomOf="@id/rcvVariant"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -205,6 +205,17 @@
                     android:textColor="@color/textDark"
                     android:textSize="@dimen/_11ssp"
                     app:layout_constraintTop_toBottomOf="@id/tvPrice" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@id/tvProductName"
+                    tools:listitem="@layout/item_category" />
 
                 <View
                     android:id="@+id/view2"

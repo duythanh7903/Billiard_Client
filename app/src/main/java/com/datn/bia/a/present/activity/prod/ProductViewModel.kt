@@ -2,6 +2,7 @@ package com.datn.bia.a.present.activity.prod
 
 import androidx.lifecycle.viewModelScope
 import com.datn.bia.a.common.base.BaseViewModel
+import com.datn.bia.a.domain.model.dto.res.ResVariantDTO
 import com.datn.bia.a.domain.model.entity.FavoriteEntity
 import com.datn.bia.a.domain.usecase.cart.InsertCartUseCase
 import com.datn.bia.a.domain.usecase.comment.GetCommentUseCase
@@ -37,8 +38,16 @@ class ProductViewModel @Inject constructor(
         }
     }
 
-    fun addProductToCart(productId: String) = viewModelScope.launch {
-        insertCartUseCase.invoke(productId).collect {
+    fun addProductToCart(
+        productId: String,
+        variant: ResVariantDTO,
+        price: Int,
+    ) = viewModelScope.launch {
+        insertCartUseCase.invoke(
+            productId,
+            variant,
+            price
+        ).collect {
 
         }
     }

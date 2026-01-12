@@ -73,6 +73,8 @@ class CartAdapter(
 
             binding.chb.isActivated =
                 listCartSelected.firstOrNull { it == item.cartId } != null
+
+            binding.tvColor.text = contextParams.getString(R.string.color_, item.variant.color ?: "")
         }
     }
 

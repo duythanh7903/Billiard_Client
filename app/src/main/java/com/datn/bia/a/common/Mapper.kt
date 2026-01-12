@@ -23,10 +23,12 @@ fun CartEntity.toCart(listProduct: List<ResProductDataDTO>): Cart {
         cartId = id,
         productId = idProd,
         productQuantity = quantity,
-        productPrice = product?.price ?: 0,
+        productPrice = price,
         productDiscount = product?.discount ?: 0,
         productImage = product?.imageUrl ?: "",
-        productName = product?.name ?: ""
+        productName = product?.name ?: "",
+
+        variant = variant
     )
 }
 
@@ -43,7 +45,8 @@ fun ResProductDataDTO.toProductEntity() = ProductEntity(
     discount = this.discount ?: 0,
 
     idCateGory = this.category?.id ?: "",
-    categoryName = this.category?.name ?: ""
+    categoryName = this.category?.name ?: "",
+    variants = this.variants ?: emptyList()
 )
 
 fun ProductEntity.toResProductDataDTO() = ResProductDataDTO(
@@ -60,7 +63,8 @@ fun ProductEntity.toResProductDataDTO() = ResProductDataDTO(
     category = ResCatProductDTO(
         id = this.idCateGory,
         name = this.categoryName
-    )
+    ),
+    variants = this.variants
 )
 
 fun ResCatDTO.toCategoryEntity() =

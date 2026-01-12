@@ -155,5 +155,19 @@
             app:layout_constraintEnd_toStartOf="@id/edtQuantity"
             app:layout_constraintTop_toTopOf="@id/imgTag" />
 
+        <TextView
+            android:id="@+id/tvColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="#959595"
+            android:textSize="@dimen/_8ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvPrice"
+            app:layout_constraintBottom_toBottomOf="@id/tvPrice"
+            tools:text="Color: Brown" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

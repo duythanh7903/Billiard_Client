@@ -16,8 +16,8 @@ interface CartDao {
     @Query("SELECT * FROM CARTENTITY WHERE ISENABLE == 1 ORDER BY ID DESC")
     fun getAllCartsEnable(): Flow<List<CartEntity>>
 
-    @Query("SELECT * FROM CARTENTITY WHERE IDPROD LIKE :id AND ISENABLE == 1 LIMIT 1")
-    suspend fun searchCartByIdProd(id: String): CartEntity?
+    @Query("SELECT * FROM CARTENTITY WHERE IDPROD LIKE :id AND ISENABLE == 1")
+    suspend fun searchCartByIdProd(id: String): List<CartEntity>
 
     @Query("SELECT * FROM CARTENTITY WHERE ID LIKE :id AND ISENABLE == 1 LIMIT 1")
     suspend fun searchCartEnableByIdCart(id: Long): CartEntity?

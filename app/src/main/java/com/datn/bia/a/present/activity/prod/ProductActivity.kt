@@ -17,6 +17,7 @@ import com.datn.bia.a.common.base.ext.visibleView
 import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.ActivityProductBinding
 import com.datn.bia.a.domain.model.dto.res.ResProductDataDTO
+import com.datn.bia.a.domain.model.dto.res.ResVariantDTO
 import com.datn.bia.a.present.activity.auth.si.SignInActivity
 import com.datn.bia.a.present.activity.comment.reviews.ReviewsActivity
 import com.google.gson.Gson
@@ -31,6 +32,9 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
     private var gson: Gson? = null
     private var imageAdapter: ImageAdapter? = null
     private var idProdCur: String? = null
+    private var variant: ResVariantDTO? = null
+    private var price: Int = 0
+    private var variantAdapter: VariantAdapter? = null
 
     override fun getLayoutActivity(): Int = R.layout.activity_product
 
@@ -86,6 +90,8 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
         gson = null
         imageAdapter?.list?.clear()
         imageAdapter = null
+        variantAdapter?.list?.clear()
+        variantAdapter = null
 
         super.onDestroy()
     }
@@ -115,28 +121,62 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
             }
         ).apply { submitData(prod.albumImage ?: emptyList()) }
 
+        variantAdapter = VariantAdapter { index, item ->
+            variantAdapter?.indexSelect = index
+
+            variant = item
+
+            price = item.price ?: 0
+
+            if (prod.discount == null || prod.discount == 0) {
+                binding.tvPrice.text = item.price?.formatVND() ?: "NaN"
+                binding.tvDiscount.goneView()
+                binding.tvPrice1.goneView()
+                binding.line.goneView()
+            } else {
+                binding.tvPrice.text =
+                    ((item.price
+                        ?: 0) - (prod.discount * (item.price
+                        ?: 0) / 100)).formatVND()
+                binding.tvDiscount.apply {
+                    visibleView()
+                    text = "-${prod.discount}%"
+                }
+                binding.tvPrice1.text = item.price?.formatVND() ?: "NaN"
+                binding.line.visibleView()
+            }
+        }.apply {
+            submitData(prod.variants ?: emptyList())
+        }
+
         rcvImage.adapter = imageAdapter
+        binding.rcvVariant.adapter = variantAdapter
         Glide.with(this@ProductActivity).load(prod.imageUrl).into(binding.imgProduct)
         tvProductName.text = prod.name ?: ""
         tvDes.text = prod.des ?: ""
 
         if (prod.discount == null || prod.discount == 0) {
-            binding.tvPrice.text = prod.price?.formatVND() ?: "NaN"
+            price = prod.variants?.firstOrNull()?.price ?: 0
+            binding.tvPrice.text = prod.variants?.firstOrNull()?.price?.formatVND() ?: "NaN"
             binding.tvDiscount.goneView()
             binding.tvPrice1.goneView()
             binding.line.goneView()
         } else {
-            binding.tvPrice.text =
-                ((prod.price ?: 0) - (prod.discount * (prod.price ?: 0) / 100)).formatVND()
+            val priceTotal = ((prod.variants?.firstOrNull()?.price
+                ?: 0) - (prod.discount * (prod.variants?.firstOrNull()?.price
+                ?: 0) / 100))
+            price = priceTotal
+            binding.tvPrice.text = priceTotal.formatVND()
             binding.tvDiscount.apply {
                 visibleView()
                 text = "-${prod.discount}%"
             }
-            binding.tvPrice1.text = prod.price?.formatVND() ?: "NaN"
+            binding.tvPrice1.text = prod.variants?.firstOrNull()?.price?.formatVND() ?: "NaN"
             binding.line.visibleView()
         }
 
         idProdCur = prod.id
+        variant = prod.variants?.firstOrNull()
     }
 
     private fun onAddCartEvent() {
@@ -151,7 +191,11 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
         }
 
         idProdCur?.let { id ->
-            viewModel.addProductToCart(id)
+            viewModel.addProductToCart(
+                productId = id,
+                variant!!,
+                price
+            )
             showToastOnce(getString(R.string.msg_added_to_cart))
         } ?: run {
             showToastOnce(getString(R.string.msg_wrong))

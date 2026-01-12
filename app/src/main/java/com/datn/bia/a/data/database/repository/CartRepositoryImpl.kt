@@ -12,7 +12,7 @@ class CartRepositoryImpl @Inject constructor(
     override suspend fun insertCart(c: CartEntity) =
         cartDao.insertCart(c)
 
-    override suspend fun searchCartByIdProd(id: String): CartEntity? =
+    override suspend fun searchCartByIdProd(id: String): List<CartEntity> =
         cartDao.searchCartByIdProd(id)
 
     override suspend fun updateCart(c: CartEntity) =

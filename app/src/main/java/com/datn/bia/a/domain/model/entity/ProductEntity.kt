@@ -2,6 +2,7 @@ package com.datn.bia.a.domain.model.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.datn.bia.a.domain.model.dto.res.ResVariantDTO
 
 @Entity(tableName = "ProductEntity")
 data class ProductEntity(
@@ -19,5 +20,7 @@ data class ProductEntity(
 
     val idCateGory: String,
     val categoryName: String,
+
+    val variants: List<ResVariantDTO>
 ) {
 }

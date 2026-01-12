@@ -25,7 +25,8 @@ data class OrderProduct(
     val priceBeforeDis: Int? = null,
     val priceAfterDis: Int? = null,
     val name: String? = null,
-    val _id: String? = null
+    val _id: String? = null,
+    val color: String? = null,
 )
 
 data class OrderProductDetail(

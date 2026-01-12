@@ -185,7 +185,8 @@ fun Cart.toReqProdCheckOut() = ReqProdCheckOut(
     quantity = this.productQuantity,
     name = this.productName,
     priceBeforeDis = this.productPrice,
-    priceAfterDis = this.productPrice - (this.productPrice * this.productDiscount / 100)
+    priceAfterDis = this.productPrice - (this.productPrice * this.productDiscount / 100),
+    color = this.variant.color ?: ""
 )
 
 fun List<Cart>.toListReqProdCheckOut() = this.map { it.toReqProdCheckOut() }

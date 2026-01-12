@@ -36,10 +36,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_12sdp"
-            android:fontFamily="@font/inter_regular"
-            android:scrollHorizontally="false"
-            android:maxLines="2"
             android:ellipsize="end"
+            android:fontFamily="@font/inter_regular"
+            android:maxLines="2"
+            android:scrollHorizontally="false"
             android:text="Combo MAXBING EDITION Gậy Bida Lỗ EVO MEG - ABYSS BLADE - Ngọn Glassfiber Cao Cấp - Chính Hãng"
             android:textColor="#232323"
             android:textSize="@dimen/_10ssp"
@@ -56,6 +56,18 @@
             android:textSize="@dimen/_9ssp"
             app:layout_constraintStart_toStartOf="@id/tvProductName"
             app:layout_constraintTop_toBottomOf="@id/tvProductName" />
+
+        <TextView
+            android:id="@+id/tvColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:fontFamily="@font/inter_regular"
+            android:text="Color: White"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/_8ssp"
+            app:layout_constraintStart_toStartOf="@id/tvCountProduct"
+            app:layout_constraintTop_toBottomOf="@id/tvCountProduct" />
 
         <TextView
             android:id="@+id/tvPriceFinal"

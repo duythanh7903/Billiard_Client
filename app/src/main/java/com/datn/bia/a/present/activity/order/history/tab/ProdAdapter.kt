@@ -52,6 +52,7 @@ class ProdAdapter(
                 }
                 binding.viewLine.visibleView()
             }
+            binding.tvColor.text = contextParams.getString(R.string.color_, item.color ?: "")
         }
     }
 }

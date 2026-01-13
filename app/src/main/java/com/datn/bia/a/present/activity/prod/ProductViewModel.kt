@@ -41,7 +41,7 @@ class ProductViewModel @Inject constructor(
     fun addProductToCart(
         productId: String,
         variant: ResVariantDTO,
-        price: Int,
+        price: Double,
     ) = viewModelScope.launch {
         insertCartUseCase.invoke(
             productId,

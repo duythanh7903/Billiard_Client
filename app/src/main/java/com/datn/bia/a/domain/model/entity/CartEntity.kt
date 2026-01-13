@@ -12,7 +12,7 @@ data class CartEntity(
     val idUser: String = "",
     val quantity: Int = 0,
     val isEnable: Boolean = false,
-    val price: Int,
+    val price: Double,
 
     val variant: ResVariantDTO
 ) {

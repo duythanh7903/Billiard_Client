@@ -33,7 +33,7 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
     private var imageAdapter: ImageAdapter? = null
     private var idProdCur: String? = null
     private var variant: ResVariantDTO? = null
-    private var price: Int = 0
+    private var price: Double = 0.0
     private var variantAdapter: VariantAdapter? = null
 
     override fun getLayoutActivity(): Int = R.layout.activity_product
@@ -65,7 +65,7 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
             }
         }
 
-        binding.tvBought.text = "${getString(R.string.sold)} ${listOf(0..100).random()}"
+        binding.tvBought.text = "${getString(R.string.sold)} ${(0..100).random()}"
     }
 
     override fun onClickViews() {
@@ -126,7 +126,7 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
 
             variant = item
 
-            price = item.price ?: 0
+            price = item.price ?: 0.0
 
             if (prod.discount == null || prod.discount == 0) {
                 binding.tvPrice.text = item.price?.formatVND() ?: "NaN"
@@ -136,8 +136,8 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
             } else {
                 binding.tvPrice.text =
                     ((item.price
-                        ?: 0) - (prod.discount * (item.price
-                        ?: 0) / 100)).formatVND()
+                        ?: 0.0) - (prod.discount * (item.price
+                        ?: 0.0) / 100)).formatVND()
                 binding.tvDiscount.apply {
                     visibleView()
                     text = "-${prod.discount}%"
@@ -156,15 +156,15 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
         tvDes.text = prod.des ?: ""
 
         if (prod.discount == null || prod.discount == 0) {
-            price = prod.variants?.firstOrNull()?.price ?: 0
+            price = prod.variants?.firstOrNull()?.price ?: 0.0
             binding.tvPrice.text = prod.variants?.firstOrNull()?.price?.formatVND() ?: "NaN"
             binding.tvDiscount.goneView()
             binding.tvPrice1.goneView()
             binding.line.goneView()
         } else {
             val priceTotal = ((prod.variants?.firstOrNull()?.price
-                ?: 0) - (prod.discount * (prod.variants?.firstOrNull()?.price
-                ?: 0) / 100))
+                ?: 0.0) - (prod.discount * (prod.variants?.firstOrNull()?.price
+                ?: 0.0) / 100))
             price = priceTotal
             binding.tvPrice.text = priceTotal.formatVND()
             binding.tvDiscount.apply {

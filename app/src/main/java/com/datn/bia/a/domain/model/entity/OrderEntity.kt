@@ -10,7 +10,7 @@ data class OrderEntity(
     val _id: String,
     val madh: Int,
     val customerName: String,
-    val totalPrice: Int,
+    val totalPrice: Double,
     val phone: String,
     val address: String,
     val products: List<OrderProduct>,

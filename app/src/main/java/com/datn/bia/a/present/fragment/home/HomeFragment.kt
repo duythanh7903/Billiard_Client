@@ -1,6 +1,7 @@
 package com.datn.bia.a.present.fragment.home
 
 import android.content.Intent
+import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.datn.bia.a.R
@@ -130,6 +131,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         binding.rcvProduct.visibleView()
 
                         requireContext().showToastOnce(uiState.message)
+                        Log.d("duylt", "Error: ${uiState.message}")
                         viewModel.changeProductStateToIdle()
                     }
 

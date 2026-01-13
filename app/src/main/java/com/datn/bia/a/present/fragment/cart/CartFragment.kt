@@ -49,7 +49,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
     private var loadingDialog: LoadingDialog? = null
     private var gson: Gson? = null
 
-    private var totalPriceCache = 0
+    private var totalPriceCache = 0.0
     private var listProduct = mutableListOf<ReqProdCheckOut>()
 
     override fun inflateBinding(): FragmentCartBinding =

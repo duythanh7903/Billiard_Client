@@ -22,7 +22,7 @@ data class ReqProdCheckOut(
     val productId: String = "",
     val quantity: Int = 0,
     val name: String = "",
-    val priceBeforeDis: Int = 0,
-    val priceAfterDis: Int = 0,
+    val priceBeforeDis: Double = 0.0,
+    val priceAfterDis: Double = 0.0,
     val color: String = ""
 )

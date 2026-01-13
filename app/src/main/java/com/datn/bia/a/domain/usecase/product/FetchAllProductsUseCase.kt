@@ -9,7 +9,10 @@ import com.datn.bia.a.domain.repository.ProductRepository
 import com.datn.bia.a.domain.usecase.prod_cache.CacheProdUseCase
 import com.datn.bia.a.domain.usecase.prod_cache.ClearCacheProdUseCase
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
 import javax.inject.Inject
 
@@ -24,31 +27,35 @@ class FetchAllProductsUseCase @Inject constructor(
     operator fun invoke() = flow {
         emit(UiState.Loading) // show loading
 
-        try {
-            // nhan ket qua tu api trar ve
-            when (val response = productRepository.fetchAllProducts()) {
-                is ResultWrapper.Success -> {
-                    val data = response.value.data
-                    data?.let { listResponse ->
-                        clearCacheProdUseCase.invoke().collect {
-                            val listCache = listResponse.toListCacheProduct()
-                            cacheProdUseCase.invoke(listCache).collect { }
+        while (true) {
+            try {
+                // nhan ket qua tu api trar ve
+                when (val response = productRepository.fetchAllProducts()) {
+                    is ResultWrapper.Success -> {
+                        val data = response.value.data
+                        data?.let { listResponse ->
+                            clearCacheProdUseCase.invoke().collect {
+                                val listCache = listResponse.toListCacheProduct()
+                                cacheProdUseCase.invoke(listCache).collect { }
+                            }
                         }
+
+                        emit(UiState.Success(response.value))
                     }
 
-                    emit(UiState.Success(response.value))
+                    is ResultWrapper.GenericError -> emit(UiState.Error(response.message?.ifEmpty {
+                        context.getString(R.string.msg_wrong)
+                    } ?: "Unknow Error"))
+
+                    is ResultWrapper.NetworkError -> emit(UiState.Error("Network Error"))
                 }
-
-                is ResultWrapper.GenericError -> emit(UiState.Error(response.message?.ifEmpty {
-                    context.getString(R.string.msg_wrong)
-                } ?: "Unknow Error"))
-
-                is ResultWrapper.NetworkError -> emit(UiState.Error("Network Error"))
+            } catch (e: HttpException) {
+                emit(UiState.Error(e.message ?: "Unknow Error"))
+            } catch (e: Exception) {
+                emit(UiState.Error(e.message ?: "Unknow Error"))
             }
-        } catch (e: HttpException) {
-            emit(UiState.Error(e.message ?: "Unknow Error"))
-        } catch (e: Exception) {
-            emit(UiState.Error(e.message ?: "Unknow Error"))
+
+            delay(5_000)
         }
-    }
+    }.flowOn(Dispatchers.IO)
 }

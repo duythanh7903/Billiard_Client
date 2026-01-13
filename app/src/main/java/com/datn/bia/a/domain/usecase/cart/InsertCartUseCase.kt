@@ -12,7 +12,7 @@ class InsertCartUseCase @Inject constructor(
     operator fun invoke(
         id: String,
         variant: ResVariantDTO,
-        price: Int,
+        price: Double,
     ) = flow {
         val listSearch = cartRepository.searchCartByIdProd(id)
 

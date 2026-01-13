@@ -117,7 +117,7 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
             viewModel.stateCheckOut.collect { uiState ->
                 when (uiState) {
                     is UiState.Error -> {
-                        showToastOnce(uiState.message)
+                        showToastOnce(getString(R.string.msg_ins_stock))
                         loadingDialog?.cancel()
                         viewModel.changeStateToIdle()
                     }
@@ -181,7 +181,12 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
         val orderApi = CreateOrder()
 
         try {
-            val data = orderApi.createOrder((intent.getIntExtra(AppConst.KEY_TOTAL_PRICE, 0) + AppConst.FEE_SHIP).toString())
+            val data = orderApi.createOrder(
+                (intent.getIntExtra(
+                    AppConst.KEY_TOTAL_PRICE,
+                    0
+                ) + AppConst.FEE_SHIP).toString()
+            )
             val code = data.getString("returncode")
 
             if (code == "1") {
@@ -275,6 +280,6 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
                 binding.tvPaymentMethod.text = paymentMethod
             }
 
-        binding.tvTotal.text = intent.getIntExtra(AppConst.KEY_TOTAL_PRICE, 0).formatVND()
+        binding.tvTotal.text = intent.getDoubleExtra(AppConst.KEY_TOTAL_PRICE, 0.0).formatVND()
     }
 }

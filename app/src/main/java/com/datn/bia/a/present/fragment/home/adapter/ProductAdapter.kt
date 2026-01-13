@@ -34,7 +34,7 @@ class ProductAdapter(
     ) {
         if (binding is ItemProductBinding) {
             Glide.with(contextParams).load(item.imageUrl).into(binding.imgProduct)
-            val price = item.variants?.firstOrNull()?.price ?: 0
+            val price = item.variants?.firstOrNull()?.price ?: 0.0
 
             binding.tvProductName.text = item.name
             binding.tvPrice.text = if (item.discount != null && item.discount > 0) {

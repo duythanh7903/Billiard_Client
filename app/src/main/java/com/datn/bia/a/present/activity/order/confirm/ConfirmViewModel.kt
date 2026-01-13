@@ -38,7 +38,7 @@ class ConfirmViewModel @Inject constructor(
     }
 
     fun checkOutOrder(
-        totalPrice: Int,
+        totalPrice: Double,
         voucherId: String?,
         listProduct: List<ReqProdCheckOut>,
         paymentMethod: String
@@ -55,6 +55,8 @@ class ConfirmViewModel @Inject constructor(
                 voucherId = voucherId,
                 note = _message.value
             )
+
+            Log.d("json", "${req}")
 
             checkOutOrderUseCase.invoke(req).collect { uiState ->
                 _stateCheckOut.emit(uiState)

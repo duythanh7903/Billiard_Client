@@ -6,7 +6,7 @@ data class ReqCheckOutDTO(
     @SerializedName("madh")
     val id: Int = (1 .. 9999999).random(),
     val customerName: String = "",
-    val totalPrice: Int = 0,
+    val totalPrice: Double = 0.0,
     val phone: String = "",
     val address: String = "",
     val products: List<ReqProdCheckOut> = emptyList(),

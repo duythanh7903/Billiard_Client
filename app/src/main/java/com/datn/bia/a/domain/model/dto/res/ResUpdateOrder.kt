@@ -14,7 +14,7 @@ data class ResUpdateOrder(
     val phone: String? = null,
     val products: List<Product?>? = null,
     val status: String? = null,
-    val totalPrice: Int? = null,
+    val totalPrice: Double? = null,
     val updatedAt: String? = null,
     val userId: String? = null,
     val voucherId: String? = null
@@ -23,8 +23,8 @@ data class ResUpdateOrder(
 data class Product(
     val _id: String? = null,
     val name: String? = null,
-    val priceAfterDis: Int? = null,
-    val priceBeforeDis: Int? = null,
+    val priceAfterDis: Double? = null,
+    val priceBeforeDis: Double? = null,
     val productId: String? = null,
     val quantity: Int? = null
 )

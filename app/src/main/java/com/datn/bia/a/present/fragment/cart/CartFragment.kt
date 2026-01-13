@@ -126,6 +126,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
                 if (isSuccess == null) return@collect
 
                 if (isSuccess) {
+                    viewModel.unSelectAllCart()
                     return@collect
                 }
 
@@ -139,6 +140,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
                 if (isSuccess == null) return@collect
 
                 if (isSuccess) {
+                    viewModel.unSelectAllCart()
                     return@collect
                 }
 
@@ -179,7 +181,9 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
                             totalPrice - (totalPrice * (voucher.discount ?: 0) / 100)
                         }
                         val priceDiscount = totalPrice - priceAfterAddVoucher
-                        priceAfterAddVoucher = if (priceDiscount > (voucher?.maxPriceDis ?: 0)) totalPrice - (voucher?.maxPriceDis ?: 0)
+                        priceAfterAddVoucher = if (priceDiscount > (voucher?.maxPriceDis
+                                ?: 0)
+                        ) totalPrice - (voucher?.maxPriceDis ?: 0)
                         else priceAfterAddVoucher
 
                         listProduct.apply {
@@ -218,7 +222,9 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
                         totalPrice - (totalPrice * (voucher.discount ?: 0) / 100)
                     }
                     val priceDiscount = totalPrice - priceAfterAddVoucher
-                    priceAfterAddVoucher = if (priceDiscount > (voucher?.maxPriceDis ?: 0)) totalPrice - (voucher?.maxPriceDis ?: 0)
+                    priceAfterAddVoucher = if (priceDiscount > (voucher?.maxPriceDis
+                            ?: 0)
+                    ) totalPrice - (voucher?.maxPriceDis ?: 0)
                     else priceAfterAddVoucher
 
                     totalPriceCache = priceAfterAddVoucher

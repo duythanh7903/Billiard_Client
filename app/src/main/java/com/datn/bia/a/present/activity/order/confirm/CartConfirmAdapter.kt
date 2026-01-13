@@ -49,6 +49,8 @@ class CartConfirmAdapter(
                 binding.viewLine.goneView()
                 binding.tvPriceFinal.text = item.productPrice.formatVND()
             }
+
+            binding.tvColor.text = contextParams.getString(R.string.color_, item.variant.color ?: "")
         }
     }
 }

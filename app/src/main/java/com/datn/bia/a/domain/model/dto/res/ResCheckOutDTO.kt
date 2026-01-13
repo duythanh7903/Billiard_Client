@@ -6,7 +6,7 @@ data class ResCheckOutDTO(
     @SerializedName("madh")
     val idOrder: Int? = null,
     val customerName: String? = null,
-    val totalPrice: Long? = null,
+    val totalPrice: Double? = null,
     val phone: String? = null,
     val address: String? = null,
     val products: List<ProductItem>? = null,

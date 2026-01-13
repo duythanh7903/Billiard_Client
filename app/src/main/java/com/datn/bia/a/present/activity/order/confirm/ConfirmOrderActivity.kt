@@ -117,6 +117,7 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
             viewModel.stateCheckOut.collect { uiState ->
                 when (uiState) {
                     is UiState.Error -> {
+                        Log.d("duylt", "Message: ${uiState.message}")
                         showToastOnce(getString(R.string.msg_ins_stock))
                         loadingDialog?.cancel()
                         viewModel.changeStateToIdle()
@@ -167,7 +168,7 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
     private fun paymentOrder() {
         if (paymentMethod == MethodPayment.CASH_ON_DELIVERY.name) {
             viewModel.checkOutOrder(
-                totalPrice = intent.getIntExtra(AppConst.KEY_TOTAL_PRICE, 0),
+                totalPrice = intent.getDoubleExtra(AppConst.KEY_TOTAL_PRICE, 0.0),
                 voucherId = intent.getStringExtra(AppConst.KEY_ID_VOUCHER),
                 listProduct = gson?.fromJson<List<ReqProdCheckOut>>(
                     intent.getStringExtra(AppConst.KEY_LIST_PRODUCT),
@@ -182,9 +183,9 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
 
         try {
             val data = orderApi.createOrder(
-                (intent.getIntExtra(
+                (intent.getDoubleExtra(
                     AppConst.KEY_TOTAL_PRICE,
-                    0
+                    0.0
                 ) + AppConst.FEE_SHIP).toString()
             )
             val code = data.getString("returncode")
@@ -200,7 +201,7 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
                             p2: String?
                         ) {
                             viewModel.checkOutOrder(
-                                totalPrice = intent.getIntExtra(AppConst.KEY_TOTAL_PRICE, 0),
+                                totalPrice = intent.getDoubleExtra(AppConst.KEY_TOTAL_PRICE, 0.0),
                                 voucherId = intent.getStringExtra(AppConst.KEY_ID_VOUCHER),
                                 listProduct = gson?.fromJson<List<ReqProdCheckOut>>(
                                     intent.getStringExtra(AppConst.KEY_LIST_PRODUCT),

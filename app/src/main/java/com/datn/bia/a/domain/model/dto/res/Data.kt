@@ -16,7 +16,7 @@ data class Data(
     val phone: String? = null,
     val products: List<Product2?>? = null,
     val status: String? = null,
-    val totalPrice: Int? = null,
+    val totalPrice: Double? = null,
     val updatedAt: String? = null,
     val userId: String? = null,
     val voucherId: String? = null

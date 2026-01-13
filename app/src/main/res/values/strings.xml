@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Bi-a</string>
+    <string name="app_name" translatable="false">Billiard Poly</string>
     <string name="language">Language</string>
     <string name="next">Next</string>
     <string name="title_onb_1">Various keyboard styles</string>
@@ -103,7 +103,7 @@
     <string name="pay">Pay</string>
     <string name="payment_method">Payment method</string>
     <string name="message_for_the_store">Message for the store</string>
-    <string name="type_message_here">Type message here</string>
+    <string name="type_message_here">Bank acc number - Bank name - Reason cancel</string>
     <string name="send">Send</string>
     <string name="update">Update</string>
     <string name="update_address">Update Address</string>
@@ -131,4 +131,5 @@
     <string name="msg_title_noti">Notification</string>
     <string name="msg_content_noti">Your order has been shipped, please keep an eye on your phone!</string>
     <string name="msg_ins_stock">Insufficient stock!</string>
+    <string name="msg_support_financial">If your order has already been paid for, please contact the administrator for financial assistance!</string>
 </resources>

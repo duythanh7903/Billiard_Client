@@ -25,11 +25,12 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setLocal()
+
         val layoutView = getLayoutActivity()
         binding = DataBindingUtil.setContentView(this, layoutView)
         binding.lifecycleOwner = this
 
-        setLocal()
         requestWindow()
         initViews()
         onResizeViews()

@@ -11,6 +11,7 @@ object AppConst {
     internal const val KEY_ID_VOUCHER = "KEY_ID_VOUCHER"
     internal const val KEY_LIST_PRODUCT = "KEY_LIST_PRODUCT"
     internal const val KEY_ID_PRODUCT = "KEY_ID_PRODUCT"
+    internal const val KEY_FROM_SPLASH = "KEY_FROM_SPLASH"
 
     internal const val STATUS_ORDER_TO_PAY = "Xác nhận"
     internal const val STATUS_ORDER_TO_RECEIVE = "Đang giao hàng"

@@ -39,6 +39,7 @@ data class SettingItem(
             SettingItem(7, R.string.support_center, TypeSettingItem.HELP),
             SettingItem(8, R.string.community_standards, TypeSettingItem.HELP),
             SettingItem(9, R.string.about_us, TypeSettingItem.HELP),
+            SettingItem(10, R.string.language, TypeSettingItem.HELP)
         )
     }
 }

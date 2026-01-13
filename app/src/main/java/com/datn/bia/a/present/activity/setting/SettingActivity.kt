@@ -15,6 +15,7 @@ import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.ActivitySettingBinding
 import com.datn.bia.a.domain.model.domain.SettingCat
 import com.datn.bia.a.domain.model.dto.res.ResLoginUserDTO
+import com.datn.bia.a.present.activity.fo.language.LanguageActivity
 import com.datn.bia.a.present.activity.home.MainActivity
 import com.datn.bia.a.present.activity.setting.adapter.SettingCatAdapter
 import com.datn.bia.a.present.dialog.LoadingDialog
@@ -191,6 +192,9 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
                     1 -> updateAddressDialog?.show()
 
                     2 -> updatePhoneDialog?.show()
+
+                    10 ->
+                        startActivity(Intent(this@SettingActivity, LanguageActivity::class.java))
                 }
             }
         ).apply {

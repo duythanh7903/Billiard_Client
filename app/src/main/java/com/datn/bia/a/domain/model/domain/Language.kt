@@ -15,9 +15,8 @@ data class Language(
             lists.add(Language("Spanish", "es", false, R.drawable.ic_language_spanish))
             lists.add(Language("Croatian", "hr", false, R.drawable.ic_language_croatia))
             lists.add(Language("Czech", "cs", false, R.drawable.ic_language_czech_republic))
-            lists.add(Language("Dutch", "nl", false, R.drawable.ic_language_dutch))*/
-            lists.add(Language("English", "en", false, R.drawable.ic_language_english))
-            /*lists.add(Language("Filipino", "fil", false, R.drawable.ic_language_filipino))
+            lists.add(Language("Dutch", "nl", false, R.drawable.ic_language_dutch))
+            lists.add(Language("Filipino", "fil", false, R.drawable.ic_language_filipino))
             lists.add(Language("French", "fr", false, R.drawable.ic_language_france))
             lists.add(Language("German", "de", false, R.drawable.ic_language_german))
             lists.add(Language("Indonesian", "in", false, R.drawable.ic_language_indonesian))
@@ -32,6 +31,7 @@ data class Language(
             lists.add(Language("Swedish", "sv", false, R.drawable.ic_language_swedish))
             lists.add(Language("Turkish", "tr", false, R.drawable.ic_language_turkish))*/
             lists.add(Language("Vietnamese", "vi", false, R.drawable.ic_language_vietnamese))
+            lists.add(Language("English", "en", false, R.drawable.ic_language_english))
             lists.add(Language("China", "zh", false, R.drawable.ic_language_china))
             return lists
         }

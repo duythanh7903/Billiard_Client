@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import com.datn.bia.a.R
 import com.datn.bia.a.application.GlobalApp
+import com.datn.bia.a.common.AppConst
 import com.datn.bia.a.common.base.BaseActivity
 import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.databinding.ActivitySplashBinding
@@ -25,7 +26,9 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (SharedPrefCommon.isFirstInstall) {
-                startActivity(Intent(this, LanguageActivity::class.java))
+                startActivity(Intent(this, LanguageActivity::class.java).apply {
+                    putExtra(AppConst.KEY_FROM_SPLASH, true)
+                })
             } else {
                 startActivity(Intent(this, MainActivity::class.java))
             }

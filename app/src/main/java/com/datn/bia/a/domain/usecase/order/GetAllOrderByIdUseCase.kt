@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.asLiveData
@@ -20,6 +21,7 @@ import com.datn.bia.a.domain.usecase.order_cache.ClearAllOrderCacheUseCase
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
@@ -41,13 +43,15 @@ class GetAllOrderByIdUseCase @Inject constructor(
             try {
                 when (val response = orderRepository.getOrdersByUser(id)) {
                     is ResultWrapper.Success -> {
-                        val list = orderCacheRepository.getAllCacheOrder().asLiveData().value
-                            ?: emptyList()
+                        val list = orderCacheRepository.getAllCacheOrder().firstOrNull() ?: emptyList()
+                        Log.d("duylt", "Check List: ${list.size}\n${orderCacheRepository.getAllCacheOrder().asLiveData().value == null}")
                         val listTemp = list.toListResOrderDTO()
                             .filter { it.status == AppConst.STATUS_ORDER_TO_RECEIVE }
                         val data = response.value.toListOrderEntity()
 
-                        if (listTemp.size < data.filter { it.status == AppConst.STATUS_ORDER_TO_RECEIVE }.size) { // có đơn hàng xác nhận mới  -> push noti
+                        Log.d("duylt", "Size: ${listTemp.size}\n${data.filter { it.userId == id }.filter { it.status == AppConst.STATUS_ORDER_TO_RECEIVE }.size}")
+
+                        if (listTemp.size < data.filter { it.userId == id }.filter { it.status == AppConst.STATUS_ORDER_TO_RECEIVE }.size) { // có đơn hàng xác nhận mới  -> push noti
                             createChannel(context)
                             showNotification(context)
                         }

@@ -17,4 +17,7 @@ class OrderCacheRepositoryImpl @Inject constructor(
 
     override suspend fun clearCacheOrder() =
         orderDao.clearCacheOrder()
+
+    override suspend fun deleteOrderById(id: String) =
+        orderDao.deleteOrderById(id)
 }

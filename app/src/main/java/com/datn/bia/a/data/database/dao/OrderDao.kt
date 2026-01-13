@@ -17,4 +17,7 @@ interface OrderDao {
 
     @Query("delete from orderentity")
     suspend fun clearCacheOrder()
+
+    @Query("delete from orderentity where _id like :id")
+    suspend fun deleteOrderById(id: String)
 }

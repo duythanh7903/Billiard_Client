@@ -173,7 +173,7 @@ class TabOrderFragment : BaseFragment<FragmentTabOrderBinding>() {
                             return@collect
                         }
 
-                        requireContext().showToastOnce(getString(R.string.msg_wrong))
+//                        requireContext().showToastOnce(getString(R.string.msg_wrong))
                         viewModel.changeStateUpdateToIdle()
                     }
                 }

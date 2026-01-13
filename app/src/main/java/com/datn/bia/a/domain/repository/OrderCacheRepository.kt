@@ -9,4 +9,6 @@ interface OrderCacheRepository {
     fun getAllCacheOrder(): Flow<List<OrderEntity>>
 
     suspend fun clearCacheOrder()
+
+    suspend fun deleteOrderById(id: String)
 }

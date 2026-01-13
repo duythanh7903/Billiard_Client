@@ -16,6 +16,7 @@ import com.datn.bia.a.domain.usecase.comment.GetAllCommentByIdUseCase
 import com.datn.bia.a.domain.usecase.order.CancelOrderUseCase
 import com.datn.bia.a.domain.usecase.order.GetAllOrderByIdUseCase
 import com.datn.bia.a.domain.usecase.order.UpdateOrderUseCase
+import com.datn.bia.a.domain.usecase.order_cache.DeleteOrderByIdUseCase
 import com.datn.bia.a.domain.usecase.order_cache.GetAllOrderCacheUseCase
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,7 +36,8 @@ class OrderViewModel @Inject constructor(
     private val createCommentUseCase: CreateCommentUseCase,
     private val cancelOrderUseCase: CancelOrderUseCase,
 
-    private val getAllOrderCacheUseCase: GetAllOrderCacheUseCase
+    private val getAllOrderCacheUseCase: GetAllOrderCacheUseCase,
+    private val deleteOrderByIdUseCase: DeleteOrderByIdUseCase
 ) : BaseViewModel() {
     val order = getAllOrderCacheUseCase.invoke()
 
@@ -96,7 +98,9 @@ class OrderViewModel @Inject constructor(
                 reason, status
             )
         ).collect { uiState ->
-            _uiStateUpdate.value = uiState
+            deleteOrderByIdUseCase.invoke(orderId).collect {
+                _uiStateUpdate.value = uiState
+            }
         }
     }
 

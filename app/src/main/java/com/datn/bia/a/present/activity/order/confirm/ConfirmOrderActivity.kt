@@ -280,6 +280,6 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
                 binding.tvPaymentMethod.text = paymentMethod
             }
 
-        binding.tvTotal.text = intent.getDoubleExtra(AppConst.KEY_TOTAL_PRICE, 0.0).formatVND()
+        binding.tvTotal.text = (intent.getDoubleExtra(AppConst.KEY_TOTAL_PRICE, 0.0) + AppConst.FEE_SHIP).formatVND()
     }
 }

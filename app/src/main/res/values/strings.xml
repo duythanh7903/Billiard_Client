@@ -128,4 +128,6 @@
     <string name="quantity">Quantity</string>
     <string name="msg_confirm_success">Confirm Success!</string>
     <string name="color_">Color: %s</string>
+    <string name="msg_title_noti">Notification</string>
+    <string name="msg_content_noti">Your order has been shipped, please keep an eye on your phone!</string>
 </resources>

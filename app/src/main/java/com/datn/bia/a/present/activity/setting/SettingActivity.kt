@@ -104,6 +104,8 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
                     is UiState.Error -> {
                         loadingDialog?.cancel()
                         viewModel.changeStateToIdle()
+
+                        Log.d("duylt", "Error: ${state.message}")
                     }
 
                     UiState.Idle -> {
@@ -114,7 +116,9 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
                         loadingDialog?.show()
                     }
 
-                    is UiState.Success<*> -> {
+                    is UiState.Success -> {
+                        Log.d("duylt", "Success: ${state.data}")
+
                         Gson().fromJson(SharedPrefCommon.jsonAcc, ResLoginUserDTO::class.java)
                             ?.let {
                                 val newRes = it.copy(
@@ -141,6 +145,8 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
                     is UiState.Error -> {
                         loadingDialog?.cancel()
                         viewModel.changeStateAddressToIdle()
+
+                        Log.d("duylt", "Error: ${state.message}")
                     }
 
                     UiState.Idle -> {
@@ -151,7 +157,9 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
                         loadingDialog?.show()
                     }
 
-                    is UiState.Success<*> -> {
+                    is UiState.Success -> {
+                        Log.d("duylt", "Success: ${state.data}")
+
                         Gson().fromJson(SharedPrefCommon.jsonAcc, ResLoginUserDTO::class.java)
                             ?.let {
                                 val newRes = it.copy(

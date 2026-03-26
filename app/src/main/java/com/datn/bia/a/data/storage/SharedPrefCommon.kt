@@ -47,4 +47,8 @@ object SharedPrefCommon {
     var isFirstInstall: Boolean
         get() = getValue("isFirstInstall", true)
         set(value) = setValue("isFirstInstall", value)
+
+    var token: String
+        get() = getValue("token", "")
+        set(value) = setValue("token", value)
 }

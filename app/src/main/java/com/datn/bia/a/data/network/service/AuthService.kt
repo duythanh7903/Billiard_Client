@@ -1,6 +1,7 @@
 package com.datn.bia.a.data.network.service
 
 import com.datn.bia.a.data.network.factory.ResultWrapper
+import com.datn.bia.a.data.storage.SharedPrefCommon
 import com.datn.bia.a.domain.model.dto.req.ReqForgotPass
 import com.datn.bia.a.domain.model.dto.req.ReqLoginUserDTO
 import com.datn.bia.a.domain.model.dto.req.ReqResetPass
@@ -14,6 +15,7 @@ import com.datn.bia.a.domain.model.dto.res.ResSignUpUserDTO
 import com.datn.bia.a.domain.model.dto.res.ResUpdatePhoneDTO
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -21,7 +23,7 @@ import retrofit2.http.Path
 interface AuthService {
     @POST("login")
     suspend fun loginUser(
-        @Body req: ReqLoginUserDTO
+        @Body req: ReqLoginUserDTO,
     ): ResultWrapper<ResLoginUserDTO>
 
     @POST("register")
@@ -32,18 +34,21 @@ interface AuthService {
     @PATCH("user/{id}")
     suspend fun updatePhoneNumber(
         @Path("id") orderId: String,
-        @Body req: ReqUpdatePhoneDTO
+        @Body req: ReqUpdatePhoneDTO,
+        @Header("Authorization") token: String = "Bearer ${SharedPrefCommon.token}"
     ): ResultWrapper<ResUpdatePhoneDTO>
 
     @PATCH("user/{id}")
     suspend fun updateAddress(
         @Path("id") orderId: String,
-        @Body req: ReqUpdateAddressDTO
+        @Body req: ReqUpdateAddressDTO,
+        @Header("Authorization") token: String = "Bearer ${SharedPrefCommon.token}"
     ): ResultWrapper<ResUpdatePhoneDTO>
 
     @POST("forgot-password")
     suspend fun forgotPassword(
-        @Body req: ReqForgotPass
+        @Body req: ReqForgotPass,
+        @Header("Authorization") token: String = "Bearer ${SharedPrefCommon.token}"
     ): ResultWrapper<ResForgotPass>
 
     @POST("reset-password/{token}")

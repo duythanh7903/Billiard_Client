@@ -71,6 +71,8 @@ class MainActivity: BaseActivity<ActivityMainBinding>() {
         Log.d("duylt", "${
             Gson().fromJson(SharedPrefCommon.jsonAcc, ResLoginUserDTO::class.java)?.user?.id
         }")
+
+        Log.d("duylt", "Token; ${SharedPrefCommon.token}")
     }
 
     override fun onClickViews() {

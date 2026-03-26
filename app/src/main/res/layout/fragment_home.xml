@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/inter_regular"
-                android:text="Billiard"
+                android:text="Bút chì kim"
                 android:textColor="@color/primary"
                 android:textSize="@dimen/_12ssp" />
 

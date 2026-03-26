@@ -102,6 +102,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>() {
                         loadingDialog?.dismiss()
                         val json = Gson().toJson(state.data)
                         SharedPrefCommon.jsonAcc = json ?: ""
+                        SharedPrefCommon.token = state.data.token ?: ""
 
                         startActivity(Intent(this@SignInActivity, MainActivity::class.java))
                         finishAffinity()

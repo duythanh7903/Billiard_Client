@@ -58,7 +58,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_regular"
-                        android:text="Billiard"
+                        android:text="Bút chì kim"
                         android:textColor="@color/textGray"
                         android:textSize="@dimen/_12ssp" />
 

@@ -27,35 +27,31 @@ class FetchAllProductsUseCase @Inject constructor(
     operator fun invoke() = flow {
         emit(UiState.Loading) // show loading
 
-        while (true) {
-            try {
-                // nhan ket qua tu api trar ve
-                when (val response = productRepository.fetchAllProducts()) {
-                    is ResultWrapper.Success -> {
-                        val data = response.value.data
-                        data?.let { listResponse ->
-                            clearCacheProdUseCase.invoke().collect {
-                                val listCache = listResponse.toListCacheProduct()
-                                cacheProdUseCase.invoke(listCache).collect { }
-                            }
+        try {
+            // nhan ket qua tu api trar ve
+            when (val response = productRepository.fetchAllProducts()) {
+                is ResultWrapper.Success -> {
+                    val data = response.value.data
+                    data?.let { listResponse ->
+                        clearCacheProdUseCase.invoke().collect {
+                            val listCache = listResponse.toListCacheProduct()
+                            cacheProdUseCase.invoke(listCache).collect { }
                         }
-
-                        emit(UiState.Success(response.value))
                     }
 
-                    is ResultWrapper.GenericError -> emit(UiState.Error(response.message?.ifEmpty {
-                        context.getString(R.string.msg_wrong)
-                    } ?: "Unknow Error"))
-
-                    is ResultWrapper.NetworkError -> emit(UiState.Error("Network Error"))
+                    emit(UiState.Success(response.value))
                 }
-            } catch (e: HttpException) {
-                emit(UiState.Error(e.message ?: "Unknow Error"))
-            } catch (e: Exception) {
-                emit(UiState.Error(e.message ?: "Unknow Error"))
-            }
 
-            delay(5_000)
+                is ResultWrapper.GenericError -> emit(UiState.Error(response.message?.ifEmpty {
+                    context.getString(R.string.msg_wrong)
+                } ?: "Unknow Error"))
+
+                is ResultWrapper.NetworkError -> emit(UiState.Error("Network Error"))
+            }
+        } catch (e: HttpException) {
+            emit(UiState.Error(e.message ?: "Unknow Error"))
+        } catch (e: Exception) {
+            emit(UiState.Error(e.message ?: "Unknow Error"))
         }
     }.flowOn(Dispatchers.IO)
 }

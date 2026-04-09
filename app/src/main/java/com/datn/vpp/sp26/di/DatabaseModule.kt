@@ -1,0 +1,48 @@
+package com.datn.vpp.sp26.di
+
+import android.content.Context
+import androidx.room.Room
+import com.datn.vpp.sp26.data.database.AppDatabase
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+object DatabaseModule {
+    @Singleton
+    @Provides
+    fun provideDatabase(@ApplicationContext context: Context) =
+        Room.databaseBuilder(context, AppDatabase::class.java, "app_database").build()
+
+    @Singleton
+    @Provides
+    fun provideCartDao(db: AppDatabase) = db.cartDao()
+
+    @Singleton
+    @Provides
+    fun provideFavoriteDao(db: AppDatabase) = db.favoriteDao()
+
+    @Singleton
+    @Provides
+    fun provideCommentDao(db: AppDatabase) = db.commentDao()
+
+    @Singleton
+    @Provides
+    fun provideProductDao(db: AppDatabase) = db.productDao()
+
+    @Singleton
+    @Provides
+    fun provideCategoryDao(db: AppDatabase) = db.categoryDao()
+
+    @Singleton
+    @Provides
+    fun provideFeedbackDao(db: AppDatabase) = db.feedbackDao()
+
+    @Singleton
+    @Provides
+    fun provideOrderCacheDao(db: AppDatabase) = db.orderDao()
+}

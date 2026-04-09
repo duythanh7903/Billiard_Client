@@ -1,4 +1,4 @@
-package com.datn.bia.a
+package com.datn.vpp.sp26
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.datn.bia.a", appContext.packageName)
+        assertEquals("com.datn.vpp.sp26", appContext.packageName)
     }
 }

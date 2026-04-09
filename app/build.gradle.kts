@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace = "com.datn.bia.a"
+    namespace = "com.datn.vpp.sp26"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.datn.bia.a"
+        applicationId = "com.datn.vpp.sp26"
         minSdk = 26
         targetSdk = 36
         versionCode = 1

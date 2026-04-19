@@ -6,11 +6,13 @@ import com.datn.vpp.sp26.domain.model.dto.req.ReqLoginUserDTO
 import com.datn.vpp.sp26.domain.model.dto.req.ReqResetPass
 import com.datn.vpp.sp26.domain.model.dto.req.ReqSignUpUserDTO
 import com.datn.vpp.sp26.domain.model.dto.req.ReqUpdateAddressDTO
+import com.datn.vpp.sp26.domain.model.dto.req.ReqUpdatePhoneAndAddress
 import com.datn.vpp.sp26.domain.model.dto.req.ReqUpdatePhoneDTO
 import com.datn.vpp.sp26.domain.model.dto.res.ResForgotPass
 import com.datn.vpp.sp26.domain.model.dto.res.ResLoginUserDTO
 import com.datn.vpp.sp26.domain.model.dto.res.ResResetPass
 import com.datn.vpp.sp26.domain.model.dto.res.ResSignUpUserDTO
+import com.datn.vpp.sp26.domain.model.dto.res.ResUpdatePhoneAndAddressDTO
 import com.datn.vpp.sp26.domain.model.dto.res.ResUpdatePhoneDTO
 
 interface AuthRepository {
@@ -40,4 +42,9 @@ interface AuthRepository {
         req: ReqResetPass,
         token: String
     ): ResultWrapper<ResResetPass>
+
+    suspend fun updatePhoneNumberAndAddress(
+        id: String,
+        req: ReqUpdatePhoneAndAddress,
+    ): ResultWrapper<ResUpdatePhoneAndAddressDTO>
 }

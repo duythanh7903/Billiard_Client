@@ -4,9 +4,11 @@ import com.datn.vpp.sp26.data.network.factory.ResultWrapper
 import com.datn.vpp.sp26.data.network.service.OrderService
 import com.datn.vpp.sp26.domain.model.dto.req.ReqCancelOrder
 import com.datn.vpp.sp26.domain.model.dto.req.ReqCheckOutDTO
+import com.datn.vpp.sp26.domain.model.dto.req.ReqProdCheckOut
 import com.datn.vpp.sp26.domain.model.dto.req.ReqUpdateOrder
 import com.datn.vpp.sp26.domain.model.dto.res.ResAllOrder
 import com.datn.vpp.sp26.domain.model.dto.res.ResCheckOutDTO
+import com.datn.vpp.sp26.domain.model.dto.res.ResCheckStockDTO
 import com.datn.vpp.sp26.domain.model.dto.res.ResOrderDTO
 import com.datn.vpp.sp26.domain.model.dto.res.ResUpdateOrder
 import com.datn.vpp.sp26.domain.repository.OrderRepository
@@ -37,4 +39,7 @@ class OrderRepositoryImpl @Inject constructor(
 
     override suspend fun getAllOrder(): ResultWrapper<ResAllOrder> =
         orderService.getAllOrder()
+
+    override suspend fun checkStock(products: List<ReqProdCheckOut>): ResultWrapper<ResCheckStockDTO> =
+        orderService.checkStock(products)
 }

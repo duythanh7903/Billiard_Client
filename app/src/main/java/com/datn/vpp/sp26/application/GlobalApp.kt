@@ -8,6 +8,7 @@ import dagger.hilt.android.HiltAndroidApp
 class GlobalApp: Application() {
     companion object {
         var jsonSearchResult: String = ""
+        var isPaymentSuccess: Boolean = true
     }
 
     override fun onCreate() {

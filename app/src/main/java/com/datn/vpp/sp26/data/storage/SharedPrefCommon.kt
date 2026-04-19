@@ -1,9 +1,11 @@
 @file:Suppress("UNCHECKED_CAST")
+
 package com.datn.vpp.sp26.data.storage
 
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.datn.vpp.sp26.common.AppConst
 
 object SharedPrefCommon {
     private const val PREFERENCES_NAME = "Duylt_FontkeyboardTheme"
@@ -51,4 +53,12 @@ object SharedPrefCommon {
     var token: String
         get() = getValue("token", "")
         set(value) = setValue("token", value)
+
+    var idUser: String
+        get() = getValue("idUser", "")
+        set(value) = setValue("idUser", value)
+
+    var role: String
+        get() = getValue("role", "")
+        set(value) = setValue("role", value)
 }

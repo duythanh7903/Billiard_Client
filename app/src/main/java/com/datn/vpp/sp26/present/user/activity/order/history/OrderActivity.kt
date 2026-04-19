@@ -1,0 +1,101 @@
+package com.datn.vpp.sp26.present.user.activity.order.history
+
+import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
+import com.datn.vpp.sp26.R
+import com.datn.vpp.sp26.common.AppConst
+import com.datn.vpp.sp26.common.UiState
+import com.datn.vpp.sp26.common.base.BaseActivity
+import com.datn.vpp.sp26.common.base.ext.click
+import com.datn.vpp.sp26.common.base.ext.showToastOnce
+import com.datn.vpp.sp26.databinding.ActivityOrderBinding
+import com.datn.vpp.sp26.domain.model.domain.OrderState
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+
+@AndroidEntryPoint
+class OrderActivity : BaseActivity<ActivityOrderBinding>() {
+
+    private val viewModel: OrderViewModel by viewModels()
+
+    private var orderAdapter: OrderAdapter? = null
+    private var orderStateAdapter: OrderStateAdapter? = null
+
+    private val onPageChangeCbListener = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+
+            binding.rcvStatusOrder.scrollToPosition(position)
+            orderStateAdapter?.indexSelect = position
+        }
+    }
+
+    override fun getLayoutActivity(): Int = R.layout.activity_order
+
+    override fun initViews() {
+        super.initViews()
+
+        binding.vpgTab.apply {
+            orderAdapter = OrderAdapter(this@OrderActivity)
+            adapter = orderAdapter
+            registerOnPageChangeCallback(onPageChangeCbListener)
+        }
+
+        binding.rcvStatusOrder.apply {
+            orderStateAdapter = OrderStateAdapter(
+                contextParams = this@OrderActivity,
+                onStatusClick = { index, status ->
+                    orderStateAdapter?.indexSelect = index
+                    binding.vpgTab.currentItem = index
+                }
+            ).apply {
+                submitData(OrderState.getListStatus())
+            }
+
+            adapter = orderStateAdapter
+        }
+
+        binding.vpgTab.currentItem =
+            intent.getIntExtra(AppConst.KEY_ORDER_TYPE, 0)
+    }
+
+    override fun onClickViews() {
+        super.onClickViews()
+
+        binding.icBack.click { finish() }
+    }
+
+    override fun observerData() {
+        super.observerData()
+
+        lifecycleScope.launch {
+            viewModel.state.collect { orderState ->
+                when (val response = orderState.uiState) {
+                    is UiState.Error -> {
+                        showToastOnce(response.message)
+
+                        viewModel.changeStateToIdle()
+                    }
+
+                    UiState.Idle -> Unit
+
+                    UiState.Loading -> Unit
+
+                    is UiState.Success -> {
+                        viewModel.changeStateToIdle()
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        binding.vpgTab.unregisterOnPageChangeCallback(onPageChangeCbListener)
+        orderAdapter = null
+        orderStateAdapter?.list?.clear()
+        orderStateAdapter = null
+
+        super.onDestroy()
+    }
+}

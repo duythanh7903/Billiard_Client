@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetAllCartsUseCase @Inject constructor(
     private val cartRepository: CartRepository
 ) {
-    operator fun invoke() = cartRepository.getAllCartEnable()
+    operator fun invoke(idUser: String) = cartRepository.getAllCartEnable(idUser)
 }

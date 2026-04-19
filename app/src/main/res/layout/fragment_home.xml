@@ -63,6 +63,7 @@
             android:layout_height="@dimen/_22sdp"
             android:layout_marginEnd="@dimen/_14sdp"
             android:src="@drawable/ic_chat"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/btnSearch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/btnSearch" />
@@ -73,6 +74,7 @@
             android:layout_height="@dimen/_22sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:src="@drawable/ic_notification"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/icChat"
             app:layout_constraintEnd_toStartOf="@id/icChat"
             app:layout_constraintTop_toTopOf="@id/icChat"
@@ -115,15 +117,15 @@
         </FrameLayout>
 
         <ProgressBar
+            android:id="@+id/loadingBar"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:padding="@dimen/_8sdp"
             android:background="@drawable/bg_white_border_max"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="@dimen/_8sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/loadingBar" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,18 +7,20 @@ import com.datn.vpp.sp26.domain.model.dto.req.ReqLoginUserDTO
 import com.datn.vpp.sp26.domain.model.dto.req.ReqResetPass
 import com.datn.vpp.sp26.domain.model.dto.req.ReqSignUpUserDTO
 import com.datn.vpp.sp26.domain.model.dto.req.ReqUpdateAddressDTO
+import com.datn.vpp.sp26.domain.model.dto.req.ReqUpdatePhoneAndAddress
 import com.datn.vpp.sp26.domain.model.dto.req.ReqUpdatePhoneDTO
 import com.datn.vpp.sp26.domain.model.dto.res.ResForgotPass
 import com.datn.vpp.sp26.domain.model.dto.res.ResLoginUserDTO
 import com.datn.vpp.sp26.domain.model.dto.res.ResResetPass
 import com.datn.vpp.sp26.domain.model.dto.res.ResSignUpUserDTO
+import com.datn.vpp.sp26.domain.model.dto.res.ResUpdatePhoneAndAddressDTO
 import com.datn.vpp.sp26.domain.model.dto.res.ResUpdatePhoneDTO
 import com.datn.vpp.sp26.domain.repository.AuthRepository
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val authService: AuthService
-): AuthRepository {
+) : AuthRepository {
     override suspend fun loginUser(req: ReqLoginUserDTO): ResultWrapper<ResLoginUserDTO> =
         authService.loginUser(req)
 
@@ -45,4 +47,10 @@ class AuthRepositoryImpl @Inject constructor(
         token: String
     ): ResultWrapper<ResResetPass> =
         authService.resetPassword(req, token)
+
+    override suspend fun updatePhoneNumberAndAddress(
+        id: String,
+        req: ReqUpdatePhoneAndAddress
+    ): ResultWrapper<ResUpdatePhoneAndAddressDTO> =
+        authService.updatePhoneNumberAndAddress(id, req)
 }

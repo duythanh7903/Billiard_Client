@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -19,6 +18,21 @@
             android:layout_marginBottom="@dimen/_minus14sdp"
             android:background="@color/primary"
             app:layout_constraintBottom_toBottomOf="@id/imgAvatar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvNotiRole"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/business_account"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/imgAvatar"
+            app:layout_constraintEnd_toStartOf="@id/icSetting"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -45,10 +59,10 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgAvatar"
             android:layout_width="@dimen/_44sdp"
-            android:src="@mipmap/ic_launcher"
             android:layout_height="@dimen/_44sdp"
             android:layout_marginStart="@dimen/_14sdp"
             android:layout_marginTop="@dimen/_8sdp"
+            android:src="@mipmap/ic_launcher"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/icSetting" />
 
@@ -67,24 +81,24 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:fontFamily="@font/inter_semibold"
+            android:text="User name"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toTopOf="@id/viewCenterAvatar"
             app:layout_constraintStart_toEndOf="@id/imgAvatar"
-            app:layout_constraintTop_toTopOf="@id/imgAvatar"
-            android:text="User name" />
+            app:layout_constraintTop_toTopOf="@id/imgAvatar" />
 
         <TextView
             android:id="@+id/tvCountItemInCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_regular"
+            android:text="5 carts"
             android:textColor="@color/white"
             android:textSize="@dimen/_8ssp"
             app:layout_constraintBottom_toBottomOf="@id/imgAvatar"
             app:layout_constraintStart_toStartOf="@id/tvUserName"
-            app:layout_constraintTop_toBottomOf="@id/viewCenterAvatar"
-            android:text="5 carts" />
+            app:layout_constraintTop_toBottomOf="@id/viewCenterAvatar" />
 
         <View
             android:id="@+id/icDot"
@@ -103,12 +117,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_4sdp"
             android:fontFamily="@font/inter_regular"
+            android:text="5 Orders"
             android:textColor="@color/white"
             android:textSize="@dimen/_8ssp"
             app:layout_constraintBottom_toBottomOf="@id/tvCountItemInCart"
             app:layout_constraintStart_toEndOf="@id/icDot"
-            app:layout_constraintTop_toTopOf="@id/tvCountItemInCart"
-            android:text="5 Orders" />
+            app:layout_constraintTop_toTopOf="@id/tvCountItemInCart" />
 
         <TextView
             android:id="@+id/btnSignUp"

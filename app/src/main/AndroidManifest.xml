@@ -20,19 +20,43 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".present.activity.auth.pass.ResetPassActivity"
+            android:name=".present.wholesale.product.ProductActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".present.activity.auth.pass.ForgotPassActivity"
+            android:name=".present.wholesale.cart.CartActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".present.activity.search.SearchActivity"
+            android:name=".present.wholesale.setting.SettingActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".present.activity.order.confirm.ConfirmOrderActivity"
+            android:name=".present.wholesale.order.OrderActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".present.wholesale.profile.ProfileActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".present.wholesale.home.HomeActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".present.user.activity.auth.pass.ResetPassActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".present.user.activity.auth.pass.ForgotPassActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".present.user.activity.search.SearchActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".present.user.activity.order.confirm.ConfirmOrderActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
@@ -51,36 +75,36 @@
         </activity>
 
         <activity
-            android:name=".present.activity.confirmation.OrderConfirmationActivity"
+            android:name=".present.user.activity.confirmation.OrderConfirmationActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".present.activity.comment.reviews.ReviewsActivity"
+            android:name=".present.user.activity.comment.reviews.ReviewsActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".present.activity.order.history.OrderActivity"
+            android:name=".present.user.activity.order.history.OrderActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".present.activity.favorite.FavoriteProductsActivity"
+            android:name=".present.user.activity.favorite.FavoriteProductsActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".present.activity.voucher.VouchersActivity"
+            android:name=".present.user.activity.voucher.VouchersActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".present.activity.prod.ProductActivity"
+            android:name=".present.user.activity.prod.ProductActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".present.activity.setting.SettingActivity"
+            android:name=".present.user.activity.setting.SettingActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".present.activity.fo.splash.SplashActivity"
+            android:name=".present.user.activity.fo.splash.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -91,19 +115,19 @@
         </activity>
 
         <activity
-            android:name=".present.activity.fo.language.LanguageActivity"
+            android:name=".present.user.activity.fo.language.LanguageActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".present.activity.home.MainActivity"
+            android:name=".present.user.activity.home.MainActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".present.activity.auth.si.SignInActivity"
+            android:name=".present.user.activity.auth.si.SignInActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".present.activity.auth.su.SignUpActivity"
+            android:name=".present.user.activity.auth.su.SignUpActivity"
             android:screenOrientation="portrait" />
     </application>
 

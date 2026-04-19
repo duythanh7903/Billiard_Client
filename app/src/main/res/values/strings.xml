@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Billiard Poly</string>
+    <string name="app_name" translatable="false">Ung Dung Ban Van Phong Pham SP26</string>
     <string name="language">Language</string>
     <string name="next">Next</string>
     <string name="title_onb_1">Various keyboard styles</string>
@@ -132,4 +132,14 @@
     <string name="msg_content_noti">Your order has been shipped, please keep an eye on your phone!</string>
     <string name="msg_ins_stock">Insufficient stock!</string>
     <string name="msg_support_financial">If your order has already been paid for, please contact the administrator for financial assistance!</string>
+    <string name="msg_added_100_to_cart">Added 100 products to cart</string>
+    <string name="select_customer_type">Select customer type</string>
+    <string name="organization">Organization</string>
+    <string name="personal">Personal</string>
+    <string name="your_phone_number">Your phone number</string>
+    <string name="business_account">Business account</string>
+    <string name="logout">Logout</string>
+    <string name="information">Information</string>
+    <string name="export">Export</string>
+    <string name="products">Products</string>
 </resources>

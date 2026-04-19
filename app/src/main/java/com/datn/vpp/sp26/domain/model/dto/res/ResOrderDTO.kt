@@ -33,5 +33,17 @@ data class OrderProductDetail(
     val _id: String? = null,
     val name: String? = null,
     val price: Double? = null,
-    val imageUrl: String? = null
+    val imageUrl: String? = null,
+    // [Mới thêm] - Đón danh sách biến thể trả về từ server
+    val variants: List<ProductVariant>? = null
+)
+
+// [Mới thêm] - Data class ánh xạ lại Object Variant trong Product schema
+data class ProductVariant(
+    val _id: String? = null,
+    val color: String? = null,
+    val price: Double? = null,
+    val priceWholesale: Double? = null,
+    val quantity: Int? = null,
+    val status: Boolean? = null
 )

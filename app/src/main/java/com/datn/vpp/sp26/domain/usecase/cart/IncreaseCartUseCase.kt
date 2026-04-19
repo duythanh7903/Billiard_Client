@@ -1,5 +1,7 @@
 package com.datn.vpp.sp26.domain.usecase.cart
 
+import com.datn.vpp.sp26.common.AppConst
+import com.datn.vpp.sp26.data.storage.SharedPrefCommon
 import com.datn.vpp.sp26.domain.repository.CartRepository
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -17,7 +19,7 @@ class IncreaseCartUseCase @Inject constructor(
         }
 
         val newCartEntity = cartEntity.copy(
-            quantity = cartEntity.quantity + 1 // tang so luong len 1
+            quantity = cartEntity.quantity + if (SharedPrefCommon.role == AppConst.ROLE_WHOLESALE) 10 else 1 // tang so luong len 1
         )
 
         cartRepository.updateCart(newCartEntity)

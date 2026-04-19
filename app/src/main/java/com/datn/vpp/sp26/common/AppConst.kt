@@ -12,6 +12,7 @@ object AppConst {
     internal const val KEY_LIST_PRODUCT = "KEY_LIST_PRODUCT"
     internal const val KEY_ID_PRODUCT = "KEY_ID_PRODUCT"
     internal const val KEY_FROM_SPLASH = "KEY_FROM_SPLASH"
+    internal const val KEY_VARIANT = "KEY_VARIANT"
 
     internal const val STATUS_ORDER_TO_PAY = "Xác nhận"
     internal const val STATUS_ORDER_TO_RECEIVE = "Đang giao hàng"
@@ -22,5 +23,9 @@ object AppConst {
 
     internal const val FEE_SHIP = 20_000
 
-    internal const val DOMAIN = "10.0.2.2"
+//    internal const val DOMAIN = "10.0.2.2"
+    internal const val DOMAIN = "192.168.1.45"
+
+    internal const val ROLE_USER = "user"
+    internal const val ROLE_WHOLESALE = "wholesale"
 }

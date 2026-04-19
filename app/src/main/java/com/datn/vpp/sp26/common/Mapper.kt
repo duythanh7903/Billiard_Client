@@ -1,5 +1,6 @@
 package com.datn.vpp.sp26.common
 
+import com.datn.vpp.sp26.data.storage.SharedPrefCommon
 import com.datn.vpp.sp26.domain.model.domain.Cart
 import com.datn.vpp.sp26.domain.model.dto.req.ReqProdCheckOut
 import com.datn.vpp.sp26.domain.model.dto.res.ResCatDTO
@@ -185,7 +186,8 @@ fun Cart.toReqProdCheckOut() = ReqProdCheckOut(
     quantity = this.productQuantity,
     name = this.productName,
     priceBeforeDis = this.productPrice,
-    priceAfterDis = this.productPrice - (this.productPrice * this.productDiscount / 100),
+    priceAfterDis = if (SharedPrefCommon.role == AppConst.ROLE_WHOLESALE) this.productPrice else
+        this.productPrice - (this.productPrice * this.productDiscount / 100),
     color = this.variant.color ?: ""
 )
 

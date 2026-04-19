@@ -18,8 +18,8 @@ class CartRepositoryImpl @Inject constructor(
     override suspend fun updateCart(c: CartEntity) =
         cartDao.updateCart(c)
 
-    override fun getAllCartEnable(): Flow<List<CartEntity>> =
-        cartDao.getAllCartsEnable()
+    override fun getAllCartEnable(idUser: String): Flow<List<CartEntity>> =
+        cartDao.getAllCartsEnable(idUser)
 
     override suspend fun searchCartEnableByIdCart(id: Long): CartEntity? =
         cartDao.searchCartEnableByIdCart(id)
@@ -27,4 +27,10 @@ class CartRepositoryImpl @Inject constructor(
     override suspend fun deleteCart(c: CartEntity) = cartDao.deleteCart(c)
     override suspend fun deleteByIds(ids: List<Long>) =
         cartDao.deleteByIds(ids)
+
+    override suspend fun searchCartByIdAndUser(
+        id: String,
+        idUser: String
+    ): List<CartEntity> =
+        cartDao.searchCartByIdAndUser(id, idUser)
 }

@@ -13,8 +13,8 @@ interface CartDao {
     @Insert
     suspend fun insertCart(c: CartEntity)
 
-    @Query("SELECT * FROM CARTENTITY WHERE ISENABLE == 1 ORDER BY ID DESC")
-    fun getAllCartsEnable(): Flow<List<CartEntity>>
+    @Query("SELECT * FROM CARTENTITY WHERE ISENABLE == 1 AND idUser == :idUser ORDER BY ID DESC")
+    fun getAllCartsEnable(idUser: String): Flow<List<CartEntity>>
 
     @Query("SELECT * FROM CARTENTITY WHERE IDPROD LIKE :id AND ISENABLE == 1")
     suspend fun searchCartByIdProd(id: String): List<CartEntity>
@@ -30,4 +30,7 @@ interface CartDao {
 
     @Query("DELETE FROM CARTENTITY WHERE id IN (:ids)")
     suspend fun deleteByIds(ids: List<Long>)
+
+    @Query("select * from CartEntity where idProd like :id and isEnable == 1 and idUser like :idUser")
+    suspend fun searchCartByIdAndUser(id: String, idUser: String): List<CartEntity>
 }

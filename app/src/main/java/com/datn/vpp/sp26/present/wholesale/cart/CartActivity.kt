@@ -1,8 +1,11 @@
 package com.datn.vpp.sp26.present.wholesale.cart
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.util.Log
+import android.text.InputType
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.datn.vpp.sp26.R
@@ -66,8 +69,8 @@ class CartActivity : BaseActivity<ActivityCartBinding>() {
                     viewModel.inCreaseCart(idCart)
                 }, onReduceProduct = { idCart ->
                     viewModel.reduceCart(idCart)
-                }, onChangeQuantityProduct = { str, id ->
-                    viewModel.onChangeQuantity(str.toIntOrNull() ?: 0, id)
+                }, onChangeQuantityProduct = { id ->
+                    showChangeQuantityDialog(id)
                 }, onSelectCart = { cart, index ->
                     viewModel.selectCart(cart.cartId)
                 }
@@ -326,4 +329,30 @@ class CartActivity : BaseActivity<ActivityCartBinding>() {
             listProduct.forEach { Log.d("product", it.toString()) }
         }
     )
+
+    private fun showChangeQuantityDialog(idCart: Long) {
+        val currentQty = cartAdapter?.list?.firstOrNull { it.cartId == idCart }?.productQuantity ?: 1
+
+        val input = EditText(this).apply {
+            inputType = InputType.TYPE_CLASS_NUMBER
+            setText(currentQty.toString())
+            setSelection(text?.length ?: 0)
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.quantity))
+            .setMessage(getString(R.string.msg_input_quantity))
+            .setView(input)
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton(getString(R.string.confirm)) { dialog, _ ->
+                val qty = input.text?.toString()?.trim()?.toIntOrNull()
+                if (qty == null || qty <= 0) {
+                    showToastOnce(getString(R.string.msg_input_null))
+                    return@setPositiveButton
+                }
+                viewModel.onChangeQuantity(qty, idCart)
+                dialog.dismiss()
+            }
+            .show()
+    }
 }

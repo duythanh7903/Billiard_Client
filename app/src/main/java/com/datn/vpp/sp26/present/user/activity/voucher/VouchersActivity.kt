@@ -55,10 +55,14 @@ class VouchersActivity : BaseActivity<ActivityVouchersBinding>() {
 
         binding.btnApplyVoucher.click {
             voucherAdapter?.getVoucherSelect()?.let { voucher ->
-                setResult(RESULT_OK, Intent().apply {
-                    putExtra(AppConst.KEY_VOUCHER, Gson().toJson(voucher))
-                })
-                finish()
+                if ((voucher.quantity ?: 0) > 0) {
+                    setResult(RESULT_OK, Intent().apply {
+                        putExtra(AppConst.KEY_VOUCHER, Gson().toJson(voucher))
+                    })
+                    finish()
+                } else {
+                    showToastOnce(getString(R.string.invalid))
+                }
             } ?: run {
 
             }
@@ -93,7 +97,9 @@ class VouchersActivity : BaseActivity<ActivityVouchersBinding>() {
                         binding.rcvVoucher.visibleView()
 
                         val listVouchers = response.data
-                        voucherAdapter?.submitData(listVouchers.filter { it.endDate?.getRemainingTime()?.lowercase() != "Đã hết hạn".lowercase() })
+                        voucherAdapter?.submitData(listVouchers.filter {
+                            it.endDate?.getRemainingTime()?.lowercase() != "Đã hết hạn".lowercase()
+                        })
 
                         viewModel.changeStateToIdle()
                     }

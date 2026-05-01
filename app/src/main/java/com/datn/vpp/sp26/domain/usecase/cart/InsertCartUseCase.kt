@@ -30,7 +30,7 @@ class InsertCartUseCase @Inject constructor(
             cartRepository.insertCart(
                 CartEntity(
                     idProd = id,
-                    quantity = 100,
+                    quantity = if (SharedPrefCommon.role == AppConst.ROLE_WHOLESALE) 100 else 1,
                     isEnable = true,
                     variant = variant,
                     price = price

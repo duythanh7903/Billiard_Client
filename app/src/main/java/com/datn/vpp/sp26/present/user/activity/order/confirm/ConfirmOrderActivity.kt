@@ -18,7 +18,9 @@ import com.datn.vpp.sp26.common.UiState
 import com.datn.vpp.sp26.common.base.BaseActivity
 import com.datn.vpp.sp26.common.base.ext.click
 import com.datn.vpp.sp26.common.base.ext.formatVND
+import com.datn.vpp.sp26.common.base.ext.goneView
 import com.datn.vpp.sp26.common.base.ext.showToastOnce
+import com.datn.vpp.sp26.common.base.ext.visibleView
 import com.datn.vpp.sp26.common.payment.Api.CreateOrder
 import com.datn.vpp.sp26.data.storage.SharedPrefCommon
 import com.datn.vpp.sp26.databinding.ActivityConfirmOrderBinding
@@ -85,6 +87,7 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
     override fun initViews() {
         super.initViews()
 
+        binding.layoutNotiError.goneView()
         initZaloPay()
         gson = Gson()
         paymentMethod = intent.getStringExtra(AppConst.KEY_PAYMENT_METHOD) ?: paymentMethod
@@ -152,7 +155,7 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
             viewModel.checkStockState.collect {
                 when (it) {
                     is UiState.Error -> {
-                        showToastOnce(it.message)
+                        binding.tvMsgWrong.text = it.message
                         loadingDialog?.dismiss()
                         viewModel.changeCheckStateToIdle()
                     }
@@ -170,7 +173,8 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
                         viewModel.changeCheckStateToIdle()
 
                         if (it.data.message != null) {
-                            showToastOnce(it.data.message)
+                            binding.layoutNotiError.visibleView()
+                            binding.tvMsgWrong.text = it.data.message
 
                             return@collect
                         }
@@ -192,6 +196,7 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
                 when (uiState) {
                     is UiState.Error -> {
                         Log.d("duylt", "Message: ${uiState.message}")
+                        binding.tvMsgWrong.text = uiState.message
                         showToastOnce(getString(R.string.msg_ins_stock))
                         loadingDialog?.cancel()
                         viewModel.changeStateToIdle()

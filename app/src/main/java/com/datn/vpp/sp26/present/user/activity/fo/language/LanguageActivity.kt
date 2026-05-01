@@ -3,6 +3,7 @@ package com.datn.vpp.sp26.present.user.activity.fo.language
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import com.datn.vpp.sp26.R
 import com.datn.vpp.sp26.common.AppConst
 import com.datn.vpp.sp26.common.base.BaseActivity
@@ -26,6 +27,8 @@ class LanguageActivity : BaseActivity<ActivityLanguageBinding>() {
 
     override fun initViews() {
         super.initViews()
+
+        Log.d("duylt", "Hello")
 
         isFromSplash = intent.getBooleanExtra(AppConst.KEY_FROM_SPLASH, false)
         loadingDialog = LoadingDialog(this)

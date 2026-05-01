@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">Billiard Poly</string>
     <string name="language">语言</string>
     <string name="next">下一步</string>
     <string name="title_onb_1">多种键盘样式</string>
@@ -126,10 +125,23 @@
     <string name="msg_error_network">无网络连接</string>
     <string name="maximum_discount">最大折扣</string>
     <string name="quantity">数量</string>
+    <string name="msg_input_quantity">请输入商品数量</string>
     <string name="msg_confirm_success">确认成功！</string>
     <string name="color_">颜色：%s</string>
     <string name="msg_title_noti">通知</string>
     <string name="msg_content_noti">您的订单已发货，请留意手机通知！</string>
     <string name="msg_ins_stock">库存不足！</string>
     <string name="msg_support_financial">订单已支付，请联系管理员处理财务问题！</string>
+    <string name="msg_added_100_to_cart">已向购物车添加 100 件商品</string>
+    <string name="select_customer_type">选择客户类型</string>
+    <string name="organization">机构</string>
+    <string name="personal">个人</string>
+    <string name="your_phone_number">您的电话号码</string>
+    <string name="business_account">企业账户</string>
+    <string name="logout">退出登录</string>
+    <string name="information">信息</string>
+    <string name="export">导出</string>
+    <string name="products">商品</string>
+    <string name="stock">库存</string>
+    <string name="invalid">无效！</string>
 </resources>

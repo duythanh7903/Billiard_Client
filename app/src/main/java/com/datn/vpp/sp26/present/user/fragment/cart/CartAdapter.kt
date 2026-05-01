@@ -2,8 +2,6 @@ package com.datn.vpp.sp26.present.user.fragment.cart
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.databinding.ViewDataBinding
 import com.bumptech.glide.Glide
 import com.datn.vpp.sp26.R
@@ -22,7 +20,7 @@ class CartAdapter(
     private val contextParams: Context,
     private val onIncreaseProduct: (idCart: Long) -> Unit,
     private val onReduceProduct: (idCart: Long) -> Unit,
-    private val onChangeQuantityProduct: (str: String, id: Long) -> Unit,
+    private val onChangeQuantityProduct: (id: Long) -> Unit,
     private val onSelectCart: (cart: Cart, index: Int) -> Unit
 ) : BaseRecyclerViewAdapter<Cart>() {
 
@@ -77,7 +75,8 @@ class CartAdapter(
             binding.chb.isActivated =
                 listCartSelected.firstOrNull { it == item.cartId } != null
 
-            binding.tvColor.text = contextParams.getString(R.string.color_, item.variant.color ?: "")
+            binding.tvColor.text =
+                contextParams.getString(R.string.color_, item.variant.color ?: "")
         }
     }
 
@@ -94,23 +93,9 @@ class CartAdapter(
                 onReduceProduct.invoke(obj.cartId)
             }
 
-            binding.edtQuantity.addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) = Unit
-
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) = Unit
-
-                override fun onTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    before: Int,
-                    count: Int
-                ) = onChangeQuantityProduct.invoke(s?.toString() ?: "", obj.cartId)
-            })
+            binding.edtQuantity.click {
+                onChangeQuantityProduct.invoke(obj.cartId)
+            }
 
             binding.chb.click {
                 onSelectCart.invoke(obj, layoutPosition)

@@ -98,6 +98,10 @@ class CartViewModel @Inject constructor(
         _voucherSelected.value = voucher
     }
 
+    fun clearVoucher() {
+        _voucherSelected.value = null
+    }
+
     fun resetStateCheckOutToIdle() {
         _stateCheckOut.value = UiState.Idle
     }

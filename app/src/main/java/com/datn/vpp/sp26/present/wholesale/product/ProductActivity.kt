@@ -94,6 +94,8 @@ class ProductActivity : BaseActivity<ActivityProductWholsesaleBinding>() {
         variantAdapter = VariantAdapter { index, item ->
             variantAdapter?.indexSelect = index
 
+            binding.tvBought.text = "${getString(R.string.stock)}: ${item.quantity ?: 0}"
+
             variant = item
 
             price = item.priceWholesale?.toDouble() ?: 0.0
@@ -101,15 +103,11 @@ class ProductActivity : BaseActivity<ActivityProductWholsesaleBinding>() {
             binding.tvDiscount.goneView()
             binding.tvPrice1.goneView()
             binding.line.goneView()
-
-            binding.tvBought.text =
-                item.quantity?.toString() + " " + getString(R.string.products)
         }.apply {
             submitData(prod.variants ?: emptyList())
         }
-
         binding.tvBought.text =
-            prod.variants?.firstOrNull()?.quantity?.toString() + " " + getString(R.string.products)
+            "${getString(R.string.stock)}: ${prod.variants?.firstOrNull()?.quantity ?: 0}"
 
         rcvImage.adapter = imageAdapter
         binding.rcvVariant.adapter = variantAdapter

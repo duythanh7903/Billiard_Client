@@ -65,8 +65,6 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
                 binding.tvStars.text = star.toString().take(3)
             }
         }
-
-        binding.tvBought.text = "${getString(R.string.sold)} ${(0..100).random()}"
     }
 
     override fun onClickViews() {
@@ -125,6 +123,8 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
         variantAdapter = VariantAdapter { index, item ->
             variantAdapter?.indexSelect = index
 
+            binding.tvBought.text = "${getString(R.string.stock)}: ${item.quantity ?: 0}"
+
             variant = item
 
             price = item.price ?: 0.0
@@ -146,9 +146,6 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
                 binding.tvPrice1.text = item.price?.formatVND() ?: "NaN"
                 binding.line.visibleView()
             }
-
-            binding.tvBought.text =
-                item.quantity?.toString() + " " + getString(R.string.products)
         }.apply {
             submitData(prod.variants ?: emptyList())
         }
@@ -158,9 +155,8 @@ class ProductActivity : BaseActivity<ActivityProductBinding>() {
         Glide.with(this@ProductActivity).load(prod.imageUrl?.toValidUrl()).into(binding.imgProduct)
         tvProductName.text = prod.name ?: ""
         tvDes.text = prod.des ?: ""
-
         binding.tvBought.text =
-            prod.variants?.firstOrNull()?.quantity?.toString() + " " + getString(R.string.products)
+            "${getString(R.string.stock)}: ${prod.variants?.firstOrNull()?.quantity ?: 0}"
 
         if (prod.discount == null || prod.discount == 0) {
             price = prod.variants?.firstOrNull()?.price ?: 0.0

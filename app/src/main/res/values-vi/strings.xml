@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">Billiard Poly</string>
     <string name="language">Ngôn ngữ</string>
     <string name="next">Tiếp theo</string>
     <string name="title_onb_1">Nhiều kiểu bàn phím</string>
@@ -82,7 +81,7 @@
     <string name="order_successful">Đặt hàng thành công!</string>
     <string name="purchased_orders">Đơn đã mua</string>
     <string name="to_pay">Chờ thanh toán</string>
-    <string name="to_receive">Chờ nhận</string>
+    <string name="to_receive">Đang giao hàng</string>
     <string name="completed">Hoàn thành</string>
     <string name="cancelled">Đã hủy</string>
     <string name="total_">Tổng cộng</string>
@@ -126,10 +125,23 @@
     <string name="msg_error_network">Không có kết nối Internet</string>
     <string name="maximum_discount">Giảm giá tối đa</string>
     <string name="quantity">Số lượng</string>
+    <string name="msg_input_quantity">Nhập số lượng sản phẩm</string>
     <string name="msg_confirm_success">Xác nhận thành công!</string>
     <string name="color_">Màu sắc: %s</string>
     <string name="msg_title_noti">Thông báo</string>
     <string name="msg_content_noti">Đơn hàng của bạn đã được giao, vui lòng kiểm tra!</string>
     <string name="msg_ins_stock">Không đủ hàng trong kho!</string>
     <string name="msg_support_financial">Nếu đơn đã thanh toán, vui lòng liên hệ quản trị viên!</string>
+    <string name="msg_added_100_to_cart">Đã thêm 100 sản phẩm vào giỏ hàng</string>
+    <string name="select_customer_type">Chọn loại khách hàng</string>
+    <string name="organization">Tổ chức</string>
+    <string name="personal">Cá nhân</string>
+    <string name="your_phone_number">Số điện thoại của bạn</string>
+    <string name="business_account">Tài khoản doanh nghiệp</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="information">Thông tin</string>
+    <string name="export">Xuất</string>
+    <string name="products">Sản phẩm</string>
+    <string name="stock">Tồn kho</string>
+    <string name="invalid">Không hợp lệ!</string>
 </resources>

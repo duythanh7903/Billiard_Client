@@ -95,11 +95,40 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layoutNotiError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:background="@drawable/bg_white_border_4sdp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_4sdp"
+            android:paddingVertical="@dimen/_8sdp"
+            app:layout_constraintBottom_toTopOf="@id/layoutBottom">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:src="@drawable/ic_warning" />
+
+            <TextView
+                android:id="@+id/tvMsgWrong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_white_border_4sdp"
+                android:textColor="#FF00"
+                android:textSize="@dimen/_10ssp"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed " />
+
+        </LinearLayout>
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginVertical="@dimen/_8sdp"
-            app:layout_constraintBottom_toTopOf="@id/layoutBottom"
+            app:layout_constraintBottom_toTopOf="@id/layoutNotiError"
             app:layout_constraintTop_toBottomOf="@id/viewTopBar">
 
             <LinearLayout
@@ -243,6 +272,7 @@
                         android:layout_weight="1" />
 
                     <TextView
+                        android:id="@+id/tvMessage"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/_4sdp"
@@ -257,8 +287,7 @@
                         android:singleLine="true"
                         android:textColor="#959595"
                         android:textSize="@dimen/_8ssp"
-                        tools:text="12"
-                        android:id="@+id/tvMessage"/>
+                        tools:text="12" />
 
                     <ImageView
                         android:layout_width="@dimen/_18sdp"

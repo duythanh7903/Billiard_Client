@@ -2,10 +2,14 @@ package com.datn.vpp.sp26.present.user.fragment.cart
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
+import android.text.InputType
+import android.widget.EditText
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.datn.vpp.sp26.R
+import com.datn.vpp.sp26.application.GlobalApp
 import com.datn.vpp.sp26.common.AppConst
 import com.datn.vpp.sp26.common.MethodPayment
 import com.datn.vpp.sp26.common.UiState
@@ -55,6 +59,29 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
     override fun inflateBinding(): FragmentCartBinding =
         FragmentCartBinding.inflate(layoutInflater)
 
+    override fun onResume() {
+        super.onResume()
+
+        if (GlobalApp.isPaymentSuccess) {
+            GlobalApp.isPaymentSuccess = false
+            totalPriceCache = 0.0
+            listProduct.clear()
+            viewModel.unSelectAllCart()
+            viewModel.clearVoucher()
+
+            binding.icChb.isActivated = false
+            binding.tvDiscount.text = ""
+            binding.btnCheckOut.text = "${getString(R.string.check_out)} (0)"
+            binding.tvCountItemInCart.text = "(0)"
+
+            binding.icTruck.goneView()
+            binding.tvPriceShip.goneView()
+            binding.tvPrice.goneView()
+            binding.viewLine.goneView()
+
+        }
+    }
+
     override fun initViews() {
         super.initViews()
 
@@ -66,8 +93,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
                     viewModel.inCreaseCart(idCart)
                 }, onReduceProduct = { idCart ->
                     viewModel.reduceCart(idCart)
-                }, onChangeQuantityProduct = { str, id ->
-                    viewModel.onChangeQuantity(str.toIntOrNull() ?: 0, id)
+                }, onChangeQuantityProduct = { id ->
+                    showChangeQuantityDialog(id)
                 }, onSelectCart = { cart, index ->
                     viewModel.selectCart(cart.cartId)
                 }
@@ -373,4 +400,30 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
             )
         }
     )
+
+    private fun showChangeQuantityDialog(idCart: Long) {
+        val currentQty = cartAdapter?.list?.firstOrNull { it.cartId == idCart }?.productQuantity ?: 1
+
+        val input = EditText(requireContext()).apply {
+            inputType = InputType.TYPE_CLASS_NUMBER
+            setText(currentQty.toString())
+            setSelection(text?.length ?: 0)
+        }
+
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.quantity))
+            .setMessage(getString(R.string.msg_input_quantity))
+            .setView(input)
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton(getString(R.string.confirm)) { dialog, _ ->
+                val qty = input.text?.toString()?.trim()?.toIntOrNull()
+                if (qty == null || qty <= 0) {
+                    requireContext().showToastOnce(getString(R.string.msg_input_null))
+                    return@setPositiveButton
+                }
+                viewModel.onChangeQuantity(qty, idCart)
+                dialog.dismiss()
+            }
+            .show()
+    }
 }

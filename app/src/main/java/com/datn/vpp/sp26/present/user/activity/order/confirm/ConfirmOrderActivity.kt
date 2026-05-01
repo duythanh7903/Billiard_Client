@@ -29,6 +29,8 @@ import com.datn.vpp.sp26.present.user.activity.order.history.OrderActivity
 import com.datn.vpp.sp26.present.user.dialog.LoadingDialog
 import com.datn.vpp.sp26.present.user.dialog.MessageDialog
 import com.datn.vpp.sp26.present.user.dialog.NotificationDialog
+import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.android.gms.wallet.contract.TaskResultContracts
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,6 +53,32 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
     private var paymentMethod = MethodPayment.CASH_ON_DELIVERY.name
 
     private val viewModel: ConfirmViewModel by viewModels()
+    private val model: ConfirmOrderViewModel by viewModels()
+
+    private val paymentDataLauncher =
+        registerForActivityResult(TaskResultContracts.GetPaymentDataResult()) { taskResult ->
+            when (taskResult.status.statusCode) {
+                CommonStatusCodes.SUCCESS -> {
+                    taskResult.result!!.let {
+                        Log.i("Google Pay result:", it.toJson())
+                        model.setPaymentData(it)
+
+                        viewModel.checkOutOrder(
+                            totalPrice = intent.getDoubleExtra(AppConst.KEY_TOTAL_PRICE, 0.0),
+                            voucherId = intent.getStringExtra(AppConst.KEY_ID_VOUCHER),
+                            listProduct = gson?.fromJson<List<ReqProdCheckOut>>(
+                                intent.getStringExtra(AppConst.KEY_LIST_PRODUCT),
+                                object : TypeToken<List<ReqProdCheckOut>>() {}.type
+                            ) ?: emptyList(),
+                            paymentMethod = "GG PAY"
+                        )
+                    }
+                }
+                //CommonStatusCodes.CANCELED -> The user canceled
+                //CommonStatusCodes.DEVELOPER_ERROR -> The API returned an error (it.status: Status)
+                //else -> Handle internal and other unexpected errors
+            }
+        }
 
     override fun getLayoutActivity(): Int = R.layout.activity_confirm_order
 
@@ -215,6 +243,17 @@ class ConfirmOrderActivity : BaseActivity<ActivityConfirmOrderBinding>() {
     }
 
     private fun paymentOrder() {
+        if (paymentMethod == MethodPayment.GOOGLE_PAY.name) {
+            val value = (intent.getDoubleExtra(AppConst.KEY_TOTAL_PRICE, 0.0) + AppConst.FEE_SHIP)
+            val mainValue = value / 27000
+            val result = String.format("%.2f", mainValue)
+
+            val task = model.getLoadPaymentDataTask(priceLabel = result)
+            task.addOnCompleteListener(paymentDataLauncher::launch)
+
+            return
+        }
+
         if (paymentMethod == MethodPayment.CASH_ON_DELIVERY.name) {
             viewModel.checkOutOrder(
                 totalPrice = intent.getDoubleExtra(AppConst.KEY_TOTAL_PRICE, 0.0),

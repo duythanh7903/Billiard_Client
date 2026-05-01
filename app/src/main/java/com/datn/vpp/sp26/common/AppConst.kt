@@ -24,7 +24,7 @@ object AppConst {
     internal const val FEE_SHIP = 20_000
 
 //    internal const val DOMAIN = "10.0.2.2"
-    internal const val DOMAIN = "192.168.1.45"
+    internal const val DOMAIN = "192.168.1.20"
 
     internal const val ROLE_USER = "user"
     internal const val ROLE_WHOLESALE = "wholesale"

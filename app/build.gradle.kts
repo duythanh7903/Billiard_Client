@@ -112,4 +112,7 @@ dependencies {
     implementation(libs.sdp.android)
     implementation(libs.ssp.android)
     implementation(files("libs/zalo_pay.aar"))
+
+    implementation("com.google.android.gms:play-services-wallet:19.4.0")
+    implementation("com.google.pay.button:compose-pay-button:0.1.3")
 }

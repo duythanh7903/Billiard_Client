@@ -116,7 +116,9 @@ class CartActivity : BaseActivity<ActivityCartBinding>() {
 
         binding.icChb.click { onSelectAllCartEvent() }
 
-        binding.btnCheckOut.click { onCheckOutEvent() }
+        binding.btnCheckOut.click {
+            onCheckOutEvent()
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -311,7 +313,7 @@ class CartActivity : BaseActivity<ActivityCartBinding>() {
 
         if (viewModel.listIdCartSelected.value.isEmpty()) return
 
-        moveToConfirmActivity(MethodPayment.ZALO_PAY.name)
+        moveToConfirmActivity(MethodPayment.GOOGLE_PAY.name)
     }
 
     private fun moveToConfirmActivity(

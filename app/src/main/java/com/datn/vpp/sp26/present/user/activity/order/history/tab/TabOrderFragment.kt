@@ -1,5 +1,8 @@
 package com.datn.vpp.sp26.present.user.activity.order.history.tab
 
+import android.app.AlertDialog
+import android.view.LayoutInflater
+import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.datn.vpp.sp26.R
@@ -19,6 +22,8 @@ import com.datn.vpp.sp26.present.user.dialog.ReasonCancelDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.text.NumberFormat
+import java.util.Locale
 
 @AndroidEntryPoint
 class TabOrderFragment : BaseFragment<FragmentTabOrderBinding>() {
@@ -105,7 +110,7 @@ class TabOrderFragment : BaseFragment<FragmentTabOrderBinding>() {
                     else -> AppConst.STATUS_ORDER_TO_CANCELLED
                 },
                 onClickItem = { index, res ->
-
+                    showInvoiceDialog(res)
                 }, onCancel = { index, res ->
                     resOrder = res
                     confirmCancelOrderDialog?.show()
@@ -123,6 +128,65 @@ class TabOrderFragment : BaseFragment<FragmentTabOrderBinding>() {
     }
 
     private var cacheId: String = ""
+
+    private fun showInvoiceDialog(order: ResOrderDTO) {
+        val view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_invoice, null, false)
+
+        val tvOrderInfo = view.findViewById<TextView>(R.id.tvInvoiceOrderInfo)
+        val tvCustomerInfo = view.findViewById<TextView>(R.id.tvInvoiceCustomerInfo)
+        val tvProducts = view.findViewById<TextView>(R.id.tvInvoiceProducts)
+        val tvTotal = view.findViewById<TextView>(R.id.tvInvoiceTotal)
+
+        val orderCode = order.madh?.toString()?.let { "DH$it" } ?: (order._id ?: "--")
+        val date = order.orderDate ?: order.createdAt ?: "--"
+        val status = order.status ?: "--"
+        val payment = order.payment ?: "--"
+
+        tvOrderInfo.text = buildString {
+            append("Mã đơn: ").append(orderCode).append('\n')
+            append("Ngày: ").append(date).append('\n')
+            append("Trạng thái: ").append(status).append('\n')
+            append("Thanh toán: ").append(payment)
+        }
+
+        val note = order.note?.takeIf { it.isNotBlank() }
+        tvCustomerInfo.text = buildString {
+            append("Khách hàng: ").append(order.customerName ?: "--").append('\n')
+            append("SĐT: ").append(order.phone ?: "--").append('\n')
+            append("Địa chỉ: ").append(order.address ?: "--")
+            if (note != null) {
+                append('\n')
+                append("Ghi chú: ").append(note)
+            }
+        }
+
+        val currency = NumberFormat.getCurrencyInstance(Locale("vi", "VN"))
+        val productsText = order.products.orEmpty().mapIndexed { i, p ->
+            val name = p.name ?: p.productId?.name ?: "Sản phẩm"
+            val qty = p.quantity ?: 0
+            val unit = p.priceAfterDis ?: p.priceBeforeDis ?: p.productId?.price ?: 0.0
+            val lineTotal = unit * qty
+            val color = p.color?.takeIf { it.isNotBlank() }
+
+            buildString {
+                append(i + 1).append(". ").append(name)
+                if (color != null) append(" (").append(color).append(")")
+                append('\n')
+                append("   SL: ").append(qty)
+                append("  |  Đơn giá: ").append(currency.format(unit))
+                append("  |  T.tiền: ").append(currency.format(lineTotal))
+            }
+        }.joinToString("\n\n")
+
+        tvProducts.text = if (productsText.isBlank()) "—" else productsText
+
+        tvTotal.text = "TỔNG THANH TOÁN: ${currency.format(order.totalPrice ?: 0.0)}"
+
+        AlertDialog.Builder(requireContext())
+            .setView(view)
+            .setPositiveButton("Đóng") { dialog, _ -> dialog.dismiss() }
+            .show()
+    }
 
     override fun observeData() {
         super.observeData()

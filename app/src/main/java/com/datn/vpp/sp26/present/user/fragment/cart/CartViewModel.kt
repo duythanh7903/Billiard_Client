@@ -10,6 +10,7 @@ import com.datn.vpp.sp26.domain.model.dto.res.ResVoucherDTO
 import com.datn.vpp.sp26.domain.usecase.cart.GetAllCartsUseCase
 import com.datn.vpp.sp26.domain.usecase.cart.IncreaseCartUseCase
 import com.datn.vpp.sp26.domain.usecase.cart.ReduceCartUseCase
+import com.datn.vpp.sp26.domain.usecase.cart.UpdateCartQuantityUseCase
 import com.datn.vpp.sp26.domain.usecase.prod_cache.GetListProductCacheUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -29,6 +30,7 @@ class CartViewModel @Inject constructor(
 
     private val increaseCartUseCase: IncreaseCartUseCase,
     private val reduceCartUseCase: ReduceCartUseCase,
+    private val updateCartQuantityUseCase: UpdateCartQuantityUseCase
 ) : BaseViewModel() {
     private val _stateCheckOut = MutableStateFlow<UiState<ResCheckOutDTO>>(UiState.Idle)
     val stateCheckOut = _stateCheckOut.asStateFlow()
@@ -99,4 +101,9 @@ class CartViewModel @Inject constructor(
     fun resetStateCheckOutToIdle() {
         _stateCheckOut.value = UiState.Idle
     }
+
+    fun onChangeQuantity(quantity: Int, id: Long) =
+        launchIO {
+            updateCartQuantityUseCase.invoke(quantity, id)
+        }
 }

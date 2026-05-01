@@ -33,4 +33,7 @@ interface CartDao {
 
     @Query("select * from CartEntity where idProd like :id and isEnable == 1 and idUser like :idUser")
     suspend fun searchCartByIdAndUser(id: String, idUser: String): List<CartEntity>
+
+    @Query("update cartentity set quantity = :quantity where id = :id")
+    suspend fun updateQuantity(quantity: Int, id: Long)
 }

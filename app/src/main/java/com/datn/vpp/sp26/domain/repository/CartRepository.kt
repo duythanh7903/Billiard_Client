@@ -12,4 +12,5 @@ interface CartRepository {
     suspend fun deleteCart(c: CartEntity)
     suspend fun deleteByIds(ids: List<Long>)
     suspend fun searchCartByIdAndUser(id: String, idUser: String): List<CartEntity>
+    suspend fun updateQuantity(quantity: Int, id: Long)
 }

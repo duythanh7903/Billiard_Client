@@ -66,8 +66,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
                     viewModel.inCreaseCart(idCart)
                 }, onReduceProduct = { idCart ->
                     viewModel.reduceCart(idCart)
-                }, onChangeQuantityProduct = { str ->
-
+                }, onChangeQuantityProduct = { str, id ->
+                    viewModel.onChangeQuantity(str.toIntOrNull() ?: 0, id)
                 }, onSelectCart = { cart, index ->
                     viewModel.selectCart(cart.cartId)
                 }

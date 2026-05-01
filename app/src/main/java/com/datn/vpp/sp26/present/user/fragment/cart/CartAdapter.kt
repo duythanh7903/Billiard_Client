@@ -22,7 +22,7 @@ class CartAdapter(
     private val contextParams: Context,
     private val onIncreaseProduct: (idCart: Long) -> Unit,
     private val onReduceProduct: (idCart: Long) -> Unit,
-    private val onChangeQuantityProduct: (str: String) -> Unit,
+    private val onChangeQuantityProduct: (str: String, id: Long) -> Unit,
     private val onSelectCart: (cart: Cart, index: Int) -> Unit
 ) : BaseRecyclerViewAdapter<Cart>() {
 
@@ -109,7 +109,7 @@ class CartAdapter(
                     start: Int,
                     before: Int,
                     count: Int
-                ) = onChangeQuantityProduct.invoke(s?.toString() ?: "")
+                ) = onChangeQuantityProduct.invoke(s?.toString() ?: "", obj.cartId)
             })
 
             binding.chb.click {

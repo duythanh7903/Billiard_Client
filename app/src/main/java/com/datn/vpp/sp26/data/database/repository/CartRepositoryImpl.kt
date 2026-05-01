@@ -33,4 +33,7 @@ class CartRepositoryImpl @Inject constructor(
         idUser: String
     ): List<CartEntity> =
         cartDao.searchCartByIdAndUser(id, idUser)
+
+    override suspend fun updateQuantity(quantity: Int, id: Long) =
+        cartDao.updateQuantity(quantity, id)
 }

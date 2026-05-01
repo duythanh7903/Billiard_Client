@@ -66,8 +66,8 @@ class CartActivity : BaseActivity<ActivityCartBinding>() {
                     viewModel.inCreaseCart(idCart)
                 }, onReduceProduct = { idCart ->
                     viewModel.reduceCart(idCart)
-                }, onChangeQuantityProduct = { str ->
-
+                }, onChangeQuantityProduct = { str, id ->
+                    viewModel.onChangeQuantity(str.toIntOrNull() ?: 0, id)
                 }, onSelectCart = { cart, index ->
                     viewModel.selectCart(cart.cartId)
                 }
@@ -193,26 +193,14 @@ class CartActivity : BaseActivity<ActivityCartBinding>() {
                         visibleView()
                     }
                     binding.tvPrice.apply {
-                        val totalPrice =
-                            listCartSelected.sumOf { (it.productPrice - (it.productPrice * it.productDiscount / 100)) * it.productQuantity }
-                        val voucher = viewModel.voucherSelected.first()
-                        var priceAfterAddVoucher = if (voucher == null) totalPrice else {
-                            totalPrice - (totalPrice * (voucher.discount ?: 0) / 100)
-                        }
-                        val priceDiscount = totalPrice - priceAfterAddVoucher
-                        priceAfterAddVoucher = if (priceDiscount > (voucher?.maxPriceDis
-                                ?: 0)
-                        ) totalPrice - (voucher?.maxPriceDis ?: 0)
-                        else priceAfterAddVoucher
-
+                        totalPriceCache =
+                            listCartSelected.sumOf { (it.productPrice) * it.productQuantity }
                         listProduct.apply {
                             clear()
                             addAll(listCartSelected.toListReqProdCheckOut())
                         }
 
-                        totalPriceCache = priceAfterAddVoucher
-
-                        text = priceAfterAddVoucher.formatVND()
+                        text = totalPriceCache.formatVND()
                         visibleView()
                     }
                     binding.viewLine.visibleView()

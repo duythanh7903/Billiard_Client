@@ -5,6 +5,7 @@ object AppConst {
     internal const val KEY_VOUCHER = "voucher"
     internal const val KEY_FROM_PROFILE = "profile"
     internal const val KEY_ORDER_TYPE = "order_type"
+    internal const val KEY_ORDER_INVOICE = "order_invoice_json"
     internal const val KEY_PAYMENT_METHOD = "payment_method_type"
     internal const val KEY_LIST_CART = "KEY_LIST_CART"
     internal const val KEY_TOTAL_PRICE = "KEY_TOTAL_PRICE"
@@ -23,8 +24,8 @@ object AppConst {
 
     internal const val FEE_SHIP = 20_000
 
-//    internal const val DOMAIN = "10.0.2.2"
-    internal const val DOMAIN = "192.168.1.20"
+    internal const val DOMAIN = "10.0.2.2"
+//    internal const val DOMAIN = "192.168.1.20"
 
     internal const val ROLE_USER = "user"
     internal const val ROLE_WHOLESALE = "wholesale"

@@ -88,6 +88,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".present.user.activity.order.history.InvoiceViewActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".present.user.activity.favorite.FavoriteProductsActivity"
             android:screenOrientation="portrait" />
 

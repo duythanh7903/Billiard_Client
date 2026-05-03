@@ -145,4 +145,5 @@
     <string name="products">Products</string>
     <string name="stock">Stock</string>
     <string name="invalid">Invalid!</string>
+    <string name="title_invoice">Hoá đơn</string>
 </resources>
